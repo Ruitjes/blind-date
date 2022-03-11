@@ -1,0 +1,30 @@
+version: '3.6'
+
+services: 
+    feed-service:
+        image: ${DOCKER_REGISTRY-}feed-service
+        container_name: feed-service
+        build: 
+            context: ./feed-service
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+    question-service:
+        image: ${DOCKER_REGISTRY-}question-service
+        container_name: question-service
+        build: 
+            context: ./question-service
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+    ocelot-gateway:
+        image: ${DOCKER_REGISTRY-}ocelot-gateway
+        container_name: ocelot-gateway
+        build: 
+            context: ./ocelot-gateway
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+        ports:
+            - 80:80
+            - 443:443      
+networks: 
+  default:
+    name: seethrough
