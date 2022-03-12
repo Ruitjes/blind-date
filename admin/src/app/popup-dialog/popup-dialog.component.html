@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{this.data.Question.question}}</h1>
+<div mat-dialog-content>
+    <ul>
+        <li *ngFor="let answer of this.data.Question.answers">
+           {{answer.answer}}
+        </li>
+      </ul>
+</div>
+<div mat-dialog-actions>
+    <button mat-button  (click)="onNoClick()">Close</button>
+  </div>
+
