@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ocelot-gateway", "ocelot-gateway\ocelot-gateway.csproj", "{5B787AF8-C506-4733-938E-852C0F3283A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "question-service", "question-service\question-service.csproj", "{F26B074C-81CF-413D-9494-2732EFAFF74D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "feed-service", "feed-service\feed-service.csproj", "{58B0EE42-8893-4E7B-A58D-93418298D3CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B787AF8-C506-4733-938E-852C0F3283A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B787AF8-C506-4733-938E-852C0F3283A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B787AF8-C506-4733-938E-852C0F3283A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B787AF8-C506-4733-938E-852C0F3283A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F26B074C-81CF-413D-9494-2732EFAFF74D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F26B074C-81CF-413D-9494-2732EFAFF74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F26B074C-81CF-413D-9494-2732EFAFF74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F26B074C-81CF-413D-9494-2732EFAFF74D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B0EE42-8893-4E7B-A58D-93418298D3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B0EE42-8893-4E7B-A58D-93418298D3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B0EE42-8893-4E7B-A58D-93418298D3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B0EE42-8893-4E7B-A58D-93418298D3CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
