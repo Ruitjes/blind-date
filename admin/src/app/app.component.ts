@@ -20,13 +20,12 @@ const ELEMENT_DATA: Question[] = [
 export class AppComponent {
   title = 'admin';
 
-  displayedColumns: string[] = ['id', 'question', 'weight', 'symbol'];
+  displayedColumns: string[] = ['id', 'question', 'answer', 'delete'];
   dataSource = ELEMENT_DATA;
   constructor( public dialog: MatDialog) { }
 
 
   openAnswers(question: Question): void {
-  console.log(question);
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       maxWidth: '50%',
       data: {Question: question}
