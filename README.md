@@ -17,20 +17,20 @@ Secure certificate required to run Ocelot .NET in docker.
 #### Windows using Windows containers
 
 ```sh
-dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p admin
+dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { your password }
 dotnet dev-certs https --trust
 ```
 
 #### macOS or Linux
 
 ```sh
-dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p admin
+dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { your password }
 dotnet dev-certs https --trust
 ```
 
 #### Windows using Linux containers
 
 ```sh
-dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p admin
+dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { your password }
 dotnet dev-certs https --trust
 ```
