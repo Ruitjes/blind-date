@@ -351,3 +351,8 @@ MigrationBackup/
 
 # Environment files
 .env
+
+# Admin
+admin/.vscode
+admin/.browserslistrc
+admin/.editorconfig
