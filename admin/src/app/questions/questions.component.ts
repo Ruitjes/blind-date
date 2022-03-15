@@ -16,7 +16,7 @@ const ELEMENT_DATA: Question[] = [
   styleUrls: ['./questions.component.css']
 })
 export class QuestionsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'question', 'weight', 'symbol'];
+  displayedColumns: string[] = ['id', 'question', 'answers', 'delete'];
   dataSource = ELEMENT_DATA;
 
   constructor(public dialog: MatDialog) { }
@@ -25,7 +25,6 @@ export class QuestionsComponent implements OnInit {
   }
 
   openAnswers(question: Question): void {
-    console.log(question);
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       maxWidth: '50%',
       data: { Question: question }
