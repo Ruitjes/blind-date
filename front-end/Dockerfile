@@ -1,35 +1,23 @@
-# Install dependencies only when needed
-FROM node:16-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN npm ci --only-production
+#https://gist.github.com/msreekm/a141725bb8e98649b3718a1ed6a94d0e
+FROM node:16-alpine as base
+WORKDIR /opt
+COPY package*.json ./
+RUN npm ci --production && npm cache clean --force
 
-# Rebuild the source code only when needed
-FROM node:16-alpine AS builder
+# for dev mode
+FROM base as dev
+WORKDIR /opt
+ENV PATH=/opt/node_modules/.bin:$PATH
+RUN npm install --only=development
+WORKDIR /opt/app
+# I Don't Copy source code because on dev mode, I'll use mount
+
+# for prodcution without dev dependencies
+FROM base as prod
+ENV PATH=/opt/node_modules/.bin:$PATH
+WORKDIR /opt/app
 COPY . .
-COPY --from=deps /app/node_modules ./node_modules
-RUN npm build
-
-# Production image, copy all the files and run next
-FROM node:16-alpine AS runner
-WORKDIR /app
-
-ENV NODE_ENV production
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
+RUN npm run build 
 EXPOSE 3000
-
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry.
-# RUN npx next telemetry disable
-
-CMD ["node_modules/.bin/next", "start"]
+CMD npm run start
+HEALTHCHECK CMD curl --fail http://localhost:3000
