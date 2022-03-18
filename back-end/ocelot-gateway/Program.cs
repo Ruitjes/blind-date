@@ -1,38 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
-namespace back_end
+IConfiguration configuration = new ConfigurationBuilder()
+                            .AddJsonFile("ocelot.json")
+                            .Build();
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerForOcelot(configuration);
+builder.Services.AddOcelot(configuration);
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
 {
-    public class Program
+    app.UseSwaggerForOcelotUI(options =>
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((Host, config) => {
-                config.AddJsonFile("appsettings.json");
-                config.AddJsonFile("ocelot.json");
-
-                // var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                // if (env != null)
-                // {
-                //     config.AddJsonFile($"ocelot.{env}.json", optional: true);
-                // }
-
-            })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://localhost:7000/");
-                });
-    }
+        options.PathToSwaggerGenerator = "/swagger/docs";
+        options.RoutePrefix = string.Empty;
+    });
 }
+
+app.UseHttpsRedirection();
+
+app.UseOcelot();
+
+app.Run();

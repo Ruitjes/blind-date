@@ -1,4 +1,4 @@
-namespace question_service;
+namespace feed_service;
 
 public class WeatherForecast
 {
