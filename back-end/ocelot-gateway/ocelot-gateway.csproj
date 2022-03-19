@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>ocelot_gateway</RootNamespace>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>8e7f1fdf-04c7-41f8-acff-d90003b14d83</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

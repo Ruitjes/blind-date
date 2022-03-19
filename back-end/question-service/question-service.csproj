@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>question_service</RootNamespace>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>44549541-31e7-4be5-8630-06537bd6868d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

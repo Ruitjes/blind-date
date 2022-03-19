@@ -4,33 +4,27 @@
 
 SeeThrough with Docker.
 
-```sh
+1. Clone this git repository
+
+2. Create a aspnet cert in the cert folder
+from project root
+```bash
+cd certs
+dotnet dev-certs https -ep aspnetapp.pfx -p crypticpassword
+```
+3. Create a .env file in root with the following
+```bash
+CERTIFICATE_PASSWORD=crypticpassword
+```
+
+4. Run the docker compose file from root
+```bash
 docker-compose build
 docker-compose up -d
 ```
 
-http://localhost:3000 -> React front-end
-https://localhost:7000 -> .NET Gateway Ocelot
+5. When the docker-compose is up.
 
-Secure certificate required to run Ocelot .NET in docker.
-
-#### Windows using Windows containers
-
-```sh
-dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { your password }
-dotnet dev-certs https --trust
-```
-
-#### macOS or Linux
-
-```sh
-dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { your password }
-dotnet dev-certs https --trust
-```
-
-#### Windows using Linux containers
-
-```sh
-dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { your password }
-dotnet dev-certs https --trust
+- http://localhost:3000 -> React front-end
+- https://localhost:7000 -> .NET Gateway Ocelot
 ```
