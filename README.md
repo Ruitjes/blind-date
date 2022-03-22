@@ -10,11 +10,14 @@ SeeThrough with Docker.
 from project root
 ```bash
 cd certs
-dotnet dev-certs https -ep aspnetapp.pfx -p crypticpassword
+dotnet dev-certs https -ep aspnetapp.pfx -p yourcertificatepasswordhere
 ```
 3. Create a .env file in root with the following
 ```bash
-CERTIFICATE_PASSWORD=crypticpassword
+CERTIFICATE_PASSWORD=yourcertificatepasswordhere
+DB_USER=yourdatabaseuser
+DB_PASSWORD=yourdatabasepassword
+DB_URL=mongodb://yourdatabaseuser:yourdatabasepassword@databaseservicename:27017/
 ```
 
 4. Run the docker compose file from root
