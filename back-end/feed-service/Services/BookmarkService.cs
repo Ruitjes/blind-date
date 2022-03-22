@@ -1,6 +1,7 @@
 ﻿using System;
 using feed_service.Interfaces;
 using feed_service.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace feed_service.Services
@@ -21,9 +22,14 @@ namespace feed_service.Services
             return await _bookmarks.Find(s => true).ToListAsync();
         }
 
-        public async Task<Bookmark> GetByIdAsync(string id)
+        public async Task<Bookmark> GetByIdAsync(ObjectId id)
         {
             return await _bookmarks.Find(s => s.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Bookmark> GetByUserIdentifier(string userIdentifier)
+        {
+            return await _bookmarks.Find(s => s.UserIdentifier == userIdentifier).FirstOrDefaultAsync();
         }
 
         public async Task<Bookmark> CreateAsync(Bookmark bookmark)
@@ -32,12 +38,13 @@ namespace feed_service.Services
             return bookmark;
         }
 
-        public async Task UpdateAsync(string id, Bookmark bookmark)
+        public async Task<string> UpdateAsync(ObjectId id, Bookmark bookmark)
         {
             await _bookmarks.ReplaceOneAsync(s => s.Id == id, bookmark);
+            return "bookmark updated";
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(ObjectId id)
         {
             await _bookmarks.DeleteOneAsync(s => s.Id == id);
         }

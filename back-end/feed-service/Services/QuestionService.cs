@@ -1,6 +1,7 @@
 ﻿using System;
 using feed_service.Interfaces;
 using feed_service.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace feed_service.Services
@@ -21,9 +22,34 @@ namespace feed_service.Services
             return await _questions.Find(s => true).ToListAsync();
         }
 
-        public async Task<Question> GetByIdAsync(string id)
+        public async Task<Question> GetByIdAsync(ObjectId id)
         {
             return await _questions.Find(s => s.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark)
+        {
+            if (bookmark == null)
+            {
+                return await _questions.Find(s => true).FirstOrDefaultAsync();
+
+            }
+            else
+            {
+                return await _questions.Find(s => s.Id > bookmark).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task<List<Question>> GetNextQuestionBatchBasedOnUserBookmark(ObjectId? bookmark)
+        {
+            if (bookmark == null)
+            {
+                return await _questions.Find(s => true).Limit(5).ToListAsync();
+            }
+            else
+            {
+                return await _questions.Find(s => s.Id > bookmark).Limit(5).ToListAsync();
+            }
         }
 
         public async Task<Question> CreateAsync(Question question)
@@ -32,12 +58,12 @@ namespace feed_service.Services
             return question;
         }
 
-        public async Task UpdateAsync(string id, Question question)
+        public async Task UpdateAsync(ObjectId id, Question question)
         {
             await _questions.ReplaceOneAsync(s => s.Id == id, question);
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(ObjectId id)
         {
             await _questions.DeleteOneAsync(s => s.Id == id);
         }

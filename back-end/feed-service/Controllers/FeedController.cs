@@ -1,0 +1,54 @@
+﻿using feed_service.Interfaces;
+using feed_service.Models;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+
+namespace feed_service.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class FeedController : Controller
+{
+
+    private readonly IQuestionService _questionService;
+    private readonly IBookmarkService _bookmarkService;
+
+    public FeedController(IQuestionService questionService, IBookmarkService bookmarkService)
+    {
+        _questionService = questionService;
+        _bookmarkService = bookmarkService;
+    }
+
+    [HttpGet("GetFeedBatchForUser/{userIdentifier}")]
+    public async Task<IEnumerable<Question>> GetFeedBatchForUser(string userIdentifier)
+    {
+        Bookmark usersBookmark = await _bookmarkService.GetByUserIdentifier(userIdentifier);
+
+        return await _questionService.GetNextQuestionBatchBasedOnUserBookmark(usersBookmark?.CurrentIndex);
+    }
+
+    [HttpGet("GetQuestionForUser/{userIdentifier}")]
+    public async Task<Question> GetQuestionForUser(string userIdentifier)
+    {
+        Bookmark usersBookmark = await _bookmarkService.GetByUserIdentifier(userIdentifier);
+
+        return await _questionService.GetNextQuestionBasedOnUserBookmark(usersBookmark?.CurrentIndex);
+    }
+
+    [HttpGet("ProgressUserBookmark/{userIdentifier}")]
+    public async Task<string> ProgressUserBookmark(string userIdentifier)
+    {
+        Bookmark ub = await _bookmarkService.GetByUserIdentifier(userIdentifier);
+        if (ub == null)
+        {
+            await _bookmarkService.CreateAsync(new Bookmark { UserIdentifier = userIdentifier, CurrentIndex = null });
+            return "new bookmark entry created for user";
+        }
+        else
+        {
+            Question nextQuestion = await _questionService.GetNextQuestionBasedOnUserBookmark(ub?.CurrentIndex);
+
+            return await _bookmarkService.UpdateAsync(ub!.Id, new Bookmark { Id = ub!.Id, UserIdentifier = ub?.UserIdentifier!, CurrentIndex = nextQuestion.Id });
+        }
+    }
+}

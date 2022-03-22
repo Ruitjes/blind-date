@@ -7,9 +7,9 @@ public class Bookmark
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    public ObjectId Id { get; set; }
 
-    public string UserIdentifier { get; set; } = null!;
+    public string? UserIdentifier { get; set; } = null!;
 
-    public string CurrentIndex { get; set; } = null!;
+    public ObjectId? CurrentIndex { get; set; }
 }

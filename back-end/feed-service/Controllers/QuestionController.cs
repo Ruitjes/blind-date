@@ -1,12 +1,13 @@
 using feed_service.Interfaces;
 using feed_service.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace feed_service.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class QuestionController : ControllerBase
+public class QuestionController : Controller
 {
 
     private readonly IQuestionService _questionService;
@@ -16,9 +17,15 @@ public class QuestionController : ControllerBase
         _questionService = questionService;
     }
 
-    [HttpGet(Name = "GetAllQuestions")]
-    public async Task<IEnumerable<Question>> Get()
+    [HttpGet]
+    public async Task<IEnumerable<Question>> GetAllQuestions()
     {
         return await _questionService.GetAllAsync();
+    }
+
+    [HttpGet("GetQuestionById/{id}")]
+    public async Task<Question> GetQuestionById(ObjectId id)
+    {
+        return await _questionService.GetByIdAsync(id);
     }
 }
