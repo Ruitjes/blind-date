@@ -38,4 +38,13 @@ services:
       - /front-end/usr/src/app/node_modules
       - /front-end/usr/src/app/.next
 
+  admin:
+    image: ${DOCKER_REGISTRY-}admin
+    build:
+        context: ./admin/
+    ports:
+      - "3001:80"
+
+  
+
 
