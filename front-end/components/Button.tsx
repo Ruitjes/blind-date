@@ -5,6 +5,7 @@ type Props = {
     icon: IconName;
     color?: string;
     onClick?: VoidFunction;
+    disabled?: boolean;
 }
 
 const Button = (props: Props) => {

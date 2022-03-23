@@ -11,6 +11,16 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerForOcelot(configuration);
 builder.Services.AddOcelot(configuration);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowedOrigin",
+    b =>
+    {
+        b.AllowAnyOrigin();
+        b.AllowAnyHeader();
+        b.AllowAnyMethod();  
+    });
+});
 
 var app = builder.Build();
 
@@ -22,6 +32,8 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
+
+app.UseCors("AllowedOrigin");
 
 app.UseHttpsRedirection();
 

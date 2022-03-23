@@ -1,9 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import Question from "./Question";
-
+import feed_service from "../services/feed_service";
+import { join } from "path";
+import { rawListeners } from "process";
 
 const Feed = () => {
+
+    const [CurrentQuestion,SetCurrentQuestion] = useState("");
+    const [OutOfQuestions,SetOutOfQuestions]= useState<boolean>(false);
+
+    useEffect(() => {
+        // Fetch questions and set state
+        getQuestion();
+    },[]);
+
+    const ProgressBookmark = () => {   
+        feed_service.ProgressUserBookmark("101").then((res: any) => {
+            console.log(res.data);
+            getQuestion();
+        }).catch((err) => {console.log(err);});
+    };
+
+    const getQuestion = () => {
+        feed_service.GetQuestionForUser("101").then((res: any) => {
+            console.log(res.data); 
+            SetCurrentQuestion(res.data.content);
+            if(res.data.content == "") {SetOutOfQuestions(true);}
+        }).catch((err) => {console.log(err);});
+    };
+
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
 
@@ -11,7 +37,7 @@ const Feed = () => {
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className='flex flex-col mt-4 mb-8'>
                         <div className='flex flex-col flex-grow p-4'>
-                            <Question text="What to do on a first date when you’re visually impaired?" />
+                            <Question text={CurrentQuestion ?? "No questions, come back at a later time."} />
                         </div>
                     </div>
 
@@ -23,8 +49,8 @@ const Feed = () => {
 
                     <div className="flex flex-col">
                         <div className='flex pt-4 max-w-sm justify-between'>
-                            <Button icon="xmark" color="lightcoral" />
-                            <Button icon="reply" color="lightsteelblue" />
+                            <Button icon="xmark" color="lightcoral" onClick={!OutOfQuestions ? ProgressBookmark : () => {}} />
+                            <Button icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => {}}  />
                         </div>
                     </div>
                 </div>
