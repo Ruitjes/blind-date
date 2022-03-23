@@ -356,3 +356,4 @@ MigrationBackup/
 admin/.vscode
 admin/.browserslistrc
 admin/.editorconfig
+db

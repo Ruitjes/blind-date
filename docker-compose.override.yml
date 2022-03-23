@@ -8,7 +8,6 @@ services:
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
-
   question-service:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
