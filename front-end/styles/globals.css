@@ -12,3 +12,24 @@ div#__next,
 div#__next > div {
   height: 100%;
 }
+
+.info-card::before {
+  content: '';
+  background-color: white;
+  border-radius: 0.5em;
+  position: absolute;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  z-index: -1;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+.info-card.layer-1::before {
+  transform: rotate(-3deg);
+}
+
+.info-card.layer-2::before {
+  transform: rotate(3deg);
+}
