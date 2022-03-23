@@ -4,8 +4,8 @@ using MongoDB.Bson;
 
 namespace feed_service.Interfaces
 {
-	public interface IQuestionService
-	{
+    public interface IQuestionService
+    {
         public Task<List<Question>> GetAllAsync();
         public Task<Question> GetByIdAsync(ObjectId id);
         public Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark);
@@ -15,4 +15,3 @@ namespace feed_service.Interfaces
         public Task DeleteAsync(ObjectId id);
     }
 }
-
