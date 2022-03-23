@@ -1,0 +1,3 @@
+{"_id":{"$oid":"623a2486a855976a7c9ad704"},"Content":"This is a question right?","AddedOn":{"$date":"2022-03-22T00:00:00Z"}}
+{"_id":{"$oid":"623a2518a855976a7c9ad708"},"Content":"Are there any nice restaurants in Eindhoven for visually impaired?","AddedOn":{"$date":"2022-03-22T00:00:00Z"}}
+{"_id":{"$oid":"623a252da855976a7c9ad70a"},"Content":"What is the best movie of all time?","AddedOn":{"$date":"2022-03-22T00:00:00Z"}}
