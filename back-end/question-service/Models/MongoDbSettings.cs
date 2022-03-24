@@ -1,7 +1,7 @@
 ﻿using System;
-using feed_service.Interfaces;
+using question_service.Interfaces;
 
-namespace feed_service.Models
+namespace question_service.Models
 {
     public class MongoDbSettings : IMongoDbSettings
     {

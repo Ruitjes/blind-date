@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace question_service.Controllers;
+namespace search_service.Controllers;
 
 [ApiController]
 [Route("[controller]")]

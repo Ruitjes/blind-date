@@ -1,19 +1,19 @@
 version: '3.4'
 
 services:
-  feed-service:
-    image: ${DOCKER_REGISTRY-}feedservice
+  question-service:
+    image: ${DOCKER_REGISTRY-}questionservice
     build:
-      context: ./back-end/feed-service/
+      context: ./back-end/question-service/
     environment:
         - MongoDbConnectionString=${DB_URL}
-        - MongoDbName=feed
+        - MongoDbName=question
         - MongoDbQuestionCollectionName=Question
         - MongoDbBookmarkCollectionName=Bookmark
     depends_on:
-        - feeddb
+        - questiondb
 
-  feeddb:
+  questiondb:
     image: mongo:5.0.6
     restart: always
     environment:
@@ -24,7 +24,7 @@ services:
     volumes: 
       - ./back-end/db:/data/db
 
-  feeddb-admin:
+  questiondb-admin:
     image: mongo-express
     restart: always
     ports:
@@ -34,12 +34,12 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
       ME_CONFIG_MONGODB_URL: ${DB_URL}
     depends_on:
-        - feeddb
+        - questiondb
 
-  question-service:
-    image: ${DOCKER_REGISTRY-}questionservice
+  search-service:
+    image: ${DOCKER_REGISTRY-}searchservice
     build:
-      context: ./back-end/question-service/
+      context: ./back-end/search-service/
 
   ocelot-gateway:
     image: ${DOCKER_REGISTRY-}ocelotgateway
@@ -56,17 +56,6 @@ services:
       - 6000:80
     volumes:
       - ./certs:/app/certs
-
-  front-end:
-    image: ${DOCKER_REGISTRY-}front-end
-    ports:
-      - 3000:3000
-    build:
-        context: ./front-end/
-    volumes:
-      - /front-end/usr/src/app
-      - /front-end/usr/src/app/node_modules
-      - /front-end/usr/src/app/.next
 
   admin:
     image: ${DOCKER_REGISTRY-}admin

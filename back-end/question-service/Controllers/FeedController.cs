@@ -1,9 +1,9 @@
-﻿using feed_service.Interfaces;
-using feed_service.Models;
+﻿using question_service.Interfaces;
+using question_service.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
-namespace feed_service.Controllers;
+namespace question_service.Controllers;
 
 [ApiController]
 [Route("[controller]")]

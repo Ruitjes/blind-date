@@ -5,44 +5,44 @@
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
             {
-                "Host": "feed-service",
+                "Host": "question-service",
                 "Port": 80
             }
         ],
-        "UpstreamPathTemplate": "/feed-service/{everything}",
-        "SwaggerKey": "feed-service"
+        "UpstreamPathTemplate": "/question-service/{everything}",
+        "SwaggerKey": "question-service"
         },
         {
           "DownstreamPathTemplate": "/{everything}",
           "DownstreamScheme": "http",
           "DownstreamHostAndPorts": [
               {
-                  "Host": "question-service",
+                  "Host": "search-service",
                   "Port": 80
               }
           ],
-          "UpstreamPathTemplate": "/question-service/{everything}",
-          "SwaggerKey": "question-service"
+          "UpstreamPathTemplate": "/search-service/{everything}",
+          "SwaggerKey": "search-service"
           }
     ],
     "SwaggerEndPoints": [
       {
-          "Key": "feed-service",
+          "Key": "question-service",
               "Config": [
                   {
-                  "Name": "feed API",
+                  "Name": "question API",
                   "Version": "v1",
-                  "Url": "http://feed-service/swagger/v1/swagger.json"
+                  "Url": "http://question-service/swagger/v1/swagger.json"
                   }
               ]
           },
           {
-              "Key": "question-service",
+              "Key": "search-service",
                   "Config": [
                       {
-                      "Name": "question API",
+                      "Name": "search API",
                       "Version": "v1",
-                      "Url": "http://question-service/swagger/v1/swagger.json"
+                      "Url": "http://search-service/swagger/v1/swagger.json"
                       }
                   ]
               }

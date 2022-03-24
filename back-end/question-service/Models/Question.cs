@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace feed_service.Models;
+namespace question_service.Models;
 
 public class Question
 {
@@ -11,5 +11,7 @@ public class Question
 
     public string Content { get; set; } = null!;
 
-    public DateTime AddedOn { get; set; }
+    public DateTime? AddedOn { get; set; }
+
+    public string? UserIdentifier { get; set; }
 }

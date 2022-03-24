@@ -7,11 +7,14 @@ const Home: NextPage = () => {
   const navigateToFeed = () => {
     router.push('/feed');
   }
+  const navigateToAsk = () => {
+    router.push('/ask');
+  }
 
   return (
     <div className='bg-gray-700 flex flex-col h-full overflow-hidden'>
 
-      <div className="flex flex-grow bg-pink-400">
+      <div className="flex flex-grow bg-pink-400" onClick={navigateToAsk}>
         <div className='flex flex-grow -skew-y-12 bg-inherit'>
           <div className='flex flex-grow items-center justify-center skew-y-12'>
             <h1 className="text-white text-center text-4xl font-medium">Ask a question</h1>

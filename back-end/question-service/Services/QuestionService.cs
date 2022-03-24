@@ -1,10 +1,10 @@
 ﻿using System;
-using feed_service.Interfaces;
-using feed_service.Models;
+using question_service.Interfaces;
+using question_service.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace feed_service.Services
+namespace question_service.Services
 {
     public class QuestionService : IQuestionService
     {

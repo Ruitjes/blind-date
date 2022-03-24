@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace feed_service.Models;
+namespace question_service.Models;
 
 public class Bookmark
 {

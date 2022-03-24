@@ -1,9 +1,9 @@
-using feed_service.Interfaces;
-using feed_service.Models;
+using question_service.Interfaces;
+using question_service.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 
-namespace feed_service.Controllers;
+namespace question_service.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -17,7 +17,7 @@ public class QuestionController : Controller
         _questionService = questionService;
     }
 
-    [HttpGet]
+    [HttpGet("GetAllQuestions")]
     public async Task<IEnumerable<Question>> GetAllQuestions()
     {
         return await _questionService.GetAllAsync();
@@ -27,5 +27,14 @@ public class QuestionController : Controller
     public async Task<Question> GetQuestionById(ObjectId id)
     {
         return await _questionService.GetByIdAsync(id);
+    }
+
+    [HttpPost("AskQuestion")]
+    public async Task<Question> AskQuestion(Question newQuestion)
+    {
+        newQuestion.Id = ObjectId.GenerateNewId();
+        newQuestion.AddedOn = DateTime.UtcNow;
+
+        return await _questionService.CreateAsync(newQuestion);
     }
 }
