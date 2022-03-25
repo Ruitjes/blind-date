@@ -34,8 +34,8 @@ const Ask = () => {
                         </div>
                     </div>
 
-                    <div className='flex flex-col h-2/5'>
-                        <textarea className="flex flex-grow resize-none rounded-lg p-2" value={QuestionText} onChange={(e) => {SetQuestionText(e.target.value)}} />
+                    <div className='flex flex-col flex-grow'>
+                        <textarea className="flex h-2/5 resize-none rounded-lg p-2" value={QuestionText} onChange={(e) => {SetQuestionText(e.target.value)}} />
                     </div>
 
                     <div className="flex flex-col">
