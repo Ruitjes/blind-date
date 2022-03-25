@@ -26,9 +26,11 @@ const Ask = () => {
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className='flex flex-col mt-4 mb-8'>
                         <div className='flex flex-col flex-grow p-4'>
-                        <h1 className="text-gray-700 font-medium text-center text-3xl">
-                            What's on your mind?
-                        </h1>
+                        <div className="info-card -m-4 p-4 py-6 drop-shadow-lg">
+                            <h1 className="text-gray-700 font-medium text-center text-3xl">
+                                What's on your mind?
+                            </h1>
+                        </div>
                         </div>
                     </div>
 
