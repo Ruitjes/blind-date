@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "feed_service": {
+    "question_service": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

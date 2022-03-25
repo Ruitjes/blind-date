@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>feed_service</RootNamespace>
+    <RootNamespace>question_service</RootNamespace>
     <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
     <UserSecretsId>c413b703-ec34-4458-83e6-40ead938a6c8</UserSecretsId>
   </PropertyGroup>
