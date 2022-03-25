@@ -22,7 +22,7 @@ const Ask = () => {
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
 
-            <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
+            <div className="flex flex-col flex-grow items-center p-4 bg-pink-400">
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className='flex flex-col mt-4 mb-8'>
                         <div className='flex flex-col flex-grow p-4'>
