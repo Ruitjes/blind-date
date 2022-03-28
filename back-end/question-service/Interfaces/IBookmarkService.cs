@@ -1,8 +1,8 @@
 ﻿using System;
-using feed_service.Models;
+using question_service.Models;
 using MongoDB.Bson;
 
-namespace feed_service.Interfaces
+namespace question_service.Interfaces
 {
     public interface IBookmarkService
     {

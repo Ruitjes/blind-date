@@ -11,8 +11,8 @@ type Props = {
 const Button = (props: Props) => {
 
     return (
-        <div className="flex aspect-square items-center rounded-full p-4 bg-white">
-            <FontAwesomeIcon onClick={props.onClick} fixedWidth size="4x" color={props.color} icon={['fas', props.icon]}/>
+        <div className="flex aspect-square items-center rounded-full p-4 bg-white" onClick={props.onClick}>
+            <FontAwesomeIcon fixedWidth size="4x" color={props.color} icon={['fas', props.icon]}/>
         </div>
     )
 }

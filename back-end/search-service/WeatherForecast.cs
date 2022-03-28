@@ -1,4 +1,4 @@
-namespace question_service;
+namespace search_service;
 
 public class WeatherForecast
 {

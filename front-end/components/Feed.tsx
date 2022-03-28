@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import Question from "./Question";
-import feed_service from "../services/feed_service";
+import question_service from "../services/question_service";
 import { join } from "path";
 import { rawListeners } from "process";
 
@@ -16,14 +16,14 @@ const Feed = () => {
     },[]);
 
     const ProgressBookmark = () => {   
-        feed_service.ProgressUserBookmark("101").then((res: any) => {
+        question_service.ProgressUserBookmark("101").then((res: any) => {
             console.log(res.data);
             getQuestion();
         }).catch((err) => {console.log(err);});
     };
 
     const getQuestion = () => {
-        feed_service.GetQuestionForUser("101").then((res: any) => {
+        question_service.GetQuestionForUser("101").then((res: any) => {
             console.log(res.data); 
             SetCurrentQuestion(res.data.content);
             if(res.data.content == "") {SetOutOfQuestions(true);}

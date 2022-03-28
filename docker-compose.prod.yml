@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+    front-end:
+      image: ${DOCKER_REGISTRY-}front-end
+      ports:
+        - 3000:3000
+      build:
+          context: ./front-end/
+      volumes:
+        - /front-end/usr/src/app
+        - /front-end/usr/src/app/node_modules
+        - /front-end/usr/src/app/.next

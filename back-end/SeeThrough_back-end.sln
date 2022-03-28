@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ocelot-gateway", "ocelot-gateway\ocelot-gateway.csproj", "{5B787AF8-C506-4733-938E-852C0F3283A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "question-service", "question-service\question-service.csproj", "{F26B074C-81CF-413D-9494-2732EFAFF74D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "search-service", "search-service\search-service.csproj", "{F26B074C-81CF-413D-9494-2732EFAFF74D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "feed-service", "feed-service\feed-service.csproj", "{58B0EE42-8893-4E7B-A58D-93418298D3CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "question-service", "question-service\question-service.csproj", "{58B0EE42-8893-4E7B-A58D-93418298D3CD}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker-compose.dcproj", "{052F8755-480B-41E2-80D1-1F083E75B5B9}"
 EndProject

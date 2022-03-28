@@ -1,5 +1,5 @@
 ﻿using System;
-namespace feed_service.Interfaces
+namespace question_service.Interfaces
 {
 	public interface IMongoDbSettings
 	{
