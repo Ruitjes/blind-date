@@ -10,6 +10,8 @@ services:
         - MongoDbName=question
         - MongoDbQuestionCollectionName=Question
         - MongoDbBookmarkCollectionName=Bookmark
+        - Auth0Domain=${Auth0Domain}
+        - Auth0Audience=${Auth0Audience}
     depends_on:
         - questiondb
 
