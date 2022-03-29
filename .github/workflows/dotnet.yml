@@ -19,11 +19,6 @@ jobs:
       - 
         name: Test
         run: "dotnet test --no-build --verbosity normal"
-  test: 
-    script: 
-      - "cd SeeThrough_back-end.sln"
-      - "./dotnet test SeeThrough_back-end.sln"
-    stage: test
 name: .NET
 true: 
   pull_request: 
