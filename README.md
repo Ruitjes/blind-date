@@ -21,6 +21,8 @@ CERTIFICATE_PASSWORD=yourcertificatepasswordhere
 DB_USER=yourdatabaseuser
 DB_PASSWORD=yourdatabasepassword
 DB_URL=mongodb://yourdatabaseuser:yourdatabasepassword@databaseservicename:27017/
+ACCESS_KEY=AKIA6L6USLIWFSHUW4M3
+SECRET_ACCESS_KEY=2w72sh9JNiIfJH1P4okJuphY2NNJhh1ddbomDsZ6
 ```
 
 4. Run the docker compose file from root
