@@ -11,6 +11,9 @@ const Ask = () => {
       }
     const [QuestionText,SetQuestionText] = useState("");
     
+    useEffect(() => {
+      document.title = "Ask a question page"
+    }, [])
 
     const shareQuestion = () => {
         question_service.AskQuestion(QuestionText,"101").then((res: any) => {
@@ -20,7 +23,7 @@ const Ask = () => {
     };
 
     return (
-        <div className='bg-gray-700 flex flex-col h-full'>
+        <div className="bg-gray-700 flex flex-col h-full">
 
             <div className="flex flex-col flex-grow items-center p-4 bg-pink-400">
                 <div className="flex flex-col flex-grow w-full max-w-sm">
@@ -28,7 +31,7 @@ const Ask = () => {
                         <div className='flex flex-col flex-grow p-4'>
                         <div className="info-card -m-4 p-4 py-6 drop-shadow-lg">
                             <h1 className="text-gray-700 font-medium text-center text-3xl">
-                                What's on your mind?
+                                {'What\'s on your mind?'}
                             </h1>
                         </div>
                         </div>
