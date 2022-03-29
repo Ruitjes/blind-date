@@ -4,14 +4,14 @@ WORKDIR /opt
 COPY package*.json ./
 RUN npm ci --production && npm cache clean --force
 
-# for dev mode
-FROM base as dev
-WORKDIR /opt
-ENV PATH=/opt/node_modules/.bin:$PATH
-RUN npm install --only=development
-RUN npm run dev
-WORKDIR /opt/app
-# I Don't Copy source code because on dev mode, I'll use mount
+# # for dev mode
+# FROM base as dev
+# WORKDIR /opt
+# ENV PATH=/opt/node_modules/.bin:$PATH
+# RUN npm install --only=development
+# RUN npm run dev
+# WORKDIR /opt/app
+# # I Don't Copy source code because on dev mode, I'll use mount
 
 # for prodcution without dev dependencies
 FROM base as prod
