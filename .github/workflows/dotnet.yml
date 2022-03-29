@@ -20,22 +20,17 @@ jobs:
         name: Test
         run: "dotnet test --no-build --verbosity normal"
   test: 
-    dependencies: 
-      - build
     script: 
       - "cd SeeThrough_back-end.sln"
-      - "dotnet test SeeThrough_back-end.sln"
+      - "./dotnet test SeeThrough_back-end.sln"
     stage: test
 name: .NET
 true: 
   pull_request: 
     branches: 
-      - main
       - BDG1-34
   push: 
     branches: 
-      - main
       - BDG1-34
-
 
 
