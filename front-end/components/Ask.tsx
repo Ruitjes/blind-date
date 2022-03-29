@@ -11,6 +11,9 @@ const Ask = () => {
       }
     const [QuestionText,SetQuestionText] = useState("");
     
+    useEffect(() => {
+      document.title = "Ask a question page"
+    }, [])
 
     const shareQuestion = () => {
         question_service.AskQuestion(QuestionText,"101").then((res: any) => {

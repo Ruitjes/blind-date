@@ -12,6 +12,7 @@ const Feed = () => {
 
     useEffect(() => {
         // Fetch questions and set state
+        document.title = "Answer the question page"
         getQuestion();
     },[]);
 
