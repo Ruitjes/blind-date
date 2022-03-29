@@ -12,14 +12,18 @@ const httpdefault = () => {
     }),
   });
 };
-const httptoken = () => {
-  const token = localStorage.getItem("Token");
+const httptoken = (token: string = "") => {
+  const https = require("https");
   return axios.create({
     baseURL: url,
     headers: {
+      'Access-Control-Allow-Origin' : '*',
       "Content-type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
   });
 };
 
