@@ -5,7 +5,7 @@ namespace upload_service.Interfaces
 {
 	public interface IUploadService
 	{
-		public Task<bool> UploadFileToS3(IFormFile file);
+		public Task UploadFileToS3(IFormFile file);
 	}
 }
 

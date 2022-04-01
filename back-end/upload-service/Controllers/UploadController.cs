@@ -29,12 +29,7 @@ namespace upload_service.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFileToS3(IFormFile file)
         {
-            var result = await _uploadService.UploadFileToS3(file);
-            if (!result)
-            {
-                return BadRequest();
-            }
-
+            await _uploadService.UploadFileToS3(file);
             return Ok();
         }
     }
