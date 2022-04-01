@@ -1,6 +1,6 @@
-using admin_service.Data;
 using admin_service.Dtos;
 using admin_service.Models;
+using admin_service.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +10,19 @@ namespace admin_service.Controllers
 	[ApiController]
 	public class ReportsController : ControllerBase
 	{
-		private readonly IReportRepo _repository;
+		private readonly IReportsService _service;
 		private readonly IMapper _mapper;
 
-		public ReportsController(IReportRepo repository, IMapper mapper)
+		public ReportsController(IReportsService service, IMapper mapper)
 		{
-			_repository = repository;
+			_service = service;
 			_mapper = mapper;
 		}
 
-		[HttpGet("{id}", Name = "GetReportById")]
-		public ActionResult<ReportReadDto> GetReportById(int id)
+		[HttpGet("{id:length(24)}", Name = "GetReportById")]
+		public async Task<ActionResult<ReportReadDto>> GetReportById(string id)
 		{
-			var reportItem = _repository.GetReportById(id);
+			var reportItem = await _service.GetAsync(id);
 
 			if (reportItem != null)
 			{
@@ -34,13 +34,12 @@ namespace admin_service.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult<ReportReadDto> CreateReport(ReportCreateDto reportCreateDto)
+		public async Task<ActionResult<ReportReadDto>> CreateReport(ReportCreateDto reportCreateDto)
 		{
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
 			// create report
-			_repository.CreateReport(reportModel);
-			_repository.SaveChanges();
+			await _service.CreateAsync(reportModel);
 
 			// get report read dto and return it to user
 			var reportReadDto = _mapper.Map<ReportReadDto>(reportModel);

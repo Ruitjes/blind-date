@@ -4,7 +4,7 @@ namespace admin_service.Dtos
 {
 	public class ReportReadDto
 	{
-		public int Id { get; set; }
+		public string? Id { get; set; }
 
 		public User? Reporter { get; set; }
 
@@ -16,6 +16,6 @@ namespace admin_service.Dtos
 
 		public DateTime CreatedAt { get; set; }
 
-		public Status Status { get; set; }
+		public string? Status { get; set; }
 	}
 }

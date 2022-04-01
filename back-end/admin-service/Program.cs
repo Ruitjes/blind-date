@@ -1,5 +1,5 @@
 using admin_service.Data;
-using Microsoft.EntityFrameworkCore;
+using admin_service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,15 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // ----------------
-// Database context
-builder.Services.AddDbContext<AppDbContext>(opt =>
-	// specify database type and name
-	opt.UseInMemoryDatabase("InMem")
+// Get environment variables from appsettings
+builder.Services.Configure<ReportsDatabaseSettings>(
+	builder.Configuration.GetSection("SeeThroughDatabase")
 );
 
-// Report Repo
-builder.Services.AddScoped<IReportRepo, ReportRepo>();
+// Db
+builder.Services.AddScoped<IReportsService, ReportsService>();
 
 // Automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

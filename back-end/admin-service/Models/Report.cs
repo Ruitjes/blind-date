@@ -1,12 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace admin_service.Models
 {
 	public class Report
 	{
-		[Key]
-		[Required]
-		public int Id { get; set; }
+		[BsonId]
+		[BsonRepresentation(BsonType.ObjectId)]
+		public string? Id { get; set; }
 
 		[Required]
 		public User? Reporter { get; set; }
