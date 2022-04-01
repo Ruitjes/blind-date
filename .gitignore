@@ -357,3 +357,6 @@ admin/.vscode
 admin/.browserslistrc
 admin/.editorconfig
 db
+
+# App settings
+/back-end/**/appsettings.json
