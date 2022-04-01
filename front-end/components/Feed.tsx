@@ -7,12 +7,12 @@ import { rawListeners } from "process";
 
 const Feed = () => {
 
-    const [CurrentQuestion,SetCurrentQuestion] = useState("");
+    const [CurrentQuestion,SetCurrentQuestion] = useState(null);
     const [OutOfQuestions,SetOutOfQuestions]= useState<boolean>(false);
 
     useEffect(() => {
         // Fetch questions and set state
-        document.title = "Answer the question page"
+        document.title = "Answer the question"
         getQuestion();
     },[]);
 
@@ -43,15 +43,15 @@ const Feed = () => {
                     </div>
 
                     <div className='flex flex-col flex-grow'>
-                        <textarea className="flex flex-grow resize-none rounded-lg p-2">
+                        <textarea aria-label="Type your answer here" aria-required="true" className="flex flex-grow resize-none rounded-lg p-2"/>
 
-                        </textarea>
+                        
                     </div>
 
                     <div className="flex flex-col">
                         <div className='flex pt-4 max-w-sm justify-between'>
-                            <Button icon="xmark" color="lightcoral" onClick={!OutOfQuestions ? ProgressBookmark : () => {}} />
-                            <Button icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => {}}  />
+                            <Button ariaLabel="Skip the question"  icon="xmark" color="lightcoral" onClick={!OutOfQuestions ? ProgressBookmark : () => {}} />
+                            <Button ariaLabel="Reply the question"  icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => {}}  />
                         </div>
                     </div>
                 </div>
