@@ -51,7 +51,7 @@ const Feed = () => {
                     <div className="flex flex-col">
                         <div className='flex pt-4 max-w-sm justify-between'>
                             <Button ariaLabel="Skip the question"  icon="xmark" color="lightcoral" onClick={!OutOfQuestions ? ProgressBookmark : () => {}} />
-                            <Button ariaLabel="Reply this question"  icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => {}}  />
+                            <Button ariaLabel="Reply the question"  icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => {}}  />
                         </div>
                     </div>
                 </div>
