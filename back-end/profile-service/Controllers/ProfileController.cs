@@ -26,31 +26,23 @@ public class ProfileController : Controller
     [HttpGet("GetProfile/{userIdentifier}")]
     public async Task<Profile> GetProfileById(string userIdentifier)
     {
-        return await _profileService.GetProfileByUserIdentifierAsync(userIdentifier);
+        return await _profileService.GetProfileIdByIdentifier(userIdentifier);
     }
 
 
     [HttpPut("UpdateInterests/{userIdentifier}")]
     public async Task<string> UpdateInterests(string userIdentifier, Profile updatedProfile)
     {
-        ObjectId id = await _profileService.GetObjectIdByUserIdentifierAsync(userIdentifier);
+        ObjectId id = await _profileService.GetIdByIdentifierAsync(userIdentifier);
         return await _profileService.UpdateAsync(id, updatedProfile);
 
     }
     [HttpDelete("DeleteProfile/{userIdentifier}")]
     public async Task<string> DeleteProfile(string userIdentifier)
     {
-        ObjectId id = await _profileService.GetObjectIdByUserIdentifierAsync(userIdentifier);
+        ObjectId id = await _profileService.GetIdByIdentifierAsync(userIdentifier);
         return await _profileService.DeleteAsync(id);
 
-    }
-    [HttpPost("CreateProfile")]
-    public async Task<Profile> CreateProfile(Profile p)
-    {
-        p.Id = ObjectId.GenerateNewId();
-
-
-        return await _profileService.CreateAsync(p);
     }
 
 }

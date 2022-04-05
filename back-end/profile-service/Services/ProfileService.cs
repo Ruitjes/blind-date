@@ -22,7 +22,7 @@ namespace question_service.Services
             return await _profiles.Find(s => true).ToListAsync();
         }
 
-        public async Task<ObjectId> GetObjectIdByUserIdentifierAsync(string userIdentifier)
+        public async Task<ObjectId> GetIdByIdentifierAsync(string userIdentifier)
         {
 
             Profile profile = await _profiles.Find(s => s.UserIdentifier == userIdentifier).FirstOrDefaultAsync();
@@ -30,20 +30,12 @@ namespace question_service.Services
 
         }
 
-        public async Task<Profile> GetProfileByUserIdentifierAsync(string userIdentifier)
+        public async Task<Profile> GetProfileIdByIdentifier(string userIdentifier)
         {
 
             Profile profile = await _profiles.Find(s => s.UserIdentifier == userIdentifier).FirstOrDefaultAsync();
             return profile;
 
-        }
-
-
-
-        public async Task<Profile> CreateAsync(Profile profile)
-        {
-            await _profiles.InsertOneAsync(profile);
-            return profile;
         }
 
         public async Task<string> UpdateAsync(ObjectId id, Profile profile)
