@@ -6,7 +6,7 @@ services:
     build:
       context: ./back-end/question-service/
     environment:
-        - MongoDbConnectionString=${DB_URL}
+        - MongoDbConnectionString=${DB1_URL}
         - MongoDbName=question
         - MongoDbQuestionCollectionName=Question
         - MongoDbBookmarkCollectionName=Bookmark
@@ -15,24 +15,20 @@ services:
 
   questiondb:
     image: mongo:5.0.6
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - 27017:27017
-    volumes: 
-      - ./back-end/db:/data/db
 
   questiondb-admin:
     image: mongo-express
-    restart: always
     ports:
       - 8081:8081
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
-      ME_CONFIG_MONGODB_URL: ${DB_URL}
+      ME_CONFIG_MONGODB_URL: ${DB1_URL}
     depends_on:
         - questiondb
 
@@ -63,6 +59,36 @@ services:
         context: ./admin/
     ports:
       - "3001:80"
+
+  profile-service:
+    image: ${DOCKER_REGISTRY-}profileservice
+    build:
+      context: ./back-end/profile-service/
+    environment:
+        - MongoDbConnectionString=${DB2_URL}
+        - MongoDbName=profile
+        - MongoDbProfileCollectionName=Profile
+    depends_on:
+        - profiledb
+
+  profiledb:
+    image: mongo:5.0.6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 27018:27017
+
+  profiledb-admin:
+    image: mongo-express
+    ports:
+      - 8082:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
+      ME_CONFIG_MONGODB_URL: ${DB2_URL}
+    depends_on:
+        - profiledb
 
   
 

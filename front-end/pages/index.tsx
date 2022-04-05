@@ -1,7 +1,11 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    document.title = "Home Page"
+  }, [])
   
   const router = useRouter();
   const navigateToFeed = () => {
@@ -17,7 +21,7 @@ const Home: NextPage = () => {
       <div className="flex flex-grow bg-pink-400" onClick={navigateToAsk}>
         <div className='flex flex-grow -skew-y-12 bg-inherit'>
           <div className='flex flex-grow items-center justify-center skew-y-12'>
-            <h1 className="text-white text-center text-4xl font-medium">Ask a question</h1>
+            <button className="text-white text-center text-4xl font-medium" onClick={navigateToAsk}>Ask a question</button>
           </div>
         </div>
       </div>
@@ -29,7 +33,7 @@ const Home: NextPage = () => {
       <div className="flex flex-grow bg-blue-500" onClick={navigateToFeed}>
         <div className='flex flex-grow -skew-y-12 bg-inherit'>
           <div className='flex flex-grow items-center justify-center skew-y-12'>
-            <h1 className="text-white text-center text-4xl font-medium">Answer a question</h1>
+            <button className="text-white text-center text-4xl font-medium" onClick={navigateToFeed}>Answer a question</button>
           </div>
         </div>
       </div>

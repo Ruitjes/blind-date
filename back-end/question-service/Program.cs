@@ -5,10 +5,11 @@ using question_service.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Enviroment variables for database connnection.
-string? connectionString = Environment.GetEnvironmentVariable("MongoDbConnectionString");
-string? dbName = Environment.GetEnvironmentVariable("MongoDbName");
-string? questionCollectionName = Environment.GetEnvironmentVariable("MongoDbQuestionCollectionName");
-string? bookmarkCollectionName = Environment.GetEnvironmentVariable("MongoDbBookmarkCollectionName");
+string? connectionString = builder.Configuration.GetValue<string?>("MongoDbConnectionString");
+string? dbName = builder.Configuration.GetValue<string?>("MongoDbName");
+string? questionCollectionName = builder.Configuration.GetValue<string?>("MongoDbQuestionCollectionName");
+string? bookmarkCollectionName = builder.Configuration.GetValue<string?>("MongoDbBookmarkCollectionName");
+
 
 // Add services to the container.
 builder.Services.AddControllers();
