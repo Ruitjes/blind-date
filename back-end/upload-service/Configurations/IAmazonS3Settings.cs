@@ -2,10 +2,10 @@
 {
     public interface IAmazonS3Settings
     {
-        string? AccessKey { get; set; }
+        string? AccessKey { get; }
 
-        string? SecretKey { get; set; }
+        string? SecretKey { get;}
 
-        string? BucketName { get; set; }
+        string? BucketName { get; }
     }
 }
