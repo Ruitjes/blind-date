@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
+
+  <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.8.14" />
@@ -24,9 +31,6 @@
     <None Remove="Configurations\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Models\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Configurations\" />
   </ItemGroup>
   <ItemGroup>
