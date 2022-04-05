@@ -10,31 +10,39 @@ namespace profile_service.Controllers;
 public class ProfileController : Controller
 {
 
-    private readonly IQuestionService _questionService;
+    private readonly IProfileService _profileService;
 
-    public ProfileController(IQuestionService questionService)
+    public ProfileController(IProfileService profileService)
     {
-        _questionService = questionService;
+        _profileService = profileService;
     }
 
-    [HttpGet("GetAllQuestions")]
-    public async Task<IEnumerable<Profile>> GetAllQuestions()
+    [HttpGet("GetAllProfiles")]
+    public async Task<IEnumerable<Profile>> GetAllProfiles()
     {
-        return await _questionService.GetAllAsync();
+        return await _profileService.GetAllAsync();
     }
 
-    [HttpGet("GetQuestionById/{id}")]
-    public async Task<Profile> GetQuestionById(ObjectId id)
+    [HttpGet("GetProfile/{userIdentifier}")]
+    public async Task<Profile> GetProfileById(string userIdentifier)
     {
-        return await _questionService.GetByIdAsync(id);
+        return await _profileService.GetProfileByUserIdentifierAsync(userIdentifier);
     }
 
-    [HttpPost("AskQuestion")]
-    public async Task<Profile> AskQuestion(Profile newQuestion)
-    {
-        newQuestion.Id = ObjectId.GenerateNewId();
-       // newQuestion.AddedOn = DateTime.UtcNow;
 
-        return await _questionService.CreateAsync(newQuestion);
+    [HttpPut("UpdateInterests/{userIdentifier}")]
+    public async Task<string> UpdateInterests(string userIdentifier, Profile updatedProfile)
+    {
+        ObjectId id = await _profileService.GetObjectIdByUserIdentifierAsync(userIdentifier);
+        return await _profileService.UpdateAsync(id, updatedProfile);
+       
     }
+    [HttpDelete("DeleteProfile/{userIdentifier}")]
+    public async Task<string> DeleteProfile(string userIdentifier)
+    {
+        ObjectId id = await _profileService.GetObjectIdByUserIdentifierAsync(userIdentifier);
+        return await _profileService.DeleteAsync(id);
+
+    }
+
 }

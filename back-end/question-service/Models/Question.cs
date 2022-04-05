@@ -9,6 +9,8 @@ public class Question
     [BsonRepresentation(BsonType.ObjectId)]
     public ObjectId? Id { get; set; }
 
+    public string StringId => Id?.ToString();
+
     public string Content { get; set; } = null!;
 
     public DateTime? AddedOn { get; set; }
