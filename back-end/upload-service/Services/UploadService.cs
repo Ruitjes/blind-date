@@ -1,41 +1,44 @@
-﻿using System;
-using Amazon;
+﻿using Amazon;
 using Amazon.S3;
 using Amazon.S3.Transfer;
-using Microsoft.AspNetCore.Mvc;
+using upload_service.Configurations;
 using upload_service.Interfaces;
 
 namespace upload_service.Services
 {
-	public class UploadService : IUploadService
+    public class UploadService : IUploadService, IDisposable
 	{
-		public async Task<bool> UploadFileToS3(IFormFile file)
+        private readonly AmazonS3Client _client;
+        private readonly IAmazonS3Settings _settings;
+
+        public UploadService(IAmazonS3Settings settings)
+        {
+            _settings = settings;
+            _client = new AmazonS3Client(
+                settings.AccessKey,
+                settings.SecretKey,
+                RegionEndpoint.EUCentral1
+            );
+        }
+
+		public async Task UploadFileToS3(IFormFile file)
 		{
-            string? yourAccesKey = Environment.GetEnvironmentVariable("ACCESS_KEY");
-            string? yourSecretKey = Environment.GetEnvironmentVariable("SECRET_ACCESS_KEY");
-            string? bucketName = Environment.GetEnvironmentVariable("BUCKET_NAME");
+            using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
 
-
-            using (var client = new AmazonS3Client(yourAccesKey, yourSecretKey, RegionEndpoint.EUCentral1))
+            using var fileTransferUtility = new TransferUtility(_client);
+            await fileTransferUtility.UploadAsync(new TransferUtilityUploadRequest
             {
-                using (var newMemoryStream = new MemoryStream())
-                {
-                    file.CopyTo(newMemoryStream);
+                Key = file.FileName,
+                InputStream = memoryStream,
+                BucketName = _settings.BucketName
+            });
+        }
 
-                    var uploadRequest = new TransferUtilityUploadRequest
-                    {
-                        InputStream = newMemoryStream,
-                        Key = file.FileName, // filename
-                        BucketName = bucketName // bucket name of S3
-                    };
-
-                    var fileTransferUtility = new TransferUtility(client);
-                    await fileTransferUtility.UploadAsync(uploadRequest);
-                }
-            }
-
-            return true;
-		}
+        public void Dispose()
+        {
+            _client.Dispose();
+        }
 	}
 }
 

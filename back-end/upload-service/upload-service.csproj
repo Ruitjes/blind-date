@@ -9,6 +9,7 @@
     <UserSecretsId>d7373f9b-a433-4022-b1e4-20878cea5a79</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' " />
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.8.14" />
@@ -19,10 +20,16 @@
     <None Remove="Models\" />
     <None Remove="Interfaces\" />
     <None Remove="AWSSDK.S3" />
+    <None Remove="Microsoft.Extensions.Configuration.UserSecrets" />
+    <None Remove="Configurations\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="upload-service.csproj" />
   </ItemGroup>
 </Project>
