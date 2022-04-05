@@ -6,12 +6,12 @@ services:
     build:
       context: ./back-end/question-service/
     environment:
-        - MongoDbConnectionString=${DB_URL}
-        - MongoDbName=question
-        - MongoDbQuestionCollectionName=Question
-        - MongoDbBookmarkCollectionName=Bookmark
+      - MongoDbConnectionString=${DB_URL}
+      - MongoDbName=question
+      - MongoDbQuestionCollectionName=Question
+      - MongoDbBookmarkCollectionName=Bookmark
     depends_on:
-        - questiondb
+      - questiondb
 
   questiondb:
     image: mongo:5.0.6
@@ -21,8 +21,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - 27017:27017
-    volumes: 
-      - ./back-end/db:/data/db
 
   questiondb-admin:
     image: mongo-express
@@ -34,7 +32,7 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
       ME_CONFIG_MONGODB_URL: ${DB_URL}
     depends_on:
-        - questiondb
+      - questiondb
 
   search-service:
     image: ${DOCKER_REGISTRY-}searchservice
@@ -57,13 +55,17 @@ services:
     volumes:
       - ./certs:/app/certs
 
+  upload-service:
+    image: ${DOCKER_REGISTRY-}uploadservice
+    build:
+      context: ./back-end/upload-service
+    environment:
+      ACCESS_KEY: ${ACCESS_KEY}
+      SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
+      BUCKET_NAME: ${BUCKET_NAME}
   admin:
     image: ${DOCKER_REGISTRY-}admin
     build:
-        context: ./admin/
+      context: ./admin/
     ports:
       - "3001:80"
-
-  
-
-
