@@ -9,12 +9,14 @@ namespace question_service.Services
     public class ProfileService : IProfileService
     {
         private readonly IMongoCollection<Profile> _profiles;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public ProfileService(IMongoDbSettings settings)
+        public ProfileService(IMongoDbSettings settings, IHttpContextAccessor httpContext)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DbName);
             _profiles = database.GetCollection<Profile>(settings.ProfileCollectionName);
+            _httpContext = httpContext;
         }
 
         public async Task<List<Profile>> GetAllAsync()
@@ -47,6 +49,13 @@ namespace question_service.Services
         {
             await _profiles.DeleteOneAsync(s => s.Id == id);
             return "Profile deleted!";
+        }
+
+        public string GetUserByJWTToken()
+        {
+            var userFromJWT = _httpContext.HttpContext.User;
+            string userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
+            return userIdentifier;
         }
     }
 }

@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IMongoDbSettings>(new MongoDbSettings(connectionString, dbName, profileCollectionName));
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
-
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
