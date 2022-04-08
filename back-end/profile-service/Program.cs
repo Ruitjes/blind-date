@@ -1,6 +1,8 @@
 using profile_service.Interfaces;
 using profile_service.Models;
 using question_service.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 string? connectionString = Environment.GetEnvironmentVariable("MongoDbConnectionString");
 string? dbName = Environment.GetEnvironmentVariable("MongoDbName");
 string? profileCollectionName = Environment.GetEnvironmentVariable("MongoDbProfileCollectionName");
+//Auth
+string? domain = Environment.GetEnvironmentVariable("Auth0Domain");
+string? audience = Environment.GetEnvironmentVariable("Auth0Audience");
 
 // Add services to the container.
 builder.Services.AddControllers();
