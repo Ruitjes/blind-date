@@ -9,8 +9,8 @@ export default async function askquestion(req: NextApiRequest, res: NextApiRespo
     
     await http.httptoken(accessToken).post(`/question-service/Question/AskQuestion`, req.body).then((api_res: any) => {
       res.status(200).json(api_res.data);
-    }).catch(({err}) => {
-      res.status(400).end({ err });
+    }).catch((err) => {
+      res.status(err?.status || 404).end(err.message);
     });
 
   } catch(error: any) {

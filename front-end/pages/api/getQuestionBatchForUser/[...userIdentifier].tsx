@@ -7,11 +7,11 @@ export default async function getquestionbatchforuser(req: NextApiRequest, res: 
   try {
     const { accessToken } = await getAccessToken(req, res);
     const { userIdentifier } = req.query
-    
+
     await http.httptoken(accessToken).get(`/question-service/Feed/GetQuestionBatchForUser/${userIdentifier}`).then((api_res: any) => {
       res.status(200).json(api_res.data);
-    }).catch(({err}) => {
-      res.status(400).end({ err });
+    }).catch((err) => {
+      res.status(err?.status || 404).end(err.message);
     });
 
   } catch(error: any) {

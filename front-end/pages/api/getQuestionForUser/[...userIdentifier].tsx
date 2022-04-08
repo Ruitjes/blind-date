@@ -6,12 +6,11 @@ import http from "../../../utils/common_api";
 export default async function getquestionforuser(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { accessToken } = await getAccessToken(req, res);
-    const { userIdentifier } = req.query;
-    
+    const { userIdentifier } = req?.query;
     await http.httptoken(accessToken).get(`/question-service/Feed/GetQuestionForUser/${userIdentifier}`).then((api_res: any) => {
-      res.status(200).json(api_res.data);
-    }).catch(({err}) => {
-      res.status(400).end({ err });
+      res.status(200).json(api_res?.data);
+    }).catch((err) => {
+      res.status(err?.status || 404).end(err.message);
     });
 
   } catch(error: any) {

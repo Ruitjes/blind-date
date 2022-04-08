@@ -10,8 +10,8 @@ export default async function progressuserbookmark(req: NextApiRequest, res: Nex
     
     await http.httptoken(accessToken).get(`/question-service/Feed/ProgressUserBookmark/${userIdentifier}`).then((api_res: any) => {
         res.status(200).json(api_res.data);
-      }).catch(({err}) => {
-        res.status(400).end({ err });
+      }).catch((err) => {
+        res.status(err?.status || 404).end(err.message);
       });
 
   } catch(error: any) {
