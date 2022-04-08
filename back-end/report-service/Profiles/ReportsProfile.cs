@@ -1,8 +1,8 @@
-using admin_service.Dtos;
-using admin_service.Models;
+using report_service.Dtos;
+using report_service.Models;
 using AutoMapper;
 
-namespace admin_service.Profiles
+namespace report_service.Profiles
 {
 	public class ReportsProfile : Profile
 	{

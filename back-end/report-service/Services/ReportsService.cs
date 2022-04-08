@@ -1,9 +1,9 @@
-using admin_service.Data;
-using admin_service.Models;
+using report_service.Data;
+using report_service.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace admin_service.Services
+namespace report_service.Services
 {
 	public class ReportsService : IReportsService
 	{

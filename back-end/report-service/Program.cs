@@ -1,5 +1,5 @@
-using admin_service.Data;
-using admin_service.Services;
+using report_service.Data;
+using report_service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

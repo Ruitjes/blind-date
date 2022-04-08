@@ -1,6 +1,6 @@
-using admin_service.Models;
+using report_service.Models;
 
-namespace admin_service.Services
+namespace report_service.Services
 {
 	public interface IReportsService
 	{
