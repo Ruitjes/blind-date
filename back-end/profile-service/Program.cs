@@ -19,7 +19,19 @@ builder.Services.AddSingleton<IMongoDbSettings>(new MongoDbSettings(connectionSt
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
 
+        options.Authority = domain;
+        options.Audience = audience;
+        // If the access token does not have a `sub` claim, `User.Identity.Name` will be `null`. Map it to a different claim by setting the NameClaimType below.
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = "Role",
+            RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        };
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
