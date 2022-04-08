@@ -44,5 +44,13 @@ public class ProfileController : Controller
         return await _profileService.DeleteAsync(id);
 
     }
+    [HttpPost("CreateProfile")]
+    public async Task<Profile> CreateProfile(Profile p)
+    {
+        p.Id = ObjectId.GenerateNewId();
+
+
+        return await _profileService.CreateAsync(p);
+    }
 
 }

@@ -38,6 +38,12 @@ namespace question_service.Services
 
         }
 
+        public async Task<Profile> CreateAsync(Profile profile)
+        {
+            await _profiles.InsertOneAsync(profile);
+            return profile;
+        }
+
         public async Task<string> UpdateAsync(ObjectId id, Profile profile)
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,

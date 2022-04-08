@@ -11,5 +11,6 @@ namespace profile_service.Interfaces
         public Task<string> UpdateAsync(ObjectId id, Profile profile);
         public Task<string> DeleteAsync(ObjectId id);
         public Task<Profile> GetProfileByUserIdentifier(string userIdentifier);
+        public Task<Profile> CreateAsync(Profile p);
     }
 }
