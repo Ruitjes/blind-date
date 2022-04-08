@@ -26,7 +26,7 @@ public class ProfileController : Controller
     [HttpGet("GetProfile/{userIdentifier}")]
     public async Task<Profile> GetProfileById(string userIdentifier)
     {
-        return await _profileService.GetProfileIdByIdentifier(userIdentifier);
+        return await _profileService.GetProfileByUserIdentifier(userIdentifier);
     }
 
 

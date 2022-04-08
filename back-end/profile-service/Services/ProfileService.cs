@@ -30,7 +30,7 @@ namespace question_service.Services
 
         }
 
-        public async Task<Profile> GetProfileIdByIdentifier(string userIdentifier)
+        public async Task<Profile> GetProfileByUserIdentifier(string userIdentifier)
         {
 
             Profile profile = await _profiles.Find(s => s.UserIdentifier == userIdentifier).FirstOrDefaultAsync();
