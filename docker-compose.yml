@@ -6,10 +6,12 @@ services:
     build:
       context: ./back-end/question-service/
     environment:
-      - MongoDbConnectionString=${DB_URL}
-      - MongoDbName=question
-      - MongoDbQuestionCollectionName=Question
-      - MongoDbBookmarkCollectionName=Bookmark
+        - MongoDbConnectionString=${DB_URL}
+        - MongoDbName=question
+        - MongoDbQuestionCollectionName=Question
+        - MongoDbBookmarkCollectionName=Bookmark
+        - Auth0Domain=${Auth0Domain}
+        - Auth0Audience=${Auth0Audience}
     depends_on:
       - questiondb
 

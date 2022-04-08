@@ -1,10 +1,10 @@
-using admin_service.Dtos;
-using admin_service.Models;
-using admin_service.Services;
+using report_service.Dtos;
+using report_service.Models;
+using report_service.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace admin_service.Controllers
+namespace report_service.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
