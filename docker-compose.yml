@@ -1,73 +1,94 @@
 version: '3.4'
 
 services:
-  question-service:
-    image: ${DOCKER_REGISTRY-}questionservice
-    build:
-      context: ./back-end/question-service/
-    environment:
-        - MongoDbConnectionString=${DB_URL}
-        - MongoDbName=question
-        - MongoDbQuestionCollectionName=Question
-        - MongoDbBookmarkCollectionName=Bookmark
-        - Auth0Domain=${Auth0Domain}
-        - Auth0Audience=${Auth0Audience}
-    depends_on:
-      - questiondb
+    question-service:
+        image: ${DOCKER_REGISTRY-}questionservice
+        build:
+            context: ./back-end/question-service/
+        environment:
+            - MongoDbConnectionString=${DB_URL}
+            - MongoDbName=question
+            - MongoDbQuestionCollectionName=Question
+            - MongoDbBookmarkCollectionName=Bookmark
+            - Auth0Domain=${Auth0Domain}
+            - Auth0Audience=${Auth0Audience}
+        depends_on:
+            - questiondb
 
-  questiondb:
-    image: mongo:5.0.6
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - 27017:27017
+    questiondb:
+        image: mongo:5.0.6
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - 27017:27017
 
-  questiondb-admin:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
-      ME_CONFIG_MONGODB_URL: ${DB_URL}
-    depends_on:
-      - questiondb
+    questiondb-admin:
+        image: mongo-express
+        restart: always
+        ports:
+            - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
+            ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
+            ME_CONFIG_MONGODB_URL: ${DB_URL}
+        depends_on:
+            - questiondb
 
-  search-service:
-    image: ${DOCKER_REGISTRY-}searchservice
-    build:
-      context: ./back-end/search-service/
+    search-service:
+        image: ${DOCKER_REGISTRY-}searchservice
+        build:
+            context: ./back-end/search-service/
 
-  ocelot-gateway:
-    image: ${DOCKER_REGISTRY-}ocelotgateway
-    build:
-      context: ./back-end/ocelot-gateway/
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTPS_PORT=7000
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERTIFICATE_PASSWORD}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certs/aspnetapp.pfx
-    ports:
-      - 7000:443
-      - 6000:80
-    volumes:
-      - ./certs:/app/certs
+    # Report service
+    report-service:
+        image: ${DOCKER_REGISTRY-}reportservice
+        build:
+            context: ./back-end/report-service/
+        environment:
+            - DbConnectionString=${DB_URL_REPORT}
+            - DbName=report
+            - DbReportCollectionName=Report
+        depends_on:
+            - reportdb
 
-  upload-service:
-    image: ${DOCKER_REGISTRY-}uploadservice
-    build:
-      context: ./back-end/upload-service
-    environment:
-      ACCESS_KEY: ${ACCESS_KEY}
-      SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
-      BUCKET_NAME: ${BUCKET_NAME}
-  admin:
-    image: ${DOCKER_REGISTRY-}admin
-    build:
-      context: ./admin/
-    ports:
-      - "3001:80"
+    reportdb:
+        image: mongo:5.0.6
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - 27018:27017
+
+    ocelot-gateway:
+        image: ${DOCKER_REGISTRY-}ocelotgateway
+        build:
+            context: ./back-end/ocelot-gateway/
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTPS_PORT=7000
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+            - ASPNETCORE_Kestrel__Certificates__Default__Password=${CERTIFICATE_PASSWORD}
+            - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certs/aspnetapp.pfx
+        ports:
+            - 7000:443
+            - 6000:80
+        volumes:
+            - ./certs:/app/certs
+
+    upload-service:
+        image: ${DOCKER_REGISTRY-}uploadservice
+        build:
+            context: ./back-end/upload-service
+        environment:
+            ACCESS_KEY: ${ACCESS_KEY}
+            SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
+            BUCKET_NAME: ${BUCKET_NAME}
+    admin:
+        image: ${DOCKER_REGISTRY-}admin
+        build:
+            context: ./admin/
+        ports:
+            - '3001:80'

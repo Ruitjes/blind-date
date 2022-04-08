@@ -9,16 +9,11 @@ namespace report_service.Services
 	{
 		private readonly IMongoCollection<Report> _reportsCollection;
 
-		public ReportsService(IOptions<ReportsDatabaseSettings> reportsDatabaseSettings)
+		public ReportsService(ReportsDatabaseSettings reportsDatabaseSettings)
 		{
-			// reads the server instance for running database operations
-			var mongoClient = new MongoClient(reportsDatabaseSettings.Value.ConnectionString);
-
-			var mongoDatabase = mongoClient.GetDatabase(
-				reportsDatabaseSettings.Value.DatabaseName
-			);
-
-			_reportsCollection = mongoDatabase.GetCollection<Report>(reportsDatabaseSettings.Value.ReportsCollectionName);
+			var client = new MongoClient(reportsDatabaseSettings.ConnectionString);
+			var database = client.GetDatabase(reportsDatabaseSettings.DatabaseName);
+			_reportsCollection = database.GetCollection<Report>(reportsDatabaseSettings.ReportsCollectionName);
 		}
 
 		public async Task<Report?> GetAsync(string id)

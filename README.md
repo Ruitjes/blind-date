@@ -21,6 +21,7 @@ CERTIFICATE_PASSWORD=yourcertificatepasswordhere
 DB_USER=yourdatabaseuser
 DB_PASSWORD=yourdatabasepassword
 DB_URL=mongodb://yourdatabaseuser:yourdatabasepassword@databaseservicename:27017/
+DB_URL_REPORT=mongodb://yourdatabaseuser:yourdatabasepassword@databaseservicename:27017/
 ACCESS_KEY=AKIA6L6USLIWFSHUW4M3
 SECRET_ACCESS_KEY=2w72sh9JNiIfJH1P4okJuphY2NNJhh1ddbomDsZ6
 BUCKET_NAME=seetrough
@@ -29,6 +30,7 @@ Auth0Audience=seethrough
 ```
 
 4. Write the following in the usersecret.
+
 ```bash
 {
   "AmazonS3Settings":{
@@ -48,11 +50,12 @@ docker-compose up -d
 
 6. When the docker-compose is up.
 
-- http://localhost:3000 -> React front-end
-- http://localhost:3001 -> Angular front-end admin panel
-- https://localhost:7000 -> .NET Gateway Ocelot
+-   http://localhost:3000 -> React front-end
+-   http://localhost:3001 -> Angular front-end admin panel
+-   https://localhost:7000 -> .NET Gateway Ocelot
 
 6. To get Auth0 working add a .env file to the front-end folder with the following:
+
 ```bash
 # url for the back-end endpoints
 NEXT_PUBLIC_API_URL=https://localhost:7000

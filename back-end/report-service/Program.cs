@@ -12,12 +12,17 @@ builder.Services.AddSwaggerGen();
 
 
 // ----------------
-// Get environment variables from appsettings
-builder.Services.Configure<ReportsDatabaseSettings>(
-	builder.Configuration.GetSection("SeeThroughDatabase")
-);
+// Enviroment variables for database connnection
+string? connectionString = Environment.GetEnvironmentVariable("DbConnectionString");
+string? databaseName = Environment.GetEnvironmentVariable("DbName");
+string? reportsCollectionName = Environment.GetEnvironmentVariable("DbReportCollectionName");
 
-// Db
+// DB Settings
+builder.Services.AddSingleton(new ReportsDatabaseSettings(
+	connectionString, databaseName, reportsCollectionName
+));
+
+// DB class
 builder.Services.AddScoped<IReportsService, ReportsService>();
 
 // Automapper
