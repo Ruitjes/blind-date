@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using admin_service.Models;
+using report_service.Models;
 
-namespace admin_service.Dtos
+namespace report_service.Dtos
 {
 	public class ReportCreateDto
 	{

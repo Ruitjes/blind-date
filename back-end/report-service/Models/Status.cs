@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace admin_service.Models
+namespace report_service.Models
 {
 	public enum Status
 	{

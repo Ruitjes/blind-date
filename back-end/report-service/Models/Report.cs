@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace admin_service.Models
+namespace report_service.Models
 {
 	public class Report
 	{
