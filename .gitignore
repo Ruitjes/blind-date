@@ -358,6 +358,10 @@ admin/.browserslistrc
 admin/.editorconfig
 db
 
+# App settings
+/back-end/**/appsettings.json
+
+
 #MacOS Junk shizzle
 
 # General
