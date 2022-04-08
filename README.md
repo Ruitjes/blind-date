@@ -28,14 +28,25 @@ Auth0Domain=ourauth0domain
 Auth0Audience=seethrough
 ```
 
-4. Run the docker compose file from root
+4. Write the following in the usersecret.
+```bash
+{
+  "AmazonS3Settings":{
+    "AccessKey": "AKIA6L6USLIWFSHUW4M3",
+    "SecretKey": "2w72sh9JNiIfJH1P4okJuphY2NNJhh1ddbomDsZ",
+    "BucketName": "seetrough"
+  }
+}
+```
+
+5. Run the docker compose file from root
 
 ```bash
 docker-compose build
 docker-compose up -d
 ```
 
-5. When the docker-compose is up.
+6. When the docker-compose is up.
 
 - http://localhost:3000 -> React front-end
 - http://localhost:3001 -> Angular front-end admin panel

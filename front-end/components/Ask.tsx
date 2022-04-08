@@ -14,7 +14,7 @@ const Ask = () => {
     const [QuestionText,SetQuestionText] = useState("");
     
     useEffect(() => {
-      document.title = "Ask a question page"
+      document.title = "Ask a question"
     }, [])
 
     const shareQuestion = () => {
@@ -41,12 +41,12 @@ const Ask = () => {
                     </div>
 
                     <div className='flex flex-col flex-grow'>
-                        <textarea className="flex h-2/5 resize-none rounded-lg p-2" value={QuestionText} onChange={(e) => {SetQuestionText(e.target.value)}} />
+                        <textarea aria-label="Type your question here" aria-required="true" className="flex h-2/5 resize-none rounded-lg p-2" value={QuestionText} onChange={(e) => {SetQuestionText(e.target.value)}} />
                     </div>
 
                     <div className="flex flex-col">
                         <div className='flex pt-4 max-w-sm justify-between'>
-                            <button disabled={QuestionText?.length == 0} className={`bg-white ${QuestionText?.length == 0 ? "disabled:opacity-75" : "hover:bg-slate-200"} w-full text-gray-700 font-bold py-2 px-4 rounded-full`} onClick={shareQuestion}>
+                            <button aria-label="Share Question" disabled={QuestionText?.length == 0} className={`bg-white ${QuestionText?.length == 0 ? "disabled:opacity-75" : "hover:bg-slate-200"} w-full text-gray-700 font-bold py-2 px-4 rounded-full`} onClick={shareQuestion}>
                                 Share Question
                             </button>
                         </div>
