@@ -1,4 +1,4 @@
-namespace admin_service.Data
+namespace report_service.Data
 {
 	public class ReportsDatabaseSettings
 	{
