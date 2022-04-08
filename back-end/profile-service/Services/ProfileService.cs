@@ -22,14 +22,6 @@ namespace question_service.Services
             return await _profiles.Find(s => true).ToListAsync();
         }
 
-        public async Task<ObjectId> GetIdByIdentifierAsync(string userIdentifier)
-        {
-
-            Profile profile = await _profiles.Find(s => s.UserIdentifier == userIdentifier).FirstOrDefaultAsync();
-            return (ObjectId)profile.Id;
-
-        }
-
         public async Task<Profile> GetProfileByUserIdentifier(string userIdentifier)
         {
 
@@ -44,14 +36,14 @@ namespace question_service.Services
             return profile;
         }
 
-        public async Task<string> UpdateAsync(ObjectId id, Profile profile)
+        public async Task<string> UpdateAsync(ObjectId? id, Profile profile)
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,
         Builders<Profile>.Update.Set(p => p.interests, profile.interests));
             return "Profile updated!";
         }
 
-        public async Task<string> DeleteAsync(ObjectId id)
+        public async Task<string> DeleteAsync(ObjectId? id)
         {
             await _profiles.DeleteOneAsync(s => s.Id == id);
             return "Profile deleted!";
