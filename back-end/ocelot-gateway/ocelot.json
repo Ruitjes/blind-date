@@ -35,6 +35,18 @@
         ],
         "UpstreamPathTemplate": "/upload-service/{everything}",
         "SwaggerKey": "upload-service"
+      },
+      {
+        "DownstreamPathTemplate": "/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "profile-service",
+            "Port": 80
+          }
+        ],
+        "UpstreamPathTemplate": "/profile-service/{everything}",
+        "SwaggerKey": "profile-service"
       }
     ],
   "SwaggerEndPoints": [
@@ -65,6 +77,16 @@
           "Name": "Upload API",
           "Version": "v1",
           "Url": "http://upload-service/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "profile-service",
+      "Config": [
+        {
+          "Name": "profile API",
+          "Version": "v1",
+          "Url": "http://profile-service/swagger/v1/swagger.json"
         }
       ]
     }

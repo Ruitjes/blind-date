@@ -71,3 +71,14 @@ services:
       context: ./admin/
     ports:
       - "3001:80"
+
+  profile-service:
+    image: ${DOCKER_REGISTRY-}profileservice
+    build:
+      context: ./back-end/profile-service/
+    environment:
+        - MongoDbConnectionString=${DB_URL}
+        - MongoDbName=profile
+        - MongoDbProfileCollectionName=Profile
+    depends_on:
+        - questiondb

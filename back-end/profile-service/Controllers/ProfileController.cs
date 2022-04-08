@@ -23,26 +23,36 @@ public class ProfileController : Controller
         return await _profileService.GetAllAsync();
     }
 
-    [HttpGet("GetProfile/{userIdentifier}")]
-    public async Task<Profile> GetProfileById(string userIdentifier)
+    [HttpGet("GetProfile")]
+    public async Task<Profile> GetProfile()
     {
+       string userIdentifier = _profileService.GetUserByJWTToken();
         return await _profileService.GetProfileByUserIdentifier(userIdentifier);
     }
 
 
-    [HttpPut("UpdateInterests/{userIdentifier}")]
-    public async Task<string> UpdateInterests(string userIdentifier, Profile updatedProfile)
+    [HttpPut("UpdateInterests")]
+    public async Task<string> UpdateInterests(Profile updatedProfile)
     {
-        ObjectId id = await _profileService.GetIdByIdentifierAsync(userIdentifier);
-        return await _profileService.UpdateAsync(id, updatedProfile);
+        string userIdentifier = _profileService.GetUserByJWTToken();
+        Profile profile = await _profileService.GetProfileByUserIdentifier(userIdentifier);
+        return await _profileService.UpdateAsync(profile.Id, updatedProfile);
 
     }
-    [HttpDelete("DeleteProfile/{userIdentifier}")]
-    public async Task<string> DeleteProfile(string userIdentifier)
+    [HttpDelete("DeleteProfile")]
+    public async Task<string> DeleteProfile()
     {
-        ObjectId id = await _profileService.GetIdByIdentifierAsync(userIdentifier);
-        return await _profileService.DeleteAsync(id);
+        string userIdentifier = _profileService.GetUserByJWTToken();
+        Profile profile = await _profileService.GetProfileByUserIdentifier(userIdentifier);
+        return await _profileService.DeleteAsync(profile.Id);
 
+    }
+    [HttpPost("CreateProfile")]
+    public async Task<Profile> CreateProfile(Profile p)
+    {
+        p.Id = ObjectId.GenerateNewId();
+        p.UserIdentifier = _profileService.GetUserByJWTToken();
+        return await _profileService.CreateAsync(p);
     }
 
 }
