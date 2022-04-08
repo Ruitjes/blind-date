@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import Question from "./Question";
-import question_service from "../services/question_service";
-import { join } from "path";
-import { rawListeners } from "process";
+import axios from "axios";
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Feed = () => {
-
+    const { user, error, isLoading } = useUser();
     const [CurrentQuestion,SetCurrentQuestion] = useState("");
     const [OutOfQuestions,SetOutOfQuestions]= useState<boolean>(false);
 
@@ -17,15 +16,13 @@ const Feed = () => {
     },[]);
 
     const ProgressBookmark = () => {   
-        question_service.ProgressUserBookmark("101").then((res: any) => {
-            console.log(res.data);
+        axios.get(`api/progressUserBookmark/${user!.sub}`).then((res: any) => {
             getQuestion();
         }).catch((err) => {console.log(err);});
     };
 
     const getQuestion = () => {
-        question_service.GetQuestionForUser("101").then((res: any) => {
-            console.log(res.data); 
+        axios.get(`api/getQuestionForUser/${user!.sub}`).then((res: any) => {
             SetCurrentQuestion(res.data.content);
             if(res.data.content == "") {SetOutOfQuestions(true);}
         }).catch((err) => {console.log(err);});

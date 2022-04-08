@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import Question from "./Question";
-import question_service from "../services/question_service";
+import axios from "axios";
 import { useRouter } from 'next/router';
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Ask = () => {
+    const { user, error, isLoading } = useUser();
     const router = useRouter();
     const navigateToIndex = () => {
         router.push('/');
@@ -16,7 +18,8 @@ const Ask = () => {
     }, [])
 
     const shareQuestion = () => {
-        question_service.AskQuestion(QuestionText,"101").then((res: any) => {
+        const data = {id: null, content: QuestionText, addedOn: null, userIdentifier: user!.sub};
+        axios.post("/api/askQuestion", data).then((res: any) => {
             SetQuestionText("");
             navigateToIndex();
         }).catch((err) => {console.log(err);});
