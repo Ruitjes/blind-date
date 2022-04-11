@@ -1,44 +1,52 @@
 version: '3.4'
 
 services:
-  question-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
-  search-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    question-service:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+        volumes:
+            - ~/.aspnet/https:/root/.aspnet/https:ro
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    search-service:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+        volumes:
+            - ~/.aspnet/https:/root/.aspnet/https:ro
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
-  upload-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    upload-service:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+        volumes:
+            - ~/.aspnet/https:/root/.aspnet/https:ro
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
-  ocelot-gateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "6000:80"
-      - "7000:443"
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    report-service:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+        volumes:
+            - ~/.aspnet/https:/root/.aspnet/https:ro
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
-  profile-service:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:80
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:r
+    profile-service:
+      environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=http://+:80
+      volumes:
+        - ~/.aspnet/https:/root/.aspnet/https:ro
+        - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:r
+
+    ocelot-gateway:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+        ports:
+            - '6000:80'
+            - '7000:443'
+        volumes:
+            - ~/.aspnet/https:/root/.aspnet/https:ro
+            - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
