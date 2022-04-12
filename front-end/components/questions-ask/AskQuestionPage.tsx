@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 const AskQuestionPage = () => {
     const { user, error, isLoading } = useUser();
     const router = useRouter();
-    
+
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
@@ -59,7 +59,7 @@ const AskQuestionPage = () => {
 
                         <div className="flex flex-col py-1">
                             <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
-                                <FontAwesomeIcon className="p-2" fixedWidth size="6x" color="text-gray-700" icon={['fas', 'question-circle']} />
+                                <FontAwesomeIcon className="p-2" fixedWidth size="6x" icon={['fas', 'question-circle']} />
                                 <Header center text="Create a question" />
                             </div>
                         </div>
@@ -68,23 +68,48 @@ const AskQuestionPage = () => {
                             <div className="flex flex-col info-card p-4 drop-shadow-lg">
                                 <Header text="Question" />
                                 <Subtitle text="What would you like to ask?" />
-                                <AskQuestionEditBox value={text} onChange={handleTextChanged}/>
+                                <AskQuestionEditBox value={text} onChange={handleTextChanged} />
                             </div>
                         </div>
 
                         <div className="flex flex-col py-1">
-                            <div className="flex flex-col info-card p-4 drop-shadow-lg">
+                            <label className="flex flex-col info-card p-4 drop-shadow-lg">
+                                <input type='file' hidden onChange={handleFileChanged} />
                                 <div className="flex flex-grow">
                                     <div className="flex flex-col">
                                         <Header text="Picture" />
                                         <Subtitle text="Add an image in your question to share with others." />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <FontAwesomeIcon fixedWidth size="2x" color="text-gray-700" icon={['fas', 'image']} />
+
+                                    <div className="flex flex-col relative">
+                                        <FontAwesomeIcon
+                                            fixedWidth size="2x"
+                                            icon={['fas', 'image']}
+                                        />
+
+                                        {file && (
+                                            <div className="absolute right-0">
+                                                <FontAwesomeIcon
+                                                    size="xs"
+                                                    color="white"
+                                                    icon={['fas', 'circle']}
+                                                    className="absolute right-0"
+                                                    fixedWidth
+                                                />
+                                            
+                                                <FontAwesomeIcon
+                                                     size="sm"
+                                                     color="mediumseagreen"
+                                                     icon={['fas', 'circle-check']}
+                                                     className="absolute right-0"
+                                                     fixedWidth
+                                                />
+                                            </div>
+                                        )}
                                     </div>
+
                                 </div>
-                                <input type='file' onChange={handleFileChanged}/>
-                            </div>
+                            </label>
                         </div>
 
                         <div className="flex flex-col flex-grow justify-end">
