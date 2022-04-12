@@ -8,14 +8,15 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
 
 const AskQuestionPage = () => {
-    const { user, error, isLoading } = useUser();
+    const { user } = useUser();
     const router = useRouter();
 
+    const [loading, setLoading] = useState<boolean>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
-    const handleTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value);
+    const handleTextChanged = (e: React.ChangeEvent<HTMLDivElement>) => {
+        setText(e.target.textContent ?? undefined);
     }
 
     const handleFileChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,30 +24,35 @@ const AskQuestionPage = () => {
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
         e.preventDefault();
-        if (text && file) {
+        setLoading(true);
 
-            const formData = new FormData();
-            formData.append("file", file);
+        axios.get('api/getAccessToken').then(async ({ data: access_token }) => {
 
-            axios.get('api/getAccessToken').then((token: any) => {
-                axios.post('https://localhost:7000/upload-service/Upload', formData, {
-                    headers: {
-                      Authorization: `Bearer ${token.data}`
-                    }
-                }).then(() => {
-                    axios.post('https://localhost:7000/question-service/Question/AskQuestion', {
-                        id: null, content: text, addedOn: null, userIdentifier: user!.sub
-                    }, {
-                        headers: {
-                            Authorization: `Bearer ${token.data}`
-                          }
-                    }).then(() => {
-                        router.push('/')
+            try {
+
+                if (file) {
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    formData.append("fileName", file.name);
+
+                    await axios.post('https://localhost:7000/upload-service/upload', formData, {
+                        headers: { Authorization: `Bearer ${access_token}` }
                     })
-                })
-            });
-        }
+                }
+
+                const question = { id: null, content: text, addedOn: null, userIdentifier: user!.sub }
+                await axios.post('https://localhost:7000/question-service/question/askQuestion', question, {
+                    headers: { Authorization: `Bearer ${access_token}` }
+                });
+
+                router.push('/');
+
+            } finally {
+                setLoading(false);
+            }
+        });
     }
 
     return (
@@ -68,7 +74,7 @@ const AskQuestionPage = () => {
                             <div className="flex flex-col info-card p-4 drop-shadow-lg">
                                 <Header text="Question" />
                                 <Subtitle text="What would you like to ask?" />
-                                <AskQuestionEditBox value={text} onChange={handleTextChanged} />
+                                <AskQuestionEditBox onChange={handleTextChanged} />
                             </div>
                         </div>
 
@@ -96,13 +102,13 @@ const AskQuestionPage = () => {
                                                     className="absolute right-0"
                                                     fixedWidth
                                                 />
-                                            
+
                                                 <FontAwesomeIcon
-                                                     size="sm"
-                                                     color="mediumseagreen"
-                                                     icon={['fas', 'circle-check']}
-                                                     className="absolute right-0"
-                                                     fixedWidth
+                                                    size="sm"
+                                                    color="mediumseagreen"
+                                                    icon={['fas', 'circle-check']}
+                                                    className="absolute right-0"
+                                                    fixedWidth
                                                 />
                                             </div>
                                         )}
