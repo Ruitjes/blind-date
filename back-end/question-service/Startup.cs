@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using question_service.Configurations;
+using question_service.Interfaces;
+using question_service.Services;
 
 namespace question_service
 {
@@ -31,6 +33,8 @@ namespace question_service
                 });
             });
 
+            services.AddSingleton<IQuestionService, QuestionService>();
+            services.AddSingleton<IBookmarkService, BookmarkService>();
         }
 
         public void ConfigureAuthentication(IServiceCollection services)
