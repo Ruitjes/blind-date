@@ -1,4 +1,4 @@
-﻿using System;
+﻿using question_service.Configurations;
 using question_service.Interfaces;
 using question_service.Models;
 using MongoDB.Bson;
@@ -13,8 +13,8 @@ namespace question_service.Services
         public BookmarkService(IMongoDbSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DbName);
-            _bookmarks = database.GetCollection<Bookmark>(settings.BookmarkCollectionName);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _bookmarks = database.GetCollection<Bookmark>("Bookmark");
         }
 
         public async Task<List<Bookmark>> GetAllAsync()

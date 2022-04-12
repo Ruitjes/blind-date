@@ -15,15 +15,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="MongoDB.Driver" />
-    <None Remove="model\" />
-    <None Remove="Interfaces\" />
-    <None Remove="Services\" />
-    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
 </Project>
