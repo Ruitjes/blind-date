@@ -37,6 +37,10 @@ const AskQuestionPage = () => {
                 }).then(() => {
                     axios.post('https://localhost:7000/question-service/Question/AskQuestion', {
                         id: null, content: text, addedOn: null, userIdentifier: user!.sub
+                    }, {
+                        headers: {
+                            Authorization: `Bearer ${token.data}`
+                          }
                     }).then(() => {
                         router.push('/')
                     })
