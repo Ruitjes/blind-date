@@ -6,11 +6,8 @@ type Props = {
 const AskQuestionEditBox = (props: Props) => {
 
     return (
-        <div className="flex flex-col py-2">
-            <textarea 
-                className="outline-none border border-gray-400 text-gray-700 p-2 px-1 rounded-lg text-2xl text-center" 
-                rows={3} placeholder="Write your question here..." value={props.value} onChange={props.onChange}>
-            </textarea>
+        <div className="flex items-center justify-center border-2 border-gray-200 rounded-lg h-24 overflow-auto drop-shadow-lg">
+            <div contentEditable="true" className="margin-auto text-2xl text-center flex-grow outline-none"></div>
         </div>
     )
 }
