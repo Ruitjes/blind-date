@@ -12,6 +12,14 @@ services:
             - Auth0Settings__Authority=${AUTH0_AUTHORITY}
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
 
+    answer-service:
+        image: ${DOCKER_REGISTRY-}answerservice
+        container_name: answer-service
+        build:
+            context: ./back-end/answer-service/
+        environment:
+            - SPRING_MONGODB_URI=${DB_URL_ANSWER}
+
     search-service:
         image: ${DOCKER_REGISTRY-}searchservice
         container_name: search-service

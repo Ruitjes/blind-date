@@ -7,7 +7,9 @@ import { useUser } from '@auth0/nextjs-auth0';
 const Feed = () => {
     const { user, error, isLoading } = useUser();
     const [CurrentQuestion,SetCurrentQuestion] = useState(null);
+    const [CurrentQuestionID,SetCurrentQuestionID] = useState(null);
     const [OutOfQuestions,SetOutOfQuestions]= useState<boolean>(false);
+    const [AnswerText,SetAnswerText] = useState("");
 
     useEffect(() => {
         // Fetch questions and set state
@@ -17,6 +19,7 @@ const Feed = () => {
 
     const ProgressBookmark = () => {   
         axios.get(`api/progressUserBookmark/${user!.sub}`).then((res: any) => {
+            SetAnswerText("");
             getQuestion();
         }).catch((err) => {console.log(err);});
     };
@@ -24,7 +27,16 @@ const Feed = () => {
     const getQuestion = () => {
         axios.get(`api/getQuestionForUser/${user!.sub}`).then((res: any) => {
             SetCurrentQuestion(res.data.content);
+            SetCurrentQuestionID(res.data.id);
             if(res.data.content == "") {SetOutOfQuestions(true);}
+        }).catch((err) => {console.log(err);});
+    };
+
+    const answerQuestion = () => {
+        const data = {id: null, content: AnswerText, questionId: CurrentQuestionID, userProfile: { userId: user!.sub, gender: "", age:99 } };
+        axios.post("/api/answerQuestion", data).then((res: any) => {
+            SetAnswerText("");
+            ProgressBookmark();
         }).catch((err) => {console.log(err);});
     };
 
@@ -40,7 +52,7 @@ const Feed = () => {
                     </div>
 
                     <div className='flex flex-col flex-grow'>
-                        <textarea aria-label="Type your answer here" aria-required="true" className="flex flex-grow resize-none rounded-lg p-2"/>
+                        <textarea disabled={!OutOfQuestions} aria-label="Type your answer here" aria-required="true" className="flex flex-grow resize-none rounded-lg p-2"/>
 
                         
                     </div>
@@ -48,7 +60,7 @@ const Feed = () => {
                     <div className="flex flex-col">
                         <div className='flex pt-4 max-w-sm justify-between'>
                             <Button ariaLabel="Skip the question"  icon="xmark" color="lightcoral" onClick={!OutOfQuestions ? ProgressBookmark : () => {}} />
-                            <Button ariaLabel="Reply the question"  icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => {}}  />
+                            <Button ariaLabel="Reply the question"  icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? answerQuestion : () => {}}  />
                         </div>
                     </div>
                 </div>
