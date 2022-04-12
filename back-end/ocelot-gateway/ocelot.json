@@ -1,42 +1,54 @@
 {
-    "Routes": [
-        {
-        "DownstreamPathTemplate": "/{everything}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-            {
-                "Host": "question-service",
-                "Port": 80
-            }
-        ],
-        "UpstreamPathTemplate": "/question-service/{everything}",
-        "SwaggerKey": "question-service"
-        },
-      {
-        "DownstreamPathTemplate": "/{everything}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "search-service",
-            "Port": 80
-          }
-        ],
-        "UpstreamPathTemplate": "/search-service/{everything}",
-        "SwaggerKey": "search-service"
-      },
-      {
-        "DownstreamPathTemplate": "/{everything}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "upload-service",
-            "Port": 80
-          }
-        ],
-        "UpstreamPathTemplate": "/upload-service/{everything}",
-        "SwaggerKey": "upload-service"
-      },
-      {
+	"Routes": [
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "question-service",
+					"Port": 80
+				}
+			],
+			"UpstreamPathTemplate": "/question-service/{everything}",
+			"SwaggerKey": "question-service"
+		},
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "search-service",
+					"Port": 80
+				}
+			],
+			"UpstreamPathTemplate": "/search-service/{everything}",
+			"SwaggerKey": "search-service"
+		},
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "upload-service",
+					"Port": 80
+				}
+			],
+			"UpstreamPathTemplate": "/upload-service/{everything}",
+			"SwaggerKey": "upload-service"
+		},
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "report-service",
+					"Port": 80
+				}
+			],
+			"UpstreamPathTemplate": "/report-service/{everything}",
+			"SwaggerKey": "report-service"
+		},
+    {
         "DownstreamPathTemplate": "/{everything}",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
@@ -47,39 +59,49 @@
         ],
         "UpstreamPathTemplate": "/profile-service/{everything}",
         "SwaggerKey": "profile-service"
-      }
-    ],
-  "SwaggerEndPoints": [
-    {
-      "Key": "question-service",
-      "Config": [
-        {
-          "Name": "question API",
-          "Version": "v1",
-          "Url": "http://question-service/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "search-service",
-      "Config": [
-        {
-          "Name": "search API",
-          "Version": "v1",
-          "Url": "http://search-service/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "upload-service",
-      "Config": [
-        {
-          "Name": "Upload API",
-          "Version": "v1",
-          "Url": "http://upload-service/swagger/v1/swagger.json"
-        }
-      ]
-    },
+     }
+	],
+	"SwaggerEndPoints": [
+		{
+			"Key": "question-service",
+			"Config": [
+				{
+					"Name": "question API",
+					"Version": "v1",
+					"Url": "http://question-service/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "search-service",
+			"Config": [
+				{
+					"Name": "search API",
+					"Version": "v1",
+					"Url": "http://search-service/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "upload-service",
+			"Config": [
+				{
+					"Name": "Upload API",
+					"Version": "v1",
+					"Url": "http://upload-service/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "report-service",
+			"Config": [
+				{
+					"Name": "Report API",
+					"Version": "v1",
+					"Url": "http://report-service/swagger/v1/swagger.json"
+				}
+			]
+		},
     {
       "Key": "profile-service",
       "Config": [
@@ -90,8 +112,8 @@
         }
       ]
     }
-  ],
-    "GlobalConfiguration": {
-        "BaseUrl": "ocelot-gateway"
-    }
-  }
+	],
+	"GlobalConfiguration": {
+		"BaseUrl": "ocelot-gateway"
+	}
+}

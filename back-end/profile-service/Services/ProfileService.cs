@@ -1,4 +1,4 @@
-﻿using System;
+﻿using profile_service.Configurations;
 using profile_service.Interfaces;
 using profile_service.Models;
 using MongoDB.Bson;
@@ -14,8 +14,8 @@ namespace question_service.Services
         public ProfileService(IMongoDbSettings settings, IHttpContextAccessor httpContext)
         {
             var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DbName);
-            _profiles = database.GetCollection<Profile>(settings.ProfileCollectionName);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _profiles = database.GetCollection<Profile>("Profile");
             _httpContext = httpContext;
         }
 
