@@ -15,8 +15,8 @@ namespace upload_service.Services
         {
             _settings = settings;
             _client = new AmazonS3Client(
-                settings.AccessKey,
-                settings.SecretKey,
+                _settings.AccessKey,
+                _settings.SecretKey,
                 RegionEndpoint.EUCentral1
             );
         }

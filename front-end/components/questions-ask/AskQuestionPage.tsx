@@ -4,9 +4,13 @@ import AskQuestionEditBox from "./AskQuestionEditBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import axios from "axios";
+import { useUser } from '@auth0/nextjs-auth0';
+import { useRouter } from "next/router";
 
 const AskQuestionPage = () => {
-
+    const { user, error, isLoading } = useUser();
+    const router = useRouter();
+    
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
@@ -21,13 +25,23 @@ const AskQuestionPage = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (text && file) {
+
             const formData = new FormData();
             formData.append("file", file);
-    
-            axios.post("/api/uploadFile", formData, { method: 'POST'}).then((res: any) => {
-                console.log('file uploaded');
-            }).catch((err) => {console.log(err);});
-            
+
+            axios.get('api/getAccessToken').then((token: any) => {
+                axios.post('https://localhost:7000/upload-service/Upload', formData, {
+                    headers: {
+                      Authorization: `Bearer ${token.data}`
+                    }
+                }).then(() => {
+                    axios.post('https://localhost:7000/question-service/Question/AskQuestion', {
+                        id: null, content: text, addedOn: null, userIdentifier: user!.sub
+                    }).then(() => {
+                        router.push('/')
+                    })
+                })
+            });
         }
     }
 

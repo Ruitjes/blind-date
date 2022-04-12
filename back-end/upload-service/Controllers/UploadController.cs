@@ -9,7 +9,7 @@ using upload_service.Interfaces;
 
 namespace upload_service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UploadController : Controller
     {
         private readonly IUploadService _uploadService;
