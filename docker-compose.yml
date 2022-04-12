@@ -6,12 +6,10 @@ services:
         build:
             context: ./back-end/question-service/
         environment:
-            - MongoDbConnectionString=${DB_URL}
-            - MongoDbName=question
-            - MongoDbQuestionCollectionName=Question
-            - MongoDbBookmarkCollectionName=Bookmark
-            - Auth0Domain=${Auth0Domain}
-            - Auth0Audience=${Auth0Audience}
+            - MongoDbSettings__ConnectionString=${DB_URL} 
+            - MongoDbSettings__DatabaseName=question
+            - Auth0Settings__Authority=${AUTH0_AUTHORITY}
+            - Auth0Settings__Audience=${AUTH0_AUDIENCE}
         depends_on:
             - questiondb
 
@@ -92,14 +90,14 @@ services:
             context: ./admin/
         ports:
             - '3001:80'
-
-  profile-service:
-    image: ${DOCKER_REGISTRY-}profileservice
-    build:
-      context: ./back-end/profile-service/
-    environment:
-        - MongoDbConnectionString=${DB_URL}
-        - MongoDbName=profile
-        - MongoDbProfileCollectionName=Profile
-    depends_on:
-        - questiondb
+    profile-service:
+      image: ${DOCKER_REGISTRY-}profileservice
+      build:
+        context: ./back-end/profile-service/
+      environment:
+          - MongoDbSettings__ConnectionString=${DB_URL} 
+          - MongoDbSettings__DatabaseName=question
+          - Auth0Settings__Authority=${AUTH0_AUTHORITY}
+          - Auth0Settings__Audience=${AUTH0_AUDIENCE}
+      depends_on:
+          - questiondb
