@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
+import Loading from "../Loading";
 
 const AskQuestionPage = () => {
     const { user } = useUser();
@@ -127,6 +128,13 @@ const AskQuestionPage = () => {
                     </form>
                 </div>
             </div>
+
+            {loading && (
+                <div className="absolute flex justify-center items-center inset-0 bg-black/50">
+                    <Loading />
+                </div>
+            )}
+
         </div>
     );
 }
