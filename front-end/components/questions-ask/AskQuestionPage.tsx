@@ -66,7 +66,7 @@ const AskQuestionPage = () => {
 
                         <div className="flex flex-col py-1">
                             <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
-                                <FontAwesomeIcon className="p-2" fixedWidth size="6x" icon={['fas', 'question-circle']} />
+                                <FontAwesomeIcon className="p-2" fixedWidth size="6x" color="#333" icon={['fas', 'question-circle']} />
                                 <Header center text="Create a question" />
                             </div>
                         </div>
@@ -90,8 +90,10 @@ const AskQuestionPage = () => {
 
                                     <div className="flex flex-col relative">
                                         <FontAwesomeIcon
-                                            fixedWidth size="2x"
+                                            size="2x"
+                                            color="#333"
                                             icon={['fas', 'image']}
+                                            fixedWidth
                                         />
 
                                         {file && (
