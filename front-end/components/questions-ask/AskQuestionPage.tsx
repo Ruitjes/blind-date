@@ -120,7 +120,7 @@ const AskQuestionPage = () => {
                         </div>
 
                         <div className="flex flex-col flex-grow justify-end">
-                            <button type="submit" className="flex flex-col info-card p-4 drop-shadow-lg">
+                            <button type="submit" className="info-card p-4 drop-shadow-lg">
                                 <Header center text="Share" />
                             </button>
                         </div>
