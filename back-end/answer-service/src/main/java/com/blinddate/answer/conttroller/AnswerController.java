@@ -27,12 +27,6 @@ public class AnswerController {
         return answerService.getAnswer(id);
     }
 
-    @GetMapping
-    public Iterable<Answer> getAllAnswers() {
-        log.info("Getting all answers");
-        return answerService.getAllAnswers();
-    }
-
     @PutMapping("/{id}")
     public void updateAnswer(@PathVariable String id, @RequestBody AnswerUpdatingRequest request) {
         log.info("Updating answer with id: {}", id);
