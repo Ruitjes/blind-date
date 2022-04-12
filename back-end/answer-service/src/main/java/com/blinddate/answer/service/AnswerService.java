@@ -40,11 +40,6 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    // Fetch all answers
-    public Iterable<Answer> getAllAnswers() {
-        return answerRepository.findAll();
-    }
-
     // Fetch answers by UserId
     public Iterable<Answer> getAnswersByUserId(String userId) {
         return answerRepository.findAllByUserProfileUserId(userId);
