@@ -59,9 +59,9 @@ services:
         build:
             context: ./back-end/upload-service
         environment:
-            ACCESS_KEY: ${ACCESS_KEY}
-            SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
-            BUCKET_NAME: ${BUCKET_NAME}
+            AmazonS3Settings__AccessKey: ${ACCESS_KEY}
+            AmazonS3Settings__SecretKey: ${SECRET_ACCESS_KEY}
+            AmazonS3Settings__BucketName: ${BUCKET_NAME}
 
     profile-service:
       image: ${DOCKER_REGISTRY-}profileservice
