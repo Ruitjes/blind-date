@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using question_service.Classes;
 using question_service.Configurations;
 using question_service.Interfaces;
 using question_service.Services;
@@ -21,7 +22,10 @@ namespace question_service
             ConfigureSwaggerServices(services);
             ConfigureDatabaseServices(services);
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.Converters.Add(new ObjectIdConverter());
+            });
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
