@@ -33,7 +33,6 @@ const Feed = () => {
     };
 
     const answerQuestion = () => {
-        //  const data = {id: null, content: AnswerText, questionId: CurrentQuestionID, userProfile: { userId: user!.sub, gender: "", age:99 } };
         const data = {
             "userProfile": {
                 "userId": user!.sub?.toString(),
@@ -43,6 +42,7 @@ const Feed = () => {
             "content": AnswerText,
             "questionId": CurrentQuestionID?.toString()
         };
+        
         axios.post("/api/answerQuestion", data).then((res: any) => {
             SetAnswerText("");
             ProgressBookmark();
