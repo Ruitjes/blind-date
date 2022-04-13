@@ -90,7 +90,7 @@
 				{
 					"Name": "answer API",
 					"Version": "v1",
-					"Url": "http://answer-service/swagger-ui/index.html"
+					"Url": "http://answer-service/v3/api-docs"
 				}
 			]
 		},

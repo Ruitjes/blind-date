@@ -8,7 +8,7 @@ services:
             context: ./back-end/question-service/
         environment:
             - MongoDbSettings__DatabaseName=question
-            - MongoDbSettings__ConnectionString=${QUESTION_SERVICE_CONNECTION_STRING}
+            - MongoDbSettings__ConnectionString=${DB_URL_QUESTION}
             - Auth0Settings__Authority=${AUTH0_AUTHORITY}
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
 
@@ -19,6 +19,8 @@ services:
             context: ./back-end/answer-service/
         environment:
             - SPRING_MONGODB_URI=${DB_URL_ANSWER}
+        ports:
+        - 9092:9092
 
     search-service:
         image: ${DOCKER_REGISTRY-}searchservice
@@ -70,6 +72,6 @@ services:
         context: ./back-end/profile-service/
       environment:
           - MongoDbSettings__DatabaseName=profile
-          - MongoDbSettings__ConnectionString=${PROFILE_SERVICE_CONNECTION_STRING}
+          - MongoDbSettings__ConnectionString=${DB_URL_PROFILE}
           - Auth0Settings__Authority=${AUTH0_AUTHORITY}
           - Auth0Settings__Audience=${AUTH0_AUDIENCE}
