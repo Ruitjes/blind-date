@@ -7,7 +7,7 @@ services:
         build:
             context: ./back-end/question-service/
         environment:
-            - MongoDbSettings__DatabaseName=question
+            - MongoDbSettings__DatabaseName=QuestionDB
             - MongoDbSettings__ConnectionString=${DB_URL_QUESTION}
             - Auth0Settings__Authority=${AUTH0_AUTHORITY}
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
@@ -71,7 +71,7 @@ services:
       build:
         context: ./back-end/profile-service/
       environment:
-          - MongoDbSettings__DatabaseName=profile
+          - MongoDbSettings__DatabaseName=ProfileDB
           - MongoDbSettings__ConnectionString=${DB_URL_PROFILE}
           - Auth0Settings__Authority=${AUTH0_AUTHORITY}
           - Auth0Settings__Audience=${AUTH0_AUDIENCE}
