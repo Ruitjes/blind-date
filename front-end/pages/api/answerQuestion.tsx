@@ -10,6 +10,7 @@ export default async function answerquestion(req: NextApiRequest, res: NextApiRe
     await http.httptoken(accessToken).post(`/answer-service/answers`, req.body).then((api_res: any) => {
       res.status(200).json(api_res.data);
     }).catch((err) => {
+      console.log(err);
       res.status(err?.status || 404).end(err.message);
     });
 
