@@ -1,9 +1,10 @@
 import { NextPage } from "next";
 import Ask from "../components/Ask";
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import AskQuestionPage from "../components/questions-ask/AskQuestionPage";
 
 const AskPage: NextPage = () => {
-    return <Ask />
+    return <AskQuestionPage />
 }
 
 export default withPageAuthRequired(AskPage);
