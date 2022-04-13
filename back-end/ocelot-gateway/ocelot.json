@@ -18,7 +18,7 @@
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "answer-service",
-					"Port": 80
+					"Port": 9092
 				}
 			],
 			"UpstreamPathTemplate": "/answer-service/{everything}",
@@ -90,7 +90,7 @@
 				{
 					"Name": "answer API",
 					"Version": "v1",
-					"Url": "http://answer-service/swagger/v1/swagger.json"
+					"Url": "http://answer-service/swagger-ui/index.html"
 				}
 			]
 		},
