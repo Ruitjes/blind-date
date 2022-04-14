@@ -9,9 +9,11 @@ public class Question
     [BsonRepresentation(BsonType.ObjectId)]
     public ObjectId? Id { get; set; }
 
-    public string Content { get; set; } = null!;
+    public string? Content { get; set; }
 
     public DateTime? AddedOn { get; set; }
 
     public string? UserIdentifier { get; set; }
+
+    public string? FileName { get; set; }
 }
