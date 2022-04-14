@@ -43,7 +43,7 @@ const AskQuestionPage = () => {
                     })
                 }
 
-                const question = { id: null, content: text, addedOn: null, userIdentifier: user!.sub }
+                const question = { id: null, content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name }
                 await axios.post('https://localhost:7000/question-service/question/askQuestion', question, {
                     headers: { Authorization: `Bearer ${access_token}` }
                 });
