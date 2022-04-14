@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import Button from "./Button";
-import Question from "./Question";
-import axios from "axios";
-import Image from 'next/image'
 import { useUser } from '@auth0/nextjs-auth0';
-import Header from "./Header";
-import Loading from "./Loading";
+import Question from "./Question";
+import Button from "./Button";
+import axios from "axios";
 
 const Feed = () => {
-    const { user, error, isLoading } = useUser();
+    const { user } = useUser();
     const [showFullImage, setShowFullImage] = useState<boolean>();
     const [OutOfQuestions, SetOutOfQuestions] = useState<boolean>();
     const [CurrentQuestion, SetCurrentQuestion] = useState<any>(null);
