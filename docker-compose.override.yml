@@ -38,7 +38,7 @@ services:
         - ASPNETCORE_URLS=http://+:80
       volumes:
         - ~/.aspnet/https:/root/.aspnet/https:ro
-        - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:r
+        - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
 
     ocelot-gateway:
         environment:

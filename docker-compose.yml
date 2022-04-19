@@ -66,11 +66,11 @@ services:
             AmazonS3Settings__BucketName: ${BUCKET_NAME}
 
     profile-service:
-      image: ${DOCKER_REGISTRY-}profileservice
-      container_name: profile-service
-      build:
-        context: ./back-end/profile-service/
-      environment:
+        image: ${DOCKER_REGISTRY-}profileservice
+        container_name: profile-service
+        build:
+            context: ./back-end/profile-service/
+        environment:
           - MongoDbSettings__DatabaseName=ProfileDB
           - MongoDbSettings__ConnectionString=${DB_URL_PROFILE}
           - Auth0Settings__Authority=${AUTH0_AUTHORITY}
