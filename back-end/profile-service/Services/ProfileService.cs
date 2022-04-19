@@ -41,7 +41,9 @@ namespace question_service.Services
         public async Task<string> UpdateAsync(ObjectId? id, Profile profile)
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,
-        Builders<Profile>.Update.Set(p => p.Interests, profile.Interests));
+            Builders<Profile>.Update.Set(p => p.Interests, profile.Interests)
+                                    .Set(p => p.Age, profile.Age)
+                                    .Set(p => p.Gender, profile.Gender));
             return "Profile updated!";
         }
 
