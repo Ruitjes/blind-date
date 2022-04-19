@@ -43,7 +43,8 @@ namespace question_service.Services
             await _profiles.UpdateOneAsync(x => x.Id == id,
             Builders<Profile>.Update.Set(p => p.Interests, profile.Interests)
                                     .Set(p => p.Age, profile.Age)
-                                    .Set(p => p.Gender, profile.Gender));
+                                    .Set(p => p.Gender, profile.Gender)
+                                    .Set(p => p.Name, profile.Name));
             return "Profile updated!";
         }
 
