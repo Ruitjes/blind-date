@@ -41,7 +41,10 @@ namespace question_service.Services
         public async Task<string> UpdateAsync(ObjectId? id, Profile profile)
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,
-        Builders<Profile>.Update.Set(p => p.interests, profile.interests));
+            Builders<Profile>.Update.Set(p => p.Interests, profile.Interests)
+                                    .Set(p => p.Age, profile.Age)
+                                    .Set(p => p.Gender, profile.Gender)
+                                    .Set(p => p.Name, profile.Name));
             return "Profile updated!";
         }
 
@@ -53,7 +56,7 @@ namespace question_service.Services
 
         public string GetUserByJWTToken()
         {
-            var userFromJWT = _httpContext.HttpContext.User;
+            var userFromJWT = _httpContext.HttpContext?.User;
             string userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
             return userIdentifier;
         }

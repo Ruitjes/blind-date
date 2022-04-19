@@ -11,6 +11,12 @@ namespace profile_service.Models
 
         public string? UserIdentifier { get; set; }
 
-        public List<string>? interests { get; set; }
+        public string? Name { get; set; }
+
+        public string? Gender { get; set; }
+
+        public int? Age { get; set; }
+
+        public List<string>? Interests { get; set; }
     }
 }
