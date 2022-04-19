@@ -17,16 +17,17 @@ dotnet dev-certs https -ep aspnetapp.pfx -p yourcertificatepasswordhere
 3. Create a .env file in root with the following
 
 ```bash
-CERTIFICATE_PASSWORD=yourcertificatepasswordhere
-DB_USER=yourdatabaseuser
-DB_PASSWORD=yourdatabasepassword
-DB_URL=mongodb://yourdatabaseuser:yourdatabasepassword@databaseservicename:27017/
-DB_URL_REPORT=mongodb://yourdatabaseuser:yourdatabasepassword@databaseservicename:27017/
-ACCESS_KEY=AKIA6L6USLIWFSHUW4M3
-SECRET_ACCESS_KEY=2w72sh9JNiIfJH1P4okJuphY2NNJhh1ddbomDsZ6
-BUCKET_NAME=seetrough
-Auth0Domain=ourauth0domain
-Auth0Audience=seethrough
+CERTIFICATE_PASSWORD=XXX
+
+QUESTION_SERVICE_CONNECTION_STRING=XXX
+PROFILE_SERVICE_CONNECTION_STRING=XXX
+
+Auth0Domain=XXX
+Auth0Audience=XXX
+
+ACCESS_KEY=XXX
+SECRET_ACCESS_KEY=XXX
+BUCKET_NAME=XXX
 ```
 
 4. Write the following in the usersecret.

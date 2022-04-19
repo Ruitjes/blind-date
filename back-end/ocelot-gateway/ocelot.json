@@ -17,6 +17,18 @@
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
+					"Host": "answer-service",
+					"Port": 9092
+				}
+			],
+			"UpstreamPathTemplate": "/answer-service/{everything}",
+			"SwaggerKey": "answer-service"
+		},
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
 					"Host": "search-service",
 					"Port": 80
 				}
@@ -69,6 +81,16 @@
 					"Name": "question API",
 					"Version": "v1",
 					"Url": "http://question-service/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "answer-service",
+			"Config": [
+				{
+					"Name": "answer API",
+					"Version": "v1",
+					"Url": "http://answer-service/v3/api-docs"
 				}
 			]
 		},

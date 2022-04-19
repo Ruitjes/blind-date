@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0';
 import Question from "./Question";
 import Button from "./Button";
@@ -9,7 +9,8 @@ const Feed = () => {
     const [showFullImage, setShowFullImage] = useState<boolean>();
     const [OutOfQuestions, SetOutOfQuestions] = useState<boolean>();
     const [CurrentQuestion, SetCurrentQuestion] = useState<any>(null);
-
+    const [AnswerText, SetAnswerText] = useState("");
+    
     useEffect(() => {
         // Fetch questions and set state
         document.title = "Answer the question"
@@ -18,6 +19,7 @@ const Feed = () => {
 
     const ProgressBookmark = () => {
         axios.get(`api/progressUserBookmark/${user!.sub}`).then((res: any) => {
+            SetAnswerText("");
             getQuestion();
         }).catch((err) => { console.log(err); });
     };
@@ -25,12 +27,33 @@ const Feed = () => {
     const getQuestion = () => {
         axios.get(`api/getQuestionForUser/${user!.sub}`).then((res: any) => {
             SetCurrentQuestion(res.data);
-            if (res.data.content == "") { SetOutOfQuestions(true); }
+            if (res.data.content == "" || res.data.content == null) { SetOutOfQuestions(true); } else { SetOutOfQuestions(false); }
+        }).catch((err) => { console.log(err); });
+    };
+
+    const answerQuestion = () => {
+        const data = {
+            "userProfile": {
+                "userId": user!.sub?.toString(),
+                "gender": "other",
+                "age": "99"
+            },
+            "content": AnswerText,
+            "questionId": CurrentQuestion.id?.toString()
+        };
+        
+        axios.post("/api/answerQuestion", data).then((res: any) => {
+            SetAnswerText("");
+            ProgressBookmark();
         }).catch((err) => { console.log(err); });
     };
 
     const handleImageToggle = () => {
         setShowFullImage(!showFullImage);
+    }
+
+    const handleAnswerTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        SetAnswerText(e.target.value);
     }
 
     return (
@@ -57,6 +80,8 @@ const Feed = () => {
                             )}
 
                             <textarea 
+                                value={AnswerText}
+                                onChange={handleAnswerTextChanged}
                                 className="flex flex-grow resize-none rounded-lg text-2xl outline-none p-4"
                                 placeholder="Write something..." 
                                 aria-label="Type your answer here" 
@@ -67,7 +92,7 @@ const Feed = () => {
                     <div className="flex flex-col">
                         <div className='flex pt-4 mx-4 max-w-sm justify-between'>
                             <Button ariaLabel="Skip the question" icon="xmark" color="lightcoral" onClick={!OutOfQuestions ? ProgressBookmark : () => { }} />
-                            <Button ariaLabel="Reply the question" icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? ProgressBookmark : () => { }} />
+                            <Button ariaLabel="Reply the question" icon="reply" color="lightsteelblue" onClick={!OutOfQuestions ? answerQuestion : () => { }} />
                         </div>
                     </div>
                 </div>
