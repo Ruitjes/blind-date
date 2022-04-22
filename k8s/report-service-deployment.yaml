@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: report-service
+  name: report-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: report-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o ./k8s
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: report-service
+    spec:
+      containers:
+        - env:
+            - name: DbConnectionString
+            - name: DbName
+              value: report
+            - name: DbReportCollectionName
+              value: Report
+          image: reportservice
+          imagePullPolicy: Never
+          name: report-service
+          resources: {}
+      restartPolicy: Always
+status: {}

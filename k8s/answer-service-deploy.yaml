@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: answer-service
+  name: answer-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: answer-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o ./k8s
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: answer-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_MONGODB_URI
+          image: answerservice
+          imagePullPolicy: Never
+          name: answer-service
+          ports:
+            - containerPort: 9092
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: answer-service
+  name: answer-service
+spec:
+  ports:
+    - name: "9092"
+      port: 9092
+      targetPort: 9092
+  selector:
+    io.kompose.service: answer-service
+status:
+  loadBalancer: {}
+

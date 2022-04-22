@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: search-service
+  name: search-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: search-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o ./k8s
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: search-service
+    spec:
+      containers:
+        - image: searchservice
+          imagePullPolicy: Never
+          name: search-service
+          resources: {}
+      restartPolicy: Always
+status: {}

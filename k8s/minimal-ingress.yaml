@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-answerservice
+spec:
+  rules:
+  -  http:
+      paths:
+      - path: /answer-service
+        pathType: Prefix
+        backend:
+          service:
+            name: answer-service
+            port:
+              number: 9092
+  ingressClassName: nginx

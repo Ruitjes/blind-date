@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o ./k8s
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: question-service
+  name: question-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: question-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o ./k8s
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: question-service
+    spec:
+      containers:
+        - env:
+            - name: Auth0Settings__Audience
+            - name: Auth0Settings__Authority
+            - name: MongoDbSettings__ConnectionString
+            - name: MongoDbSettings__DatabaseName
+              value: QuestionDB
+          image: questionservice
+          imagePullPolicy: Never
+          name: question-service
+          resources: {}
+      restartPolicy: Always
+status: {}
