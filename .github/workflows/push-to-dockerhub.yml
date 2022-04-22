@@ -20,6 +20,43 @@ jobs:
         run: |
           cd back-end/ocelot-gateway
           docker build . -t seethrough2022/ocelotgateway:1.0.0
+
+      - name: docker build answerservice
+        run: |
+          cd back-end/answer-serivce
+          docker build . -t seethrough2022/answerservice:1.0.0
+  
+      - name: docker build profileservice
+        run: |
+          cd back-end/profile-serivce
+          docker build . -t seethrough2022/profileservice:1.0.0
+          
+      - name: docker build questionservice
+        run: |
+          cd back-end/question-service
+          docker build . -t seethrough2022/questionservice:1.0.0
+
+      - name: docker build reportservice
+        run: |
+          cd back-end/report-serivce
+          docker build . -t seethrough2022/reportservice:1.0.0
+  
+      - name: docker build searchservice
+        run: |
+          cd back-end/search-serivce
+          docker build . -t seethrough2022/searchservice:1.0.0
+          
+      - name: docker build uploadservice
+        run: |
+          cd back-end/upload-serivce
+          docker build . -t seethrough2022/uploadservice:1.0.0
+          
       - name: docker push
         run: |
           docker push seethrough2022/ocelotgateway:1.0.0
+          docker push seethrough2022/answerservice:1.0.0
+          docker push seethrough2022/profileservice:1.0.0
+          docker push seethrough2022/questionservice:1.0.0
+          docker push seethrough2022/reportservice:1.0.0
+          docker push seethrough2022/searchservice:1.0.0
+          docker push seethrough2022/uploadservice:1.0.0
