@@ -24,7 +24,7 @@ spec:
         io.kompose.service: search-service
     spec:
       containers:
-        - image: searchservice
+        - image: seethrough2022/searchservice:latest
           imagePullPolicy: Never
           name: search-service
           resources: {}

@@ -28,7 +28,7 @@ spec:
             - name: AmazonS3Settings__AccessKey
             - name: AmazonS3Settings__BucketName
             - name: AmazonS3Settings__SecretKey
-          image: uploadservice
+          image: seethrough2022/uploadservice:latest
           imagePullPolicy: Never
           name: upload-service
           resources: {}

@@ -30,7 +30,7 @@ spec:
               value: report
             - name: DbReportCollectionName
               value: Report
-          image: reportservice
+          image: seethrough2022/reportservice:latest
           imagePullPolicy: Never
           name: report-service
           resources: {}

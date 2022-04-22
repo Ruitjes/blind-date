@@ -26,7 +26,7 @@ spec:
       containers:
         - env:
             - name: SPRING_MONGODB_URI
-          image: answerservice
+          image: seethrough2022/answerservice:latest
           imagePullPolicy: Never
           name: answer-service
           ports:

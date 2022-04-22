@@ -30,7 +30,7 @@ spec:
             - name: MongoDbSettings__ConnectionString
             - name: MongoDbSettings__DatabaseName
               value: QuestionDB
-          image: questionservice
+          image: seethrough2022/questionservice:latest
           imagePullPolicy: Never
           name: question-service
           resources: {}
