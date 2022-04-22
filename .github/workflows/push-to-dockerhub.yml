@@ -3,7 +3,10 @@ name: Docker Build And Push
 on:
   pull_request:     
     branches: 
-      - main 
+      - main
+    # Run only on changes on these files
+    paths:
+      - 'back-end/**'
       
 jobs:
   build:
