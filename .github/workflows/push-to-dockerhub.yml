@@ -3,9 +3,7 @@ name: Docker Build And Push
 on:
   pull_request:     
     branches: 
-      - main
-    paths:
-      - back-end/**      
+      - main 
       
 jobs:
   build:
