@@ -22,6 +22,10 @@ export class UserMetadataComponent implements OnInit {
   constructor(public auth: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser() {
     this.auth.user$
     .pipe(
       concatMap((user) =>
