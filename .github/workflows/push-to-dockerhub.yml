@@ -28,7 +28,7 @@ jobs:
   
       - name: docker build profileservice
         run: |
-          cd back-end/profile-serivce
+          cd back-end/profile-service
           docker build . -t seethrough2022/profileservice:1.0.0
           
       - name: docker build questionservice
@@ -38,17 +38,17 @@ jobs:
 
       - name: docker build reportservice
         run: |
-          cd back-end/report-serivce
+          cd back-end/report-service
           docker build . -t seethrough2022/reportservice:1.0.0
   
       - name: docker build searchservice
         run: |
-          cd back-end/search-serivce
+          cd back-end/search-service
           docker build . -t seethrough2022/searchservice:1.0.0
           
       - name: docker build uploadservice
         run: |
-          cd back-end/upload-serivce
+          cd back-end/upload-service
           docker build . -t seethrough2022/uploadservice:1.0.0
           
       - name: docker push
