@@ -23,7 +23,7 @@ jobs:
 
       - name: docker build answerservice
         run: |
-          cd back-end/answer-serivce
+          cd back-end/answer-service
           docker build . -t seethrough2022/answerservice:1.0.0
   
       - name: docker build profileservice
