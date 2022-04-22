@@ -1,7 +1,7 @@
 name: Docker Build And Push
 
 on:
-  pull_request:     
+  push:     
     branches: 
       - main
     # Run only on changes on these files
@@ -22,44 +22,44 @@ jobs:
       - name: docker build ocelotgateway
         run: |
           cd back-end/ocelot-gateway
-          docker build . -t seethrough2022/ocelotgateway:1.0.0
+          docker build . -t seethrough2022/ocelotgateway:latest
 
       - name: docker build answerservice
         run: |
           cd back-end/answer-service
-          docker build . -t seethrough2022/answerservice:1.0.0
+          docker build . -t seethrough2022/answerservice:latest
   
       - name: docker build profileservice
         run: |
           cd back-end/profile-service
-          docker build . -t seethrough2022/profileservice:1.0.0
+          docker build . -t seethrough2022/profileservice:latest
           
       - name: docker build questionservice
         run: |
           cd back-end/question-service
-          docker build . -t seethrough2022/questionservice:1.0.0
+          docker build . -t seethrough2022/questionservice:latest
 
       - name: docker build reportservice
         run: |
           cd back-end/report-service
-          docker build . -t seethrough2022/reportservice:1.0.0
+          docker build . -t seethrough2022/reportservice:latest
   
       - name: docker build searchservice
         run: |
           cd back-end/search-service
-          docker build . -t seethrough2022/searchservice:1.0.0
+          docker build . -t seethrough2022/searchservice:latest
           
       - name: docker build uploadservice
         run: |
           cd back-end/upload-service
-          docker build . -t seethrough2022/uploadservice:1.0.0
+          docker build . -t seethrough2022/uploadservice:latest
           
       - name: docker push
         run: |
-          docker push seethrough2022/ocelotgateway:1.0.0
-          docker push seethrough2022/answerservice:1.0.0
-          docker push seethrough2022/profileservice:1.0.0
-          docker push seethrough2022/questionservice:1.0.0
-          docker push seethrough2022/reportservice:1.0.0
-          docker push seethrough2022/searchservice:1.0.0
-          docker push seethrough2022/uploadservice:1.0.0
+          docker push seethrough2022/ocelotgateway:latest
+          docker push seethrough2022/answerservice:latest
+          docker push seethrough2022/profileservice:latest
+          docker push seethrough2022/questionservice:latest
+          docker push seethrough2022/reportservice:latest
+          docker push seethrough2022/searchservice:latest
+          docker push seethrough2022/uploadservice:latest
