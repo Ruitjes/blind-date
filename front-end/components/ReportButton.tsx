@@ -14,14 +14,12 @@ const ReportButton = (props: Props) => {
 		<button
 			className={'' + props.className}
 			onClick={props.onClick}
-			aria-label={props.ariaLabel}
-		>
+			aria-label={props.ariaLabel}>
 			<FontAwesomeIcon
 				fixedWidth
 				size="2x"
 				color={props.color}
-				icon={['fas', props.icon]}
-			/>
+				icon={['fas', props.icon]} />
 		</button>
 	);
 };

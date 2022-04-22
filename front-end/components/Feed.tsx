@@ -129,8 +129,7 @@ const Feed = () => {
 									CurrentQuestion?.content ??
 									'No questions, come back at a later time.'
 								}
-								onReportClick={reportQuestion}
-							/>
+								onReportClick={reportQuestion} />
 						</div>
 					</div>
 
@@ -142,8 +141,7 @@ const Feed = () => {
 									height={48}
 									onClick={handleImageToggle}
 									className="absolute right-2 bottom-2 rounded-lg"
-									src={`https://seetrough.s3.eu-central-1.amazonaws.com/${CurrentQuestion.fileName}`}
-								/>
+									src={`https://seetrough.s3.eu-central-1.amazonaws.com/${CurrentQuestion.fileName}`} />
 							)}
 
 							<textarea
@@ -152,8 +150,7 @@ const Feed = () => {
 								className="flex flex-grow resize-none rounded-lg text-2xl outline-none p-4"
 								placeholder="Write something..."
 								aria-label="Type your answer here"
-								aria-required="true"
-							/>
+								aria-required="true" />
 						</div>
 					</div>
 
@@ -166,17 +163,15 @@ const Feed = () => {
 								onClick={
 									!OutOfQuestions
 										? ProgressBookmark
-										: () => {}
-								}
-							/>
+										: () => { }
+								} />
 							<Button
 								ariaLabel="Reply the question"
 								icon="reply"
 								color="lightsteelblue"
 								onClick={
-									!OutOfQuestions ? answerQuestion : () => {}
-								}
-							/>
+									!OutOfQuestions ? answerQuestion : () => { }
+								} />
 						</div>
 					</div>
 				</div>
@@ -186,8 +181,7 @@ const Feed = () => {
 					<Banner
 						message={reportResultMessage}
 						additionalInfo={reportResultInfo}
-						onCloseClick={onBannerClose}
-					/>
+						onCloseClick={onBannerClose} />
 				)}
 			</div>
 
@@ -199,8 +193,7 @@ const Feed = () => {
 					<img
 						alt="question-image"
 						className="flex-grow p-4 w-full max-w-lg"
-						src={`https://seetrough.s3.eu-central-1.amazonaws.com/${CurrentQuestion.fileName}`}
-					/>
+						src={`https://seetrough.s3.eu-central-1.amazonaws.com/${CurrentQuestion.fileName}`} />
 				</div>
 			)}
 		</div>
