@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../Header";
 import MyQuestion from "./MyQuestion";
+import Loading from "../Loading";
 
 const MyQuestionsPage = () => {
 
@@ -15,6 +16,7 @@ const MyQuestionsPage = () => {
     useEffect(() => {
 
         const fetchQuestionsByUser = () => {
+
             axios.post(`/api/getQuestionByUser/${user!.sub}`)
                 .then((response) => setData(response.data))
                 .catch((error) => setError(error))
@@ -24,15 +26,8 @@ const MyQuestionsPage = () => {
         fetchQuestionsByUser();
     }, [user]);
 
-    if (loading) {
-        return <h1>Loading...</h1>
-    } else if (error) {
-        return <h1>{error.message}</h1>
-    }
-
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
-
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
                 <div className="flex flex-col flex-grow w-full max-w-sm">
 
@@ -43,7 +38,7 @@ const MyQuestionsPage = () => {
                     </div>
 
                     {
-                        data.map((question: any, index: number) => (
+                        data && data.map((question: any, index: number) => (
                             <div key={index} className="flex flex-col py-1">
                                 <div className="flex flex-row info-card items-center drop-shadow-lg">
                                     <MyQuestion question={question}/>
@@ -54,6 +49,19 @@ const MyQuestionsPage = () => {
 
                 </div>
             </div>
+
+            {loading && (
+                <div className="absolute flex justify-center items-center inset-0 bg-black/50">
+                    <Loading />
+                </div>
+            )}
+
+            { error && (
+                <div className="absolute flex justify-center items-center inset-0 bg-black/50">
+                    <h1 className="text-white">{error.message}</h1>
+                </div>
+            )}
+
         </div>
     )
 }
