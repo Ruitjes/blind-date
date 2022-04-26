@@ -60,18 +60,18 @@
 			"UpstreamPathTemplate": "/report-service/{everything}",
 			"SwaggerKey": "report-service"
 		},
-    {
-        "DownstreamPathTemplate": "/{everything}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "profile-service",
-            "Port": 80
-          }
-        ],
-        "UpstreamPathTemplate": "/profile-service/{everything}",
-        "SwaggerKey": "profile-service"
-     }
+		{
+			"DownstreamPathTemplate": "/{everything}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "profile-service",
+					"Port": 80
+				}
+			],
+			"UpstreamPathTemplate": "/profile-service/{everything}",
+			"SwaggerKey": "profile-service"
+		}
 	],
 	"SwaggerEndPoints": [
 		{
@@ -124,16 +124,16 @@
 				}
 			]
 		},
-    {
-      "Key": "profile-service",
-      "Config": [
-        {
-          "Name": "profile API",
-          "Version": "v1",
-          "Url": "http://profile-service/swagger/v1/swagger.json"
-        }
-      ]
-    }
+		{
+			"Key": "profile-service",
+			"Config": [
+				{
+					"Name": "profile API",
+					"Version": "v1",
+					"Url": "http://profile-service/swagger/v1/swagger.json"
+				}
+			]
+		}
 	],
 	"GlobalConfiguration": {
 		"BaseUrl": "ocelot-gateway"

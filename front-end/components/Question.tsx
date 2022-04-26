@@ -1,17 +1,18 @@
-import Loading from "./Loading";
+import Loading from './Loading';
+import ReportButton from './ReportButton';
 
 type Props = {
     text: string;
     loading?: boolean;
-}
+	onReportClick?: VoidFunction;
+};
 
 const Question = (props: Props) => {
     return (
         <div className="flex flex-col">
-            <div className="info-card layer-2 -m-4 p-4 drop-shadow-lg">
-                <div className="info-card layer-1 -m-4 p-4 py-6 drop-shadow-lg">
-                    <div className="info-card -m-4 p-4 py-6 drop-shadow-lg">
-
+			<div className="info-card layer-2 -m-4 p-4 drop-shadow-lg">
+				<div className="info-card layer-1 -m-4 p-4 py-6 drop-shadow-lg">
+					<div className="flex flex-col info-card -m-4 p-4 py-6 drop-shadow-lg">
                         { props.loading ? (
                             <div className="flex flex-grow justify-center">
                                 <Loading />
@@ -21,11 +22,23 @@ const Question = (props: Props) => {
                                 {props.text}
                             </h1>
                         )}
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+
+						{props.onReportClick && (
+							<div className="self-end">
+								<ReportButton
+									ariaLabel="Report the question"
+									icon="circle-exclamation"
+									color="indianred"
+									className="report-button"
+									onClick={props.onReportClick}
+								/>
+							</div>
+						)}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 export default Question;
