@@ -29,6 +29,12 @@ public class QuestionController : Controller
         return await _questionService.GetByIdAsync(id);
     }
 
+    [HttpGet("GetQuestionsByUser/{userId}")]
+    public async Task<List<Question>> GetQuestionsByUser(string userId)
+    {
+        return await _questionService.GetQuestionsByUser(userId);
+    }
+
     [HttpPost("AskQuestion")]
     public async Task<Question> AskQuestion(Question newQuestion)
     {
