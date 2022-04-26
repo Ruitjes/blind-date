@@ -14,6 +14,9 @@ const Home: NextPage = () => {
   const navigateToAsk = () => {
     router.push('/ask');
   }
+  const navigateToProfile = () => {
+    router.push('/profile');
+  }
 
   return (
     <div className='bg-gray-700 flex flex-col h-full overflow-hidden'>
