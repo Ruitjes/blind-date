@@ -142,6 +142,7 @@ const Feed = () => {
 
 							<textarea
 								value={AnswerText}
+                                disabled={loading ? true : false}
 								onChange={handleAnswerTextChanged}
 								className="flex flex-grow resize-none rounded-lg text-2xl outline-none p-4"
 								placeholder="Write something..."
@@ -165,6 +166,7 @@ const Feed = () => {
 								ariaLabel="Reply the question"
 								icon="reply"
 								color="lightsteelblue"
+                                disabled={loading ? true : false}
 								onClick={
 									!OutOfQuestions ? answerQuestion : () => { }
 								} />
