@@ -25,34 +25,36 @@ public class ProfileController : Controller
     }
 
     [HttpGet("GetProfile")]
-    public async Task<ActionResult> GetProfile()
+    public async Task<ActionResult<Profile>> GetProfile()
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
         if (userIdentifier == null) return NotFound();
         var profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+
         return Ok(profile);
     }
 
     [HttpPut("UpdateProfile")]
-    public async Task<ActionResult> UpdateProfile(Profile updatedProfile)
+    public async Task<ActionResult<Profile>> UpdateProfile(Profile updatedProfile)
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
         Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
-        return Ok(await _profileService.UpdateAsync(profile.Id, updatedProfile));
 
+        return Ok(await _profileService.UpdateAsync(profile.Id, updatedProfile));
     }
+
     [HttpDelete("DeleteProfile")]
     public async Task<string> DeleteProfile()
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
         Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+
         return await _profileService.DeleteAsync(profile.Id);
-
     }
-    [HttpPost("CreateProfile")]
-    public async Task<ActionResult> CreateProfile(Profile p)
-    {
 
+    [HttpPost("CreateProfile")]
+    public async Task<ActionResult<Profile>> CreateProfile(Profile p)
+    {
        if (await _profileService.GetProfileByOAuthIdentifier(p.OAuthIdentifier) is null)
         {
           return Ok(await _profileService.CreateAsync(p));
@@ -60,8 +62,7 @@ public class ProfileController : Controller
         else
         {
             return Conflict("Profile already exists");
-        }
-        
+        } 
     }
 
 }
