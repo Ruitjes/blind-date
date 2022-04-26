@@ -1,6 +1,7 @@
 using profile_service.Interfaces;
 using profile_service.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using MongoDB.Bson;
 
 namespace profile_service.Controllers;
@@ -24,35 +25,43 @@ public class ProfileController : Controller
     }
 
     [HttpGet("GetProfile")]
-    public async Task<Profile> GetProfile()
-    {
-       string userIdentifier = _profileService.GetUserByJWTToken();
-        return await _profileService.GetProfileByUserIdentifier(userIdentifier);
-    }
-
-
-    [HttpPut("UpdateInterests")]
-    public async Task<string> UpdateInterests(Profile updatedProfile)
+    public async Task<ActionResult> GetProfile()
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
-        Profile profile = await _profileService.GetProfileByUserIdentifier(userIdentifier);
-        return await _profileService.UpdateAsync(profile.Id, updatedProfile);
+        if (userIdentifier == null) return NotFound();
+        var profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+        return Ok(profile);
+    }
+
+    [HttpPut("UpdateProfile")]
+    public async Task<ActionResult> UpdateProfile(Profile updatedProfile)
+    {
+        string userIdentifier = _profileService.GetUserByJWTToken();
+        Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+        return Ok(await _profileService.UpdateAsync(profile.Id, updatedProfile));
 
     }
     [HttpDelete("DeleteProfile")]
     public async Task<string> DeleteProfile()
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
-        Profile profile = await _profileService.GetProfileByUserIdentifier(userIdentifier);
+        Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
         return await _profileService.DeleteAsync(profile.Id);
 
     }
     [HttpPost("CreateProfile")]
-    public async Task<Profile> CreateProfile(Profile p)
+    public async Task<ActionResult> CreateProfile(Profile p)
     {
-        p.Id = ObjectId.GenerateNewId();
-        p.UserIdentifier = _profileService.GetUserByJWTToken();
-        return await _profileService.CreateAsync(p);
+
+       if (await _profileService.GetProfileByOAuthIdentifier(p.OAuthIdentifier) is null)
+        {
+          return Ok(await _profileService.CreateAsync(p));
+        }
+        else
+        {
+            return Conflict("Profile already exists");
+        }
+        
     }
 
 }
