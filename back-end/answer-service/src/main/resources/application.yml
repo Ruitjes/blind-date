@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: ${env.DB_URL_ANSWER}
+server:
+  port: 9092
+
+
