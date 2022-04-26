@@ -53,7 +53,7 @@ public class ProfileController : Controller
     }
 
     [HttpPost("CreateProfile")]
-    public async Task<ActionResult<Profile>> CreateProfile(Profile p)
+    public async Task<ActionResult> CreateProfile(Profile p)
     {
        if (await _profileService.GetProfileByOAuthIdentifier(p.OAuthIdentifier) is null)
         {
