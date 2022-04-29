@@ -1,48 +1,81 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -o ./k8s
-    kompose.version: 1.26.1 (HEAD)
-  creationTimestamp: null
+  name: upload-deployment
   labels:
-    io.kompose.service: upload-service
-  name: upload-service
+    app: upload
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
-      io.kompose.service: upload-service
-  strategy: {}
+      app: upload
+
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -o ./k8s
-        kompose.version: 1.26.1 (HEAD)
-      creationTimestamp: null
       labels:
-        io.kompose.service: upload-service
+        app: upload
+
     spec:
       containers:
-        - env:
-            - name: AmazonS3Settings__AccessKey
-            - name: AmazonS3Settings__BucketName
-            - name: AmazonS3Settings__SecretKey
-          image: seethrough2022/uploadservice:1.0.0
-          imagePullPolicy: Always
-          name: upload-service
-          resources: {}
-      restartPolicy: Always
-status: {}
+      - name: upload
+        image: seethrough2022/uploadservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 80
+
+        env:
+          - name: AmazonS3Settings__AccessKey
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: ACCESS_KEY
+                optional: false
+          
+          - name: AmazonS3Settings__SecretKey
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: ACCESS_KEY
+                optional: false
+
+          - name: AmazonS3Settings__BucketName
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: SECRET_ACCESS_KEY
+                optional: false
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
 
 ---
-
-kind: Service
 apiVersion: v1
+kind: Service
+
 metadata:
   name: upload-service
+
 spec:
+
   selector:
-    app: upload-service
+    app: upload
+
   ports:
-    - port: 80 # Default port for image
+    - protocol: TCP
+      port: 80
+      targetPort: 80

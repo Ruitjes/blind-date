@@ -7,7 +7,7 @@ metadata:
     app: question
 
 spec:
-  replicas: 2
+  replicas: 1
 
   selector:
     matchLabels:
@@ -22,22 +22,35 @@ spec:
       containers:
       - name: question
         image: seethrough2022/questionservice:latest
+        resources: {}
 
         ports:
           - containerPort: 80
 
         env:
           - name: MongoDbSettings__ConnectionString
-            value: XXX
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_QUESTION
+                optional: false
 
           - name: MongoDbSettings__DatabaseName
-            value: XXX
+            value: QuestionDB
 
           - name: Auth0Settings__Authority
-            value: XXX
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
           
           - name: Auth0Settings__Audience
-            value: XXX
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
 
 ---
 apiVersion: v1

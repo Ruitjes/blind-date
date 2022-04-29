@@ -2,32 +2,42 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: search-deployment
+  name: profile-deployment
   labels:
-    app: search
+    app: profile
 
 spec:
   replicas: 1
 
   selector:
     matchLabels:
-      app: search
+      app: profile
 
   template:
     metadata:
       labels:
-        app: search
+        app: profile
 
     spec:
       containers:
-      - name: search
-        image: seethrough2022/searchservice:latest
+      - name: profile
+        image: seethrough2022/profileservice:latest
         resources: {}
 
         ports:
           - containerPort: 80
 
         env:
+          - name: MongoDbSettings__ConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_PROFILE
+                optional: false
+
+          - name: MongoDbSettings__DatabaseName
+            value: QuestionDB
+
           - name: Auth0Settings__Authority
             valueFrom:
               secretKeyRef:
@@ -47,12 +57,12 @@ apiVersion: v1
 kind: Service
 
 metadata:
-  name: search-service
+  name: profile-service
 
 spec:
 
   selector:
-    app: search
+    app: profile
 
   ports:
     - protocol: TCP

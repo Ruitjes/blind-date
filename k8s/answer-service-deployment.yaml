@@ -1,52 +1,68 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -o ./k8s
-    kompose.version: 1.26.1 (HEAD)
+  name: answer-deployment
   labels:
-    io.kompose.service: answer-service
-  name: answer-service
+    app: answer
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
-      io.kompose.service: answer-service
-  strategy: {}
+      app: answer
+
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -o ./k8s
-        kompose.version: 1.26.1 (HEAD)
       labels:
-        io.kompose.service: answer-service
+        app: answer
+
     spec:
       containers:
-        - image: seethrough2022/answerservice:latest
-          imagePullPolicy: Always
-          name: answer-service
-          ports:
-            - containerPort: 9092
-          resources: {}
-      restartPolicy: Always
-status: {}
+      - name: answer
+        image: seethrough2022/answerservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 9092
+
+        env:
+          - name: SPRING_MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_ANSWER
+                optional: false
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
 ---
 apiVersion: v1
 kind: Service
+
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -o ./k8s
-    kompose.version: 1.26.1 (HEAD)
-  labels:
-    io.kompose.service: answer-service
   name: answer-service
+
 spec:
-  ports:
-    - name: "9092"
-      port: 9092
-      targetPort: 9092
+
   selector:
-    io.kompose.service: answer-service
-status:
-  loadBalancer: {}
+    app: answer
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9092
 
