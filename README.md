@@ -1,4 +1,7 @@
-# SeeThrough
+
+<img src="https://github.com/Ruitjes/blind-date/blob/main/assets/logo.png" alt="See Through Logo" title="SeeThrough" align="right" height="60" />
+
+# See Through
 
 ## Installation
 
