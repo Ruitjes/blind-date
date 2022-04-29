@@ -13,7 +13,7 @@ The stakeholders goals are defined as follows:
 Furthermore SeeThrough has been built with scalability in mind meaning an Event driven microservices architecture was the chosen approach.
 This architecture has been deployed in a [kubernetes](https://kubernetes.io/) cluster.
 
-## Installation
+## Setting up the development environment
 
 SeeThrough with Docker.
 
