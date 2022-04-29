@@ -13,7 +13,7 @@ namespace profile_service.Messaging
         {
             var factory = new ConnectionFactory
             {
-                Uri = new Uri($"amqp://guest:guest@192.168.1.80:5672"),
+                Uri = new Uri($"amqp://guest:guest@192.168.1.80:5672"), // Need to update when kubernetes are done
                 AutomaticRecoveryEnabled = true // When the connection is lost, this will automatically reconnect us when it can get back up
             };
 
