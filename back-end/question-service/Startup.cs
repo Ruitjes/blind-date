@@ -88,7 +88,6 @@ namespace question_service
                 app.UseSwaggerUI();
             }
 
-            // app.UsePathBase("question-service");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
