@@ -28,7 +28,6 @@ namespace report_service.Controllers
 
 			if (reportItem.Count() == 0)
 			{
-				// return an object of type PlatformReadDto
 				return NoContent();
 			}
 
