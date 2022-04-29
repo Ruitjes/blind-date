@@ -22,8 +22,6 @@ namespace question_service
             ConfigureSwaggerServices(services);
             ConfigureDatabaseServices(services);
 
-            var configuration = Configuration;
-
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.Converters.Add(new ObjectIdConverter());
