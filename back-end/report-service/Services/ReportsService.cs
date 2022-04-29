@@ -1,6 +1,5 @@
 using report_service.Data;
 using report_service.Models;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace report_service.Services
@@ -14,6 +13,11 @@ namespace report_service.Services
 			var client = new MongoClient(reportsDatabaseSettings.ConnectionString);
 			var database = client.GetDatabase(reportsDatabaseSettings.DatabaseName);
 			_reportsCollection = database.GetCollection<Report>(reportsDatabaseSettings.ReportsCollectionName);
+		}
+
+		public async Task<List<Report?>> GetAsync()
+		{
+			return await _reportsCollection.Find(x => true).ToListAsync();
 		}
 
 		public async Task<Report?> GetAsync(string id)

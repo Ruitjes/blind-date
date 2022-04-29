@@ -37,6 +37,8 @@ services:
             - DbConnectionString=${DB_URL_REPORT}
             - DbName=report
             - DbReportCollectionName=Report
+            - Auth0Settings__Authority=${AUTH0_AUTHORITY}
+            - Auth0Settings__Audience=${AUTH0_AUDIENCE}
 
     ocelot-gateway:
         image: ${DOCKER_REGISTRY-}ocelotgateway
