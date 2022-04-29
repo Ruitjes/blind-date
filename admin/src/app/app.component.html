@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
+    <!-- App name -->
     <span>See Through Admin</span>
+    <span class="spacer"></span>
+    <!-- Login/Logout button -->
+    <app-auth-button></app-auth-button>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -10,9 +14,6 @@
   </mat-tab>
   <mat-tab label="Reports">
     <app-reports></app-reports>
-  </mat-tab>
-  <mat-tab label="Login/Logout">
-    <app-auth-button></app-auth-button>
   </mat-tab>
   <mat-tab label="User Me">
     <app-user-profile></app-user-profile>
