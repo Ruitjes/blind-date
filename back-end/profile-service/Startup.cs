@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using profile_service.Configurations;
 using profile_service.Interfaces;
+using profile_service.Messaging;
 using profile_service.Services;
 
 namespace profile_service
@@ -33,6 +34,7 @@ namespace profile_service
                 });
             });
             services.AddSingleton<IProfileService, ProfileService>();
+            services.AddSingleton <IMessageBusPublisher, MessageBusPublisher>();
             services.AddHttpContextAccessor();
 
         }
