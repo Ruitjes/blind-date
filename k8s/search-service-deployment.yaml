@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -o ./k8s
     kompose.version: 1.26.1 (HEAD)
-  creationTimestamp: null
   labels:
     io.kompose.service: search-service
   name: search-service
@@ -19,14 +18,25 @@ spec:
       annotations:
         kompose.cmd: kompose convert -o ./k8s
         kompose.version: 1.26.1 (HEAD)
-      creationTimestamp: null
       labels:
         io.kompose.service: search-service
     spec:
       containers:
         - image: seethrough2022/searchservice:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           name: search-service
           resources: {}
       restartPolicy: Always
 status: {}
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: search-service
+spec:
+  selector:
+    app: search-service
+  ports:
+    - port: 80 # Default port for image

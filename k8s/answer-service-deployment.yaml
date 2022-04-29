@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -o ./k8s
     kompose.version: 1.26.1 (HEAD)
-  creationTimestamp: null
   labels:
     io.kompose.service: answer-service
   name: answer-service
@@ -19,15 +18,12 @@ spec:
       annotations:
         kompose.cmd: kompose convert -o ./k8s
         kompose.version: 1.26.1 (HEAD)
-      creationTimestamp: null
       labels:
         io.kompose.service: answer-service
     spec:
       containers:
-        - env:
-            - name: SPRING_MONGODB_URI
-          image: seethrough2022/answerservice:latest
-          imagePullPolicy: Never
+        - image: seethrough2022/answerservice:latest
+          imagePullPolicy: Always
           name: answer-service
           ports:
             - containerPort: 9092
@@ -41,7 +37,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -o ./k8s
     kompose.version: 1.26.1 (HEAD)
-  creationTimestamp: null
   labels:
     io.kompose.service: answer-service
   name: answer-service

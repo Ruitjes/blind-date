@@ -28,9 +28,21 @@ spec:
             - name: AmazonS3Settings__AccessKey
             - name: AmazonS3Settings__BucketName
             - name: AmazonS3Settings__SecretKey
-          image: seethrough2022/uploadservice:latest
-          imagePullPolicy: Never
+          image: seethrough2022/uploadservice:1.0.0
+          imagePullPolicy: Always
           name: upload-service
           resources: {}
       restartPolicy: Always
 status: {}
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: upload-service
+spec:
+  selector:
+    app: upload-service
+  ports:
+    - port: 80 # Default port for image

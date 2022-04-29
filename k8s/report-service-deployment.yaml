@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -o ./k8s
     kompose.version: 1.26.1 (HEAD)
-  creationTimestamp: null
   labels:
     io.kompose.service: report-service
   name: report-service
@@ -19,7 +18,6 @@ spec:
       annotations:
         kompose.cmd: kompose convert -o ./k8s
         kompose.version: 1.26.1 (HEAD)
-      creationTimestamp: null
       labels:
         io.kompose.service: report-service
     spec:
@@ -31,8 +29,20 @@ spec:
             - name: DbReportCollectionName
               value: Report
           image: seethrough2022/reportservice:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           name: report-service
           resources: {}
       restartPolicy: Always
 status: {}
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: report-service
+spec:
+  selector:
+    app: report-service
+  ports:
+    - port: 80 # Default port for image
