@@ -4,9 +4,10 @@
 # SeeThrough
 
 SeeThrough is Q & A Platform with Tinder flavours,
-Users can ask questions in selected communities and can answer them through a personalized question feed.
-SeeThrough's main stakeholders are part of a research group at [Fontys](https://fontys.nl/) that focusses on [visually impaired](https://en.wikipedia.org/wiki/Visual_impairment) people so Accessiblity has been part of the project from day-one.
+Users can ask questions in selected communities and can answer them through a personalized question feed.<br/>
+SeeThrough's main stakeholders are part of a research group at [Fontys](https://fontys.nl/) that focusses on [visually impaired](https://en.wikipedia.org/wiki/Visual_impairment) people so Accessiblity has been part of the project from day-one.<br/><br/>
 The stakeholders goals are defined as follows:
+
 - Can technology help visually impaired people with asking difficult and intimiate questions?
 - How do people respond and use this developed app?
 
