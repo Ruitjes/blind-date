@@ -1,7 +1,17 @@
 
-<img src="https://github.com/Ruitjes/blind-date/blob/main/assets/logo.png" alt="See Through Logo" title="SeeThrough" align="right" height="60" />
+<img src="https://github.com/Ruitjes/blind-date/blob/main/assets/logo.png" alt="SeeThrough Logo" title="SeeThrough" align="right" height="60" />
 
-# See Through
+# SeeThrough
+
+SeeThrough is Q & A Platform with Tinder flavours,
+Users can ask questions in selected communities and can answer them through a personalized question feed.
+SeeThrough's main stakeholders are part of a research group at [Fontys](https://fontys.nl/) that focusses on [visually impaired](https://en.wikipedia.org/wiki/Visual_impairment) people so Accessiblity has been part of the project from day-one.
+The stakeholders goals are defined as follows:
+- Can technology help visually impaired people with asking difficult and intimiate questions?
+- How do people respond and use this developed app?
+
+Furthermore SeeThrough has been built with scalability in mind meaning an Event driven microservices architecture was the chosen approach.
+This architecture has been deployed in a [kubernetes](https://kubernetes.io/) cluster.
 
 ## Installation
 
@@ -75,8 +85,4 @@ AUTH0_CLIENT_ID='ourclientid'
 AUTH0_CLIENT_SECRET='ourclientsecret'
 # Audience for ASP back-end
 AUTH0_AUDIENCE='seethrough'
-```
-
-```
-
 ```
