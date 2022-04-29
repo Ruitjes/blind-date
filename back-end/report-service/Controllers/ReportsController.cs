@@ -20,20 +20,6 @@ namespace report_service.Controllers
 			_mapper = mapper;
 		}
 
-		[HttpGet("GetAllReports")]
-		[Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<ReportReadDto>>> GetAllReports()
-		{
-			var reportItem = await _service.GetAsync();
-
-			if (reportItem.Count() == 0)
-			{
-				return NoContent();
-			}
-
-			return Ok(_mapper.Map<List<ReportReadDto>>(reportItem));
-		}
-
 		[HttpGet("{id:length(24)}", Name = "GetReportById")]
 		[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ReportReadDto>> GetReportById(string id)
