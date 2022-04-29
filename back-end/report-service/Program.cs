@@ -32,7 +32,7 @@ builder.Services.AddScoped<IReportsService, ReportsService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // ----------------
 
-
+// Auth0 Settings
 var auth0Section = builder.Configuration.GetSection(nameof(Auth0Settings));
 var auth0Settings = auth0Section.Get<Auth0Settings>();
 builder.Services.AddSingleton<IAuth0Settings>(auth0Settings);
@@ -52,6 +52,8 @@ builder.Services
             RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         };
     });
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
