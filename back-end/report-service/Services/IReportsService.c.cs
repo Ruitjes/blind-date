@@ -4,8 +4,10 @@ namespace report_service.Services
 {
 	public interface IReportsService
 	{
-		public Task<Report?> GetAsync(string id);
+		public Task<Report> GetAsync(string id);
 
 		public Task CreateAsync(Report report);
+
+		public Task<IEnumerable<Report>> GetAllAsync();
 	}
 }

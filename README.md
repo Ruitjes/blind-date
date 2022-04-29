@@ -52,10 +52,27 @@ docker-compose up -d
 6. When the docker-compose is up.
 
 -   http://localhost:3000 -> React front-end
--   http://localhost:3001 -> Angular front-end admin panel
 -   https://localhost:7000 -> .NET Gateway Ocelot
 
-6. To get Auth0 working add a .env file to the front-end folder with the following:
+7. Start React app
+```bash
+npm run dev
+```
+
+8. When the React app is running
+
+-   http://localhost:3000 -> React front-end
+
+9. Start Angular app
+```bash
+ng start OR ng serve
+```
+
+10. When the React app is running
+
+-   http://localhost:4200 -> Angular front-end
+
+11. To get Auth0 working add a .env file to the front-end folder with the following:
 
 ```bash
 # url for the back-end endpoints

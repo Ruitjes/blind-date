@@ -2,12 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace report_service.Models
 {
-	public class Post
+	public class Question
 	{
 		[Required]
-		public int PostId { get; set; }
+		public int QuestionId { get; set; }
 
 		[Required]
-		public string? PostContent { get; set; }
+		public string QuestionContent { get; set; }
 	}
 }

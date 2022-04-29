@@ -35,7 +35,7 @@ services:
             context: ./back-end/report-service/
         environment:
             - DbConnectionString=${DB_URL_REPORT}
-            - DbName=report
+            - DbName=ReportDB
             - DbReportCollectionName=Report
 
     ocelot-gateway:
