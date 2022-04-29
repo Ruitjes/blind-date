@@ -18,7 +18,7 @@ services:
         build:
             context: ./back-end/answer-service/
         environment:
-            - SPRING_MONGODB_URI=${DB_URL_ANSWER}
+            - DB_URL_ANSWER=${DB_URL_ANSWER}
         ports:
         - 9092:9092
 
