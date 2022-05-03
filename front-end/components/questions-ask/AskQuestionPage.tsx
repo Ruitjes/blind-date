@@ -2,7 +2,7 @@ import Header from "../Header";
 import Subtitle from "../Subtitle";
 import AskQuestionEditBox from "./AskQuestionEditBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
@@ -23,6 +23,10 @@ const AskQuestionPage = () => {
     const handleFileChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFile(e.target.files?.[0]);
     }
+
+    useEffect(() => {
+      document.title = "Ask a question page"
+    }, [])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -81,9 +85,8 @@ const AskQuestionPage = () => {
 
                         <div className="flex flex-col py-1">
                             <label className="flex flex-col info-card p-4 drop-shadow-lg">
-                                <input type='file' hidden onChange={handleFileChanged} />
                                 <div className="flex flex-grow">
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col" aria-hidden>
                                         <Header text="Picture" />
                                         <Subtitle text="Add an image in your question to share with others." />
                                     </div>
@@ -116,13 +119,13 @@ const AskQuestionPage = () => {
                                             </div>
                                         )}
                                     </div>
-
                                 </div>
+                                <input type='file' className="h-0" onChange={handleFileChanged} accept=".png, .jpg, .jpeg" />
                             </label>
                         </div>
 
                         <div className="flex flex-col flex-grow justify-end">
-                            <button type="submit" className="info-card p-4 drop-shadow-lg">
+                            <button type="submit" className="info-card p-4 drop-shadow-lg" aria-label="Share the question">
                                 <Header center text="Share" />
                             </button>
                         </div>

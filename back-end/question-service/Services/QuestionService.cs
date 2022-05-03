@@ -67,6 +67,11 @@ namespace question_service.Services
         {
             await _questions.DeleteOneAsync(s => s.Id == id);
         }
+
+        public async Task<List<Question>> GetQuestionsByUser(string userId)
+        {
+            return await _questions.Find(s => s.UserIdentifier == userId).ToListAsync();
+        }
     }
 }
 

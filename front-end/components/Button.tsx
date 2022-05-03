@@ -12,7 +12,7 @@ type Props = {
 const Button = (props: Props) => {
 
     return (
-        <button  className="flex aspect-square items-center rounded-full p-4 bg-white" onClick={props.onClick} aria-label = {props.ariaLabel}>
+        <button disabled={props.disabled} className="flex aspect-square items-center rounded-full p-4 bg-white" onClick={props.onClick} aria-label = {props.ariaLabel}>
             <FontAwesomeIcon fixedWidth size="4x" color={props.color} icon={['fas', props.icon]}/>
         </button>
     )
