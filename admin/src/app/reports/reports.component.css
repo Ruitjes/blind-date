@@ -1,0 +1,14 @@
+table {
+  width: 96%;
+  margin: 5% 2%;
+}
+
+td , th {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 300px;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  padding: 10px;
+}

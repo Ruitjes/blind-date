@@ -23,6 +23,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Import the HTTP interceptor from the Auth0 Angular SDK
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     QuestionsComponent,
     AuthButtonComponent,
     UserProfileComponent,
-    UserMetadataComponent
+    UserMetadataComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,

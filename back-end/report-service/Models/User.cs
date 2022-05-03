@@ -8,6 +8,6 @@ namespace report_service.Models
 		public int UserId { get; set; }
 
 		[Required]
-		public string? Name { get; set; }
+		public string Name { get; set; }
 	}
 }
