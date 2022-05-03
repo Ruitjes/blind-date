@@ -4,7 +4,7 @@ using profile_service.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace question_service.Services
+namespace profile_service.Services
 {
     public class ProfileService : IProfileService
     {
@@ -24,28 +24,33 @@ namespace question_service.Services
             return await _profiles.Find(s => true).ToListAsync();
         }
 
-        public async Task<Profile> GetProfileByUserIdentifier(string userIdentifier)
+        public async Task<Profile> GetProfileByOAuthIdentifier(string oAuthIdentifier)
         {
 
-            Profile profile = await _profiles.Find(s => s.UserIdentifier == userIdentifier).FirstOrDefaultAsync();
+            Profile profile = await _profiles.Find(s => s.OAuthIdentifier == oAuthIdentifier).FirstOrDefaultAsync();
             return profile;
 
         }
 
         public async Task<Profile> CreateAsync(Profile profile)
         {
+           if(await GetProfileByOAuthIdentifier(profile.OAuthIdentifier) is var existingProfile && existingProfile is not null) // get profile and check if its not null
+            {
+                return existingProfile;
+            }
+            profile.Id = ObjectId.GenerateNewId();
             await _profiles.InsertOneAsync(profile);
             return profile;
         }
 
-        public async Task<string> UpdateAsync(ObjectId? id, Profile profile)
+        public async Task<Profile> UpdateAsync(ObjectId? id, Profile profile)
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,
             Builders<Profile>.Update.Set(p => p.Interests, profile.Interests)
                                     .Set(p => p.Age, profile.Age)
                                     .Set(p => p.Gender, profile.Gender)
                                     .Set(p => p.Name, profile.Name));
-            return "Profile updated!";
+            return profile;
         }
 
         public async Task<string> DeleteAsync(ObjectId? id)
@@ -56,8 +61,8 @@ namespace question_service.Services
 
         public string GetUserByJWTToken()
         {
-            var userFromJWT = _httpContext.HttpContext?.User;
-            string userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
+            var userFromJWT = _httpContext.HttpContext.User;
+            var userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
             return userIdentifier;
         }
     }

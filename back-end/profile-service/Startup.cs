@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using profile_service.Configurations;
+using profile_service.Interfaces;
+using profile_service.Services;
 
 namespace profile_service
 {
@@ -30,6 +32,8 @@ namespace profile_service
                         .AllowAnyMethod();
                 });
             });
+            services.AddSingleton<IProfileService, ProfileService>();
+            services.AddHttpContextAccessor();
 
         }
 
