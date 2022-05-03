@@ -54,3 +54,11 @@ spec:
                 name: search-service
                 port:
                   number: 80
+        # Profile Service 
+          - path: /profile-service(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: profile-service
+                port:
+                  number: 80
