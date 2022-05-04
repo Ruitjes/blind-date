@@ -6,13 +6,13 @@ import { DOCUMENT } from '@angular/common';
   selector: 'app-auth-button',
   template: `
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-      <button (click)="auth.logout({ returnTo: document.location.origin })">
+      <button mat-raised-button color="accent" (click)="auth.logout({ returnTo: document.location.origin })">
         Log out
       </button>
     </ng-container>
 
     <ng-template #loggedOut>
-      <button (click)="auth.loginWithRedirect()">Log in</button>
+      <button mat-raised-button color="accent" (click)="auth.loginWithRedirect()">Log in</button>
     </ng-template>
   `,
   styles: [],
