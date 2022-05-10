@@ -16,9 +16,9 @@ builder.Services.AddSwaggerGen();
 
 // ----------------
 // Enviroment variables for database connnection
-string? connectionString = Environment.GetEnvironmentVariable("DbConnectionString");
-string? databaseName = Environment.GetEnvironmentVariable("DbName");
-string? reportsCollectionName = Environment.GetEnvironmentVariable("DbReportCollectionName");
+string connectionString = Environment.GetEnvironmentVariable("DbConnectionString");
+string databaseName = Environment.GetEnvironmentVariable("DbName");
+string reportsCollectionName = Environment.GetEnvironmentVariable("DbReportCollectionName");
 
 // DB Settings
 builder.Services.AddSingleton(new ReportsDatabaseSettings(

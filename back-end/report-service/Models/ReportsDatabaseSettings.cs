@@ -6,7 +6,7 @@ namespace report_service.Data
 		public string DatabaseName { get; set; } = null!;
 		public string ReportsCollectionName { get; set; } = null!;
 
-		public ReportsDatabaseSettings(string? connectionString, string? databaseName, string? reportsCollectionName)
+		public ReportsDatabaseSettings(string connectionString, string databaseName, string reportsCollectionName)
 		{
 			if (connectionString == null || databaseName == null || reportsCollectionName == null)
 			{

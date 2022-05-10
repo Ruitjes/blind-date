@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: report-deployment
+  labels:
+    app: report
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: report
+
+  template:
+    metadata:
+      labels:
+        app: report
+
+    spec:
+      containers:
+      - name: report
+        image: seethrough2022/reportservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 80
+
+        env:
+          - name: DbConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_REPORT
+                optional: false
+
+          - name: DbName
+            value: ReportDB
+          
+          - name: DbReportCollectionName
+            value: Report
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: report-service
+
+spec:
+
+  selector:
+    app: report
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

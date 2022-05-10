@@ -4,9 +4,13 @@ import Question from './Question';
 import Button from './Button';
 import axios from 'axios';
 import Banner from './Banner';
+import Loading from './Loading';
 
 const Feed = () => {
 	const { user } = useUser();
+    const [error, setError] = useState<Error>();
+    const [loading, setLoading] = useState(true);
+
 	const [showFullImage, setShowFullImage] = useState<boolean>();
 	const [OutOfQuestions, SetOutOfQuestions] = useState<boolean>();
 	const [CurrentQuestion, SetCurrentQuestion] = useState<any>(null);
@@ -39,15 +43,10 @@ const Feed = () => {
 			.get(`api/getQuestionForUser/${user!.sub}`)
 			.then((res: any) => {
 				SetCurrentQuestion(res.data);
-				if (res.data.content == '' || res.data.content == null) {
-					SetOutOfQuestions(true);
-				} else {
-					SetOutOfQuestions(false);
-				}
+				SetOutOfQuestions(!res.data.content)
 			})
-			.catch((err) => {
-				console.log(err);
-			});
+			.catch((error) => setError(error))
+            .finally(() => setLoading(false));
 	};
 
 	const answerQuestion = () => {
@@ -76,9 +75,7 @@ const Feed = () => {
 		setShowFullImage(!showFullImage);
 	};
 
-	const handleAnswerTextChanged = (
-		e: React.ChangeEvent<HTMLTextAreaElement>
-	) => {
+	const handleAnswerTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		SetAnswerText(e.target.value);
 	};
 
@@ -124,12 +121,11 @@ const Feed = () => {
 				<div className="flex flex-col flex-grow w-full max-w-sm">
 					<div className="flex flex-col mt-4 mb-6">
 						<div className="flex flex-col flex-grow p-4">
-							<Question
-								text={
-									CurrentQuestion?.content ??
-									'No questions, come back at a later time.'
-								}
-								onReportClick={reportQuestion} />
+							{ OutOfQuestions ? (
+                                <Question loading={loading} text="No questions, come back at a later time."/>
+                            ) : (
+                                <Question loading={loading} text={CurrentQuestion?.content} onReportClick={reportQuestion}/>
+                            )}
 						</div>
 					</div>
 
@@ -146,6 +142,7 @@ const Feed = () => {
 
 							<textarea
 								value={AnswerText}
+                                disabled={loading ? true : false}
 								onChange={handleAnswerTextChanged}
 								className="flex flex-grow resize-none rounded-lg text-2xl outline-none p-4"
 								placeholder="Write something..."
@@ -169,6 +166,7 @@ const Feed = () => {
 								ariaLabel="Reply the question"
 								icon="reply"
 								color="lightsteelblue"
+                                disabled={loading ? true : false}
 								onClick={
 									!OutOfQuestions ? answerQuestion : () => { }
 								} />

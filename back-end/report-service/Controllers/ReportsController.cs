@@ -52,5 +52,13 @@ namespace report_service.Controllers
 				reportReadDto
 			);
 		}
+
+		[HttpGet]
+		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
+		{
+			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
+
+			return Ok(reports);
+		}
 	}
 }

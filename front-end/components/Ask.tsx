@@ -14,7 +14,7 @@ const Ask = () => {
     const [QuestionText,SetQuestionText] = useState("");
     
     useEffect(() => {
-      document.title = "Ask a question"
+      document.title = "Ask a Question Page"
     }, [])
 
     const shareQuestion = () => {

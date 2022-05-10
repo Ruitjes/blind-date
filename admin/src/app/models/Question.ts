@@ -1,13 +1,6 @@
-import {Answer} from './Answer';
-export class Question{
+import { Answer } from './Answer';
 
-  
-    constructor(
-        public id: number,
-        public question: string,
-        public answers:Array<Answer>,
-    ) { 
-       
-     }
-
+export class Question
+{
+    constructor(public questionId: number, public questionContent: string) {}
 }
