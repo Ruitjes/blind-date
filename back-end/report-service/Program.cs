@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using profile_service.Configurations;
 using report_service.Data;
 using report_service.Services;
 
@@ -29,6 +32,28 @@ builder.Services.AddScoped<IReportsService, ReportsService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // ----------------
 
+// Auth0 Settings
+var auth0Section = builder.Configuration.GetSection(nameof(Auth0Settings));
+var auth0Settings = auth0Section.Get<Auth0Settings>();
+builder.Services.AddSingleton<IAuth0Settings>(auth0Settings);
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Audience = auth0Settings.Audience;
+        options.Authority = auth0Settings.Authority;
+
+        // If the access token does not have a `sub` claim, `User.Identity.Name` will be `null`.
+        // Map it to a different claim by setting the NameClaimType below.
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = "Role",
+            RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        };
+    });
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -41,6 +66,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
