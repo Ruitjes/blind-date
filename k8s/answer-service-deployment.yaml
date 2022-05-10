@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: answer-deployment
+  labels:
+    app: answer
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: answer
+
+  template:
+    metadata:
+      labels:
+        app: answer
+
+    spec:
+      containers:
+      - name: answer
+        image: seethrough2022/answerservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 9092
+
+        env:
+          - name: SPRING_MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_ANSWER
+                optional: false
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: answer-service
+
+spec:
+
+  selector:
+    app: answer
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9092
+

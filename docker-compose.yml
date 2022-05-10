@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
     question-service:
-        image: ${DOCKER_REGISTRY-}questionservice
+        image: questionservice
         container_name: question-service
         build:
             context: ./back-end/question-service/
@@ -13,7 +13,7 @@ services:
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
 
     answer-service:
-        image: ${DOCKER_REGISTRY-}answerservice
+        image: answerservice
         container_name: answer-service
         build:
             context: ./back-end/answer-service/
@@ -23,13 +23,13 @@ services:
         - 9092:9092
 
     search-service:
-        image: ${DOCKER_REGISTRY-}searchservice
+        image: searchservice
         container_name: search-service
         build:
             context: ./back-end/search-service/
 
     report-service:
-        image: ${DOCKER_REGISTRY-}reportservice
+        image: reportservice
         container_name: report-service
         build:
             context: ./back-end/report-service/
@@ -39,7 +39,7 @@ services:
             - DbReportCollectionName=Report
 
     ocelot-gateway:
-        image: ${DOCKER_REGISTRY-}ocelotgateway
+        image: ocelotgateway
         container_name: ocelot-gateway
         build:
             context: ./back-end/ocelot-gateway/
@@ -56,7 +56,7 @@ services:
             - ./certs:/app/certs
 
     upload-service:
-        image: ${DOCKER_REGISTRY-}uploadservice
+        image: uploadservice
         container_name: upload-service
         build:
             context: ./back-end/upload-service
@@ -66,11 +66,11 @@ services:
             AmazonS3Settings__BucketName: ${BUCKET_NAME}
 
     profile-service:
-        image: ${DOCKER_REGISTRY-}profileservice
-        container_name: profile-service
-        build:
-            context: ./back-end/profile-service/
-        environment:
+      image: profileservice
+      container_name: profile-service
+      build:
+        context: ./back-end/profile-service/
+      environment:
           - MongoDbSettings__DatabaseName=ProfileDB
           - MongoDbSettings__ConnectionString=${DB_URL_PROFILE}
           - Auth0Settings__Authority=${AUTH0_AUTHORITY}
