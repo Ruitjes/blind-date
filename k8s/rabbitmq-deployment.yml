@@ -34,7 +34,7 @@ spec:
       loopback_users.guest = false
       default_user = "${RMQ_USER}"
       default_pass = "${RMQ_PWD}"
-    extraEnv: 
+    env: 
       - name: RMQ_USER
         valueFrom:
           secretKeyRef:
