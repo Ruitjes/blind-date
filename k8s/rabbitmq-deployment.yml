@@ -34,15 +34,15 @@ spec:
       loopback_users.guest = false
       default_user = "${RMQ_USER}"
       default_pass = "${RMQ_PWD}"
-    env: 
-      - name: RMQ_USER
+    advancedConfig: ""
+  env: 
+    - name: RMQ_USER
         valueFrom:
           secretKeyRef:
             name: secret
             key: RABBITMQ_USER
-      - name: RMQ_PWD
+    - name: RMQ_PWD
         valueFrom:
           secretKeyRef:
             name: secret
             key: RABBITMQ_PASSWORD
-    advancedConfig: ""
