@@ -37,12 +37,12 @@ spec:
     advancedConfig: ""
   env: 
     - name: RMQ_USER
-        valueFrom:
-          secretKeyRef:
-            name: secret
-            key: RABBITMQ_USER
+      valueFrom:
+        secretKeyRef:
+          name: secret
+          key: RABBITMQ_USER
     - name: RMQ_PWD
-        valueFrom:
-          secretKeyRef:
-            name: secret
-            key: RABBITMQ_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: secret
+          key: RABBITMQ_PASSWORD
