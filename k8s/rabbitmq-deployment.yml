@@ -32,17 +32,6 @@ spec:
       cluster_partition_handling = autoheal
       queue_master_locator = min-masters
       loopback_users.guest = false
-      default_user = "${RMQ_USER}"
-      default_pass = "${RMQ_PWD}"
+      default_user = test
+      default_pass = test
     advancedConfig: ""
-  env: 
-    - name: RMQ_USER
-      valueFrom:
-        secretKeyRef:
-          name: secret
-          key: RABBITMQ_USER
-    - name: RMQ_PWD
-      valueFrom:
-        secretKeyRef:
-          name: secret
-          key: RABBITMQ_PASSWORD
