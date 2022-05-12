@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-secret
+  namespace: rabbitmq-system
+type: Opaque
+data:
+  username: YmxpbmRkYXRl
+  password: Z3JvdXAz
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: User
+metadata:
+  name: user-rabbit
+  namespace: rabbitmq-system
+spec:
+  tags:
+    - administrator
+  rabbitmqClusterReference:
+    name: rabbitmq-cluster
+  importCredentialsSecret:
+    name: user-secret
