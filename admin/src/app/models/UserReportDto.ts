@@ -1,4 +1,4 @@
 export class UserReportDto {
-  constructor(public userId: number, public name: string) {
+  constructor(public userId: string, public name: string) {
   }
 }

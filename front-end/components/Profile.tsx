@@ -88,8 +88,8 @@ const ProfileComponent = () => {
                 </div>
                 <div className="col-md-12"><b><p>Interests</p> </b> </div>
                 <ul>
-                    {profile.interests.map(interest => {
-                        return <li key={interest} id={interest}>{interest}</li>
+                    {profile.interests.map((interest,id) => {
+                        return <li key={id} id={interest}>{interest}</li>
                     })}
                 </ul>
                 <input id="interestsinput" placeholder="Add interest" value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }}/>

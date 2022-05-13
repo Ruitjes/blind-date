@@ -12,5 +12,5 @@ public class Answer {
     private String content;
     private String questionId;
     private UserProfile userProfile;
-
+    private String createdAt;
 }

@@ -24,9 +24,9 @@ public class QuestionController : Controller
     }
 
     [HttpGet("GetQuestionById/{id}")]
-    public async Task<Question> GetQuestionById(ObjectId id)
+    public async Task<Question> GetQuestionById(string id)
     {
-        return await _questionService.GetByIdAsync(id);
+        return await _questionService.GetByIdAsync(new ObjectId(id));
     }
 
     [HttpGet("GetQuestionsByUser/{userId}")]
