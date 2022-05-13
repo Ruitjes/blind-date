@@ -8,19 +8,19 @@ namespace report_service.Models
 	{
 		[BsonId]
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string? Id { get; set; }
+		public string Id { get; set; }
 
 		[Required]
-		public User? Reporter { get; set; }
+		public User Reporter { get; set; }
 
 		[Required]
-		public User? Reported { get; set; }
+		public User Reported { get; set; }
 
 		[Required]
-		public string? ReportedContent { get; set; }
+		public string ReportedContent { get; set; }
 
 		[Required]
-		public Post? Post { get; set; }
+		public Question Question { get; set; }
 
 		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

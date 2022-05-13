@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: upload-deployment
+  labels:
+    app: upload
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: upload
+
+  template:
+    metadata:
+      labels:
+        app: upload
+
+    spec:
+      containers:
+      - name: upload
+        image: seethrough2022/uploadservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 80
+
+        env:
+          - name: AmazonS3Settings__AccessKey
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: ACCESS_KEY
+                optional: false
+          
+          - name: AmazonS3Settings__SecretKey
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: ACCESS_KEY
+                optional: false
+
+          - name: AmazonS3Settings__BucketName
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: SECRET_ACCESS_KEY
+                optional: false
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: upload-service
+
+spec:
+
+  selector:
+    app: upload
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

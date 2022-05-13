@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: question-deployment
+  labels:
+    app: question
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: question
+
+  template:
+    metadata:
+      labels:
+        app: question
+
+    spec:
+      containers:
+      - name: question
+        image: seethrough2022/questionservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 80
+
+        env:
+          - name: MongoDbSettings__ConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_QUESTION
+                optional: false
+
+          - name: MongoDbSettings__DatabaseName
+            value: QuestionDB
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: question-service
+
+spec:
+
+  selector:
+    app: question
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

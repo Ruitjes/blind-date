@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: search-deployment
+  labels:
+    app: search
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: search
+
+  template:
+    metadata:
+      labels:
+        app: search
+
+    spec:
+      containers:
+      - name: search
+        image: seethrough2022/searchservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 80
+
+        env:
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: search-service
+
+spec:
+
+  selector:
+    app: search
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

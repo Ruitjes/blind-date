@@ -3,6 +3,7 @@ using report_service.Models;
 using report_service.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace report_service.Controllers
 {
@@ -20,7 +21,8 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet("{id:length(24)}", Name = "GetReportById")]
-		public async Task<ActionResult<ReportReadDto>> GetReportById(string id)
+		[Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ReportReadDto>> GetReportById(string id)
 		{
 			var reportItem = await _service.GetAsync(id);
 
@@ -49,6 +51,14 @@ namespace report_service.Controllers
 				new { Id = reportReadDto.Id },
 				reportReadDto
 			);
+		}
+
+		[HttpGet]
+		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
+		{
+			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
+
+			return Ok(reports);
 		}
 	}
 }

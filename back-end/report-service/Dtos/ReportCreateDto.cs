@@ -6,15 +6,15 @@ namespace report_service.Dtos
 	public class ReportCreateDto
 	{
 		[Required]
-		public User? Reporter { get; set; }
+		public User Reporter { get; set; }
 
 		[Required]
-		public User? Reported { get; set; }
+		public User Reported { get; set; }
 
 		[Required]
-		public string? ReportedContent { get; set; }
+		public string ReportedContent { get; set; }
 
 		[Required]
-		public Post? Post { get; set; }
+		public Question Question { get; set; }
 	}
 }

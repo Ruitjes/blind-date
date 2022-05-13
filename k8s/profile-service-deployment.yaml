@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: profile-deployment
+  labels:
+    app: profile
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: profile
+
+  template:
+    metadata:
+      labels:
+        app: profile
+
+    spec:
+      containers:
+      - name: profile
+        image: seethrough2022/profileservice:latest
+        resources: {}
+
+        ports:
+          - containerPort: 80
+
+        env:
+          - name: MongoDbSettings__ConnectionString
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: DB_URL_PROFILE
+                optional: false
+
+          - name: MongoDbSettings__DatabaseName
+            value: QuestionDB
+
+          - name: Auth0Settings__Authority
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUTHORITY
+                optional: false
+          
+          - name: Auth0Settings__Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_AUDIENCE
+                optional: false
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: profile-service
+
+spec:
+
+  selector:
+    app: profile
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
