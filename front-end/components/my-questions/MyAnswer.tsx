@@ -10,7 +10,7 @@ const MyAnswer = (props: Props) => {
         <div className="flex flex-col flex-grow px-4">
             <div className="flex flex-row">
                 <div className="flex flex-col p-2">
-                    <label><strong>{'{{Name}}'}</strong> said</label>
+                    <label><strong>{props.answer.userProfile.userName}</strong> answered on {moment(props.answer.addedOn).format("MMM D ‘YY")}</label>
                     <p className="text-xl leading-6">{props.answer.content}</p>
                 </div>
             </div>
