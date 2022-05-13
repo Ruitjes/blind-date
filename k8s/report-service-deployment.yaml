@@ -22,6 +22,7 @@ spec:
       containers:
       - name: report
         image: seethrough2022/reportservice:latest
+        imagePullPolicy: Always
         resources: {}
 
         ports:

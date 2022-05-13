@@ -22,6 +22,7 @@ spec:
       containers:
       - name: answer
         image: seethrough2022/answerservice:latest
+        imagePullPolicy: Always
         resources: {}
 
         ports:
