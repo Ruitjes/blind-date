@@ -41,7 +41,8 @@ public class FeedController : Controller
         Bookmark ub = await _bookmarkService.GetByUserIdentifier(userIdentifier);
         if (ub == null)
         {
-            await _bookmarkService.CreateAsync(new Bookmark { UserIdentifier = userIdentifier, CurrentIndex = null });
+            Question q = await _questionService.GetNextQuestionBasedOnUserBookmark(null);
+            await _bookmarkService.CreateAsync(new Bookmark { UserIdentifier = userIdentifier, CurrentIndex = q.Id });
             return "new bookmark entry created for user";
         }
         else

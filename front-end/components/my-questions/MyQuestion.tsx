@@ -3,11 +3,12 @@ import moment from "moment";
 
 type Props = {
     question: any;
+    onClick?: VoidFunction;
 }
 
 const MyQuestion = (props: Props) => {
     return (
-        <div className="flex flex-col flex-grow px-4">
+        <div className="flex flex-col flex-grow px-4" onClick={props.onClick}>
             <div className="flex flex-row">
                 <div className="flex flex-col p-2">
                     <label><strong>You</strong> asked at {moment(props.question.addedOn).format("hh:mm MMM D ‘YY")}</label>

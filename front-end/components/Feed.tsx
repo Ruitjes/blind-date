@@ -53,6 +53,7 @@ const Feed = () => {
 		const data = {
 			userProfile: {
 				userId: user!.sub?.toString(),
+				userName: user!.name?.toString(),
 				gender: 'other',
 				age: '99',
 			},
