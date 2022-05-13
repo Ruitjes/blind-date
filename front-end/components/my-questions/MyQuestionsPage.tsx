@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../Header";
 import MyQuestion from "./MyQuestion";
 import Loading from "../Loading";
+import { useRouter } from "next/router";
 
 const MyQuestionsPage = () => {
 
+    const router = useRouter();
     const { user } = useUser();
     const [data, setData] = useState<any>();
     const [error, setError] = useState<Error>();
@@ -38,13 +39,20 @@ const MyQuestionsPage = () => {
                     </div>
 
                     {
-                        data && data.map((question: any, index: number) => (
-                            <div key={index} className="flex flex-col py-1">
-                                <div className="flex flex-row info-card items-center drop-shadow-lg">
-                                    <MyQuestion question={question}/>
+                        data && data.map((question: any, index: number) => {
+
+                            const handleQuestionPressed = () => {
+                                router.push(`/myAnswers/${question.id}`)
+                            }
+
+                            return (
+                                <div key={index} className="flex flex-col py-1">
+                                    <div className="flex flex-row info-card items-center drop-shadow-lg">
+                                        <MyQuestion question={question} onClick={handleQuestionPressed}/>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
+                            )
+                        })
                     }
 
                 </div>

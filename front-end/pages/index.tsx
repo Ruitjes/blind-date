@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Subtitle from '../components/Subtitle';
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -16,6 +18,9 @@ const Home: NextPage = () => {
   }
   const navigateToProfile = () => {
     router.push('/profile');
+  }
+  const navigateToMyQuestions = () => {
+    router.push('/myQuestions')
   }
 
   return (
@@ -44,6 +49,13 @@ const Home: NextPage = () => {
       <div className="flex absolute inset-0 pointer-events-none">
         <div className="flex h-36 w-36 m-auto justify-center rounded-full bg-white">
           <h1 className="self-center text-center text-4xl font-medium">Or</h1>
+        </div>
+      </div>
+
+      <div className="flex absolute right-0 bottom-0 p-4">
+        <div className="flex flex-col" onClick={navigateToMyQuestions}>
+          <FontAwesomeIcon color='white' size='2x' icon={['fas', 'book-open']} />
+          <p className="text-white font-medium">My Questions</p>
         </div>
       </div>
 
