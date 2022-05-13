@@ -1,9 +1,9 @@
 export class Answer{
-   
+
     constructor(
-        public id: number,
+        public id: string,
         public answer: string,
-        
+
     ) {  }
 
 }
