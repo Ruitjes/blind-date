@@ -47,16 +47,20 @@ const MyAnswersPage = (props: Props) => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col flex-grow">
-                        {
-                            answers && answers.map((answer: any, index: number) => (
-                                <div key={index} className="flex flex-col py-1">
-                                    <div className="flex flex-row info-card items-center drop-shadow-lg">
-                                        <MyAnswer answer={answer} />
+                    <div className="flex flex-col flex-grow p-6 -mx-4 -mb-6 bg-white">
+                        {answers?.length === 0 && <h1>No answers found </h1>}
+                        <div className="flex flex-col shadow-lg drop-shadow-lg bg-white rounded-lg">
+                            {
+                                 answers && answers.map((answer: any, index: number) => (
+                                    <div key={index} className="flex flex-col py-1">
+                                        <div className="flex flex-row items-center">
+                                            <MyAnswer answer={answer} />
+                                        </div>
+                                        { index < answers.length - 1 && <hr/>}
                                     </div>
-                                </div>
-                            ))
-                        }
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
