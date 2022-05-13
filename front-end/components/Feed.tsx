@@ -90,12 +90,12 @@ const Feed = () => {
 			reported: {
 				userId: CurrentQuestion!.userIdentifier?.toString(),
 				// TODO: send reported user name
-				name: 'test name',
+				name: 'Bea',
 			},
 			reportedContent: CurrentQuestion.content,
-			post: {
-				postId: CurrentQuestion.id?.toString(),
-				postContent: CurrentQuestion.content,
+			question: {
+				questionId: CurrentQuestion.id?.toString(),
+				questionContent: CurrentQuestion.content,
 			},
 		};
 

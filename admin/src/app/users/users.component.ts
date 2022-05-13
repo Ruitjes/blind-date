@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
 
 const ELEMENT_DATA: User[] = [
-  { id: 1, name: 'Rawan', email: 'rawan@gmail.com', role: 'Admin' },
-  { id: 2, name: 'Beatrice', email: 'beatrice@gmail.com', role: 'Admin' },
-  { id: 3, name: 'Rick', email: 'rick@gmail.com', role: 'User' },
+  { id: "1", name: 'Rawan', email: 'rawan@gmail.com', role: 'Admin' },
+  { id: "2", name: 'Beatrice', email: 'beatrice@gmail.com', role: 'Admin' },
+  { id: "3", name: 'Rick', email: 'rick@gmail.com', role: 'User' },
 ];
 
 @Component({
