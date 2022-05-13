@@ -7,6 +7,9 @@ import com.blinddate.answer.repository.AnswerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
+import static com.blinddate.answer.utils.DateAndTimeUtils.getCurrentDateAndTime;
+
 @Service
 @AllArgsConstructor
 public class AnswerService {
@@ -19,6 +22,7 @@ public class AnswerService {
                 .userProfile(request.userProfile())
                 .questionId(request.questionId())
                 .content(request.content())
+                .createdAt(getCurrentDateAndTime())
                 .build();
         return answerRepository.save(answer);
     }
@@ -37,6 +41,7 @@ public class AnswerService {
         }
         answer.setContent(requestBody.content());
         answer.setUserProfile(requestBody.userProfile());
+        answer.setCreatedAt(getCurrentDateAndTime());
         return answerRepository.save(answer);
     }
 
