@@ -47,7 +47,7 @@ const MyAnswersPage = (props: Props) => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col flex-grow p-6 -mx-4 -mb-6 bg-white">
+                    <div className="flex flex-col flex-grow p-6 -mx-4 -mb-6">
                         {answers?.length === 0 && <h1>No answers found </h1>}
                         <div className="flex flex-col shadow-lg drop-shadow-lg bg-white rounded-lg">
                             {
