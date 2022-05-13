@@ -22,6 +22,7 @@ spec:
       containers:
       - name: upload
         image: seethrough2022/uploadservice:latest
+        imagePullPolicy: Always
         resources: {}
 
         ports:
