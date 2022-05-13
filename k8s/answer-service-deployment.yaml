@@ -28,7 +28,7 @@ spec:
           - containerPort: 9092
 
         env:
-          - name: SPRING_MONGODB_URI
+          - name: env.DB_URL_ANSWER
             valueFrom:
               secretKeyRef:
                 name: secret

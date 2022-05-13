@@ -8,6 +8,8 @@ namespace report_service.Services
 
 		public Task CreateAsync(Report report);
 
+		public string GetUserByJWTToken();
+    
 		public Task<IEnumerable<Report>> GetAllAsync();
 	}
 }
