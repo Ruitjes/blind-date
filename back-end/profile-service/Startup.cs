@@ -34,7 +34,8 @@ namespace profile_service
                 });
             });
             services.AddSingleton<IProfileService, ProfileService>();
-            services.AddSingleton <IMessageBusPublisher, MessageBusPublisher>();
+            services.AddSingleton<RabbitMqConnection>();
+            services.AddScoped<IMessageBusPublisher, MessageBusPublisher>();
             services.AddHttpContextAccessor();
 
         }
