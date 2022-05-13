@@ -3,6 +3,7 @@ using profile_service.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using profile_service.Messaging;
 
 namespace profile_service.Controllers;
 
@@ -12,10 +13,12 @@ public class ProfileController : Controller
 {
 
     private readonly IProfileService _profileService;
+    private readonly IMessageBusPublisher _messageBusPublisher;
 
-    public ProfileController(IProfileService profileService)
+    public ProfileController(IProfileService profileService, IMessageBusPublisher messageBusPublisher)
     {
         _profileService = profileService;
+        _messageBusPublisher = messageBusPublisher;
     }
 
     [HttpGet("GetAllProfiles")]
@@ -35,12 +38,14 @@ public class ProfileController : Controller
     }
 
     [HttpPut("UpdateProfile")]
-    public async Task<ActionResult<Profile>> UpdateProfile(Profile updatedProfile)
+    public async Task<ActionResult<Profile>> UpdateProfile(Profile p)
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
         Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+        Profile updatedProfile = await _profileService.UpdateAsync(profile.Id, p);
+         _messageBusPublisher.PublishMessage("UpdatedUser", updatedProfile);
 
-        return Ok(await _profileService.UpdateAsync(profile.Id, updatedProfile));
+        return Ok(updatedProfile);
     }
 
     [HttpDelete("DeleteProfile")]
@@ -48,6 +53,7 @@ public class ProfileController : Controller
     {
         string userIdentifier = _profileService.GetUserByJWTToken();
         Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+         _messageBusPublisher.PublishMessage("DeletedUser", profile);
 
         return await _profileService.DeleteAsync(profile.Id);
     }
@@ -57,7 +63,10 @@ public class ProfileController : Controller
     {
        if (await _profileService.GetProfileByOAuthIdentifier(p.OAuthIdentifier) is null)
         {
-          return Ok(await _profileService.CreateAsync(p));
+            Profile profile = await _profileService.CreateAsync(p);
+            _messageBusPublisher.PublishMessage("NewUser", profile);
+
+            return Ok(profile);
         }
         else
         {
