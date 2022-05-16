@@ -42,13 +42,13 @@ const AskQuestionPage = () => {
                     formData.append("file", file);
                     formData.append("fileName", file.name);
 
-                    await axios.post('https://localhost:7000/upload-service/upload', formData, {
+                    await axios.post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData, {
                         headers: { Authorization: `Bearer ${access_token}` }
                     })
                 }
 
                 const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name }
-                await axios.post('https://localhost:7000/question-service/question/askQuestion', question, {
+                await axios.post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question, {
                     headers: { Authorization: `Bearer ${access_token}` }
                 });
 
