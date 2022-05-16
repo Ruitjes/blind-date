@@ -4,6 +4,7 @@ import AskQuestionEditBox from "./AskQuestionEditBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import common_api from "../../utils/common_api";
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
 import Loading from "../Loading";
@@ -42,15 +43,11 @@ const AskQuestionPage = () => {
                     formData.append("file", file);
                     formData.append("fileName", file.name);
 
-                    await axios.post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData, {
-                        headers: { Authorization: `Bearer ${access_token}` }
-                    })
+                    await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
 
                 const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name }
-                await axios.post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question, {
-                    headers: { Authorization: `Bearer ${access_token}` }
-                });
+                await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
 
                 router.push('/');
 
