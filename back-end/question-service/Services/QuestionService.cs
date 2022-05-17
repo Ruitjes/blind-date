@@ -27,16 +27,16 @@ namespace question_service.Services
             return await _questions.Find(s => s.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark)
+        public async Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark, string userIdentifier)
         {
             if (bookmark == null)
             {
-                return await _questions.Find(s => true).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier).FirstOrDefaultAsync();
 
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
@@ -70,7 +70,11 @@ namespace question_service.Services
 
         public async Task<List<Question>> GetQuestionsByUser(string userId)
         {
-            return await _questions.Find(s => s.UserIdentifier == userId).ToListAsync();
+            List<Question> questions = await _questions.Find(s => s.UserIdentifier == userId).ToListAsync();
+
+
+
+            return questions;
         }
     }
 }
