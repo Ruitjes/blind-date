@@ -4,15 +4,20 @@ metadata:
   name: basic-ingress
   annotations:
     # gateway
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
     # instead of setting a using base path in asp.net core startup. or configuring the controller to match the path. 
     # I have chosen to use a rewrite. this will remove everything before the (/|$)(.*) when proxying to the given service.
     # This makes it so that we have to change less files.
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  tls:
+  - hosts:
+    - dateblind.me
+    secretName: blind-date-tls
   rules:
-    - http:
+    - host: dateblind.me
+      http:
         paths:
           # Question Service 
           - path: /question-service(/|$)(.*)
