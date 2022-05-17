@@ -10,7 +10,6 @@ metadata:
     # I have chosen to use a rewrite. this will remove everything before the (/|$)(.*) when proxying to the given service.
     # This makes it so that we have to change less files.
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    kubernetes.io/ingress.global-static-ip-name: blinddate-ip
 spec:
   rules:
     - http:
