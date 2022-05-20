@@ -31,12 +31,12 @@ namespace question_service.Services
         {
             if (bookmark == null)
             {
-                return await _questions.Find(s => s.UserIdentifier != userIdentifier).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier && s.Deleted == false).FirstOrDefaultAsync();
 
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && s.Deleted == false).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
@@ -65,15 +65,12 @@ namespace question_service.Services
 
         public async Task DeleteAsync(ObjectId questionId)
         {
-            Question question = new Question()
-            {
-                Id = questionId,
-                FileName = null,
-                Content = null,
-                Deleted = true
-            };
+            var update = Builders<Question>.Update
+                            .Set(q => q.FileName, null)
+                            .Set(q => q.Content, null)
+                            .Set(q => q.Deleted, true);
 
-            await _questions.FindOneAndReplaceAsync(s => s.Id == questionId, question);
+            await _questions.FindOneAndUpdateAsync(s => s.Id == questionId, update);
         }
 
         public async Task<List<Question>> GetQuestionsByUser(string userId)
