@@ -1,8 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
 using report_service.Data;
-using RestSharp;
-using System.Web;
 using Auth0.ManagementApi;
 using Auth0.ManagementApi.Models;
 using Auth0.Core.Exceptions;
