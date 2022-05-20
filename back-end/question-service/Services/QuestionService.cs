@@ -78,7 +78,7 @@ namespace question_service.Services
 
         public async Task<List<Question>> GetQuestionsByUser(string userId)
         {
-            return await _questions.Find(s => s.UserIdentifier == userId).ToListAsync(); ;
+            return await _questions.Find(s => s.UserIdentifier == userId).ToListAsync();
         }
     }
 }
