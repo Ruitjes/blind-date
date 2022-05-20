@@ -2,6 +2,7 @@ using question_service.Interfaces;
 using question_service.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Microsoft.AspNetCore.Authorization;
 
 namespace question_service.Controllers;
 
@@ -44,6 +45,7 @@ public class QuestionController : Controller
         return await _questionService.CreateAsync(newQuestion);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteQuestion")]
     public async Task<bool> DeleteQuestion(string id)
     {
