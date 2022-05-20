@@ -1,4 +1,4 @@
 export class Question
 {
-    constructor(public questionId: string, public questionContent: string) {}
+    constructor(public id: string, public content: string) {}
 }

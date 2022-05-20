@@ -11,6 +11,10 @@ namespace report_service.Profiles
 			// Source -> Target
 			CreateMap<Report, ReportReadDto>();
 			CreateMap<ReportCreateDto, Report>();
+			CreateMap<UserDto, User>();
+			CreateMap<User, UserDto>();
+			CreateMap<QuestionDto, Question>();
+			CreateMap<Question, QuestionDto>();
 		}
 	}
 }
