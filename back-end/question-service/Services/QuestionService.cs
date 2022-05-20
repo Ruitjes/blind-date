@@ -63,9 +63,17 @@ namespace question_service.Services
             await _questions.ReplaceOneAsync(s => s.Id == id, question);
         }
 
-        public async Task DeleteAsync(ObjectId id)
+        public async Task DeleteAsync(ObjectId questionId)
         {
-            await _questions.DeleteOneAsync(s => s.Id == id);
+            Question question = new Question()
+            {
+                Id = questionId,
+                FileName = null,
+                Content = null,
+                Deleted = true
+            };
+
+            await _questions.FindOneAndReplaceAsync(s => s.Id == questionId, question);
         }
 
         public async Task<List<Question>> GetQuestionsByUser(string userId)

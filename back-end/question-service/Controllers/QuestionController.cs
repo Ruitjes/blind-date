@@ -43,4 +43,12 @@ public class QuestionController : Controller
 
         return await _questionService.CreateAsync(newQuestion);
     }
+
+    [HttpDelete("DeleteQuestion")]
+    public async Task<bool> DeleteQuestion(string id)
+    {
+        await _questionService.DeleteAsync(new ObjectId(id));
+
+        return true;
+    }
 }
