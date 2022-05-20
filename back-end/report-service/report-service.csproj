@@ -17,5 +17,13 @@
     <PackageReference Include="MongoDB.Driver" Version="2.15.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+    <PackageReference Include="RestSharp" Version="107.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Auth0.ManagementApi" Version="7.16.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="RestSharp" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Auth0.ManagementApi" />
   </ItemGroup>
 </Project>

@@ -39,6 +39,9 @@ services:
             - DbReportCollectionName=Report
             - Auth0Settings__Authority=${AUTH0_AUTHORITY}
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
+            - AUTH0_MANAGEMENT_SECRET=${AUTH0_MANAGEMENT_SECRET}
+            - AUTH0_MANAGEMENT_CLIENT_ID=${AUTH0_MANAGEMENT_CLIENT_ID}
+            - AUTH0_MANAGEMENT_AUDIENCE=${AUTH0_MANAGEMENT_AUDIENCE}
 
     ocelot-gateway:
         image: ocelotgateway
