@@ -47,10 +47,8 @@ public class QuestionController : Controller
 
     [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteQuestion")]
-    public async Task<bool> DeleteQuestion(string id)
+    public async Task<Question> DeleteQuestion(string id)
     {
-        await _questionService.DeleteAsync(new ObjectId(id));
-
-        return true;
+        return await _questionService.DeleteAsync(new ObjectId(id));
     }
 }

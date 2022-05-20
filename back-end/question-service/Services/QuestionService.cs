@@ -63,14 +63,14 @@ namespace question_service.Services
             await _questions.ReplaceOneAsync(s => s.Id == id, question);
         }
 
-        public async Task DeleteAsync(ObjectId questionId)
+        public async Task<Question> DeleteAsync(ObjectId questionId)
         {
             var update = Builders<Question>.Update
                             .Set(q => q.FileName, null)
                             .Set(q => q.Content, null)
                             .Set(q => q.Deleted, true);
 
-            await _questions.FindOneAndUpdateAsync(s => s.Id == questionId, update);
+            return await _questions.FindOneAndUpdateAsync(s => s.Id == questionId, update);
         }
 
         public async Task<List<Question>> GetQuestionsByUser(string userId)
