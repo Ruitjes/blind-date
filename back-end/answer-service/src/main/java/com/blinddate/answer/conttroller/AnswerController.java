@@ -36,7 +36,7 @@ public class AnswerController {
     @DeleteMapping("/{id}")
     public void deleteAnswer(@PathVariable String id) {
         log.info("Deleting answer with id: {}", id);
-        answerService.deleteAnswer(id);
+        answerService.deleteAnswerPermanent(id);
     }
 
     @GetMapping("/user/{userId}")
@@ -49,5 +49,10 @@ public class AnswerController {
     public Iterable<Answer> getAnswersByQuestionId(@PathVariable String questionId) {
         log.info("Getting answers by question id: {}", questionId);
         return answerService.getAnswersByQuestionId(questionId);
+    }
+    
+    @PutMapping("/markAnswerAsDeleted/{id}")
+    public Answer markAnswerAsDeleted(@PathVariable String id) {
+      return answerService.deleteAnswer(id);
     }
 }

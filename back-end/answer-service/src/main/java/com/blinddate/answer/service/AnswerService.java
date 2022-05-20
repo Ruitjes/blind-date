@@ -23,6 +23,7 @@ public class AnswerService {
                 .questionId(request.questionId())
                 .content(request.content())
                 .createdAt(getCurrentDateAndTime())
+                .deleted(false)
                 .build();
         return answerRepository.save(answer);
     }
@@ -56,12 +57,22 @@ public class AnswerService {
     }
 
     // Delete answer by id
-    public void deleteAnswer(String id) {
+    public void deleteAnswerPermanent(String id) {
         answerRepository.deleteById(id);
     }
 
     // Delete answers belongs the question with id
     public void deleteAnswersByQuestionId(String questionId) {
         answerRepository.deleteAllByQuestionId(questionId);
+    }
+
+    public Answer deleteAnswer(String answerId){
+   final var answer = answerRepository.findById(answerId).orElse(null);
+        if (answer == null) {
+            return null;
+        }
+        answer.setDeleted(true);
+        answer.setContent("");
+        return answerRepository.save(answer);
     }
 }
