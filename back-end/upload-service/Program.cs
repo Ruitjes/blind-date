@@ -19,6 +19,17 @@ var amazonS3Section = builder.Configuration.GetSection(nameof(AmazonS3Settings))
 var amazonS3Settings = amazonS3Section.Get<AmazonS3Settings>();
 builder.Services.AddSingleton<IAmazonS3Settings>(amazonS3Settings);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
