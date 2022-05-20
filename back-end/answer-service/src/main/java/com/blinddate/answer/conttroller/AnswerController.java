@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/answers")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @AllArgsConstructor
 @Slf4j
 public class AnswerController {
