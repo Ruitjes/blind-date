@@ -32,7 +32,7 @@ public class FeedController : Controller
     {
         Bookmark usersBookmark = await _bookmarkService.GetByUserIdentifier(userIdentifier);
 
-        return await _questionService.GetNextQuestionBasedOnUserBookmark(usersBookmark?.CurrentIndex);
+        return await _questionService.GetNextQuestionBasedOnUserBookmark(usersBookmark?.CurrentIndex, userIdentifier);
     }
 
     [HttpGet("ProgressUserBookmark/{userIdentifier}")]
@@ -41,13 +41,13 @@ public class FeedController : Controller
         Bookmark ub = await _bookmarkService.GetByUserIdentifier(userIdentifier);
         if (ub == null)
         {
-            Question q = await _questionService.GetNextQuestionBasedOnUserBookmark(null);
+            Question q = await _questionService.GetNextQuestionBasedOnUserBookmark(null, userIdentifier);
             await _bookmarkService.CreateAsync(new Bookmark { UserIdentifier = userIdentifier, CurrentIndex = q.Id });
             return "new bookmark entry created for user";
         }
         else
         {
-            Question nextQuestion = await _questionService.GetNextQuestionBasedOnUserBookmark(ub?.CurrentIndex);
+            Question nextQuestion = await _questionService.GetNextQuestionBasedOnUserBookmark(ub?.CurrentIndex, userIdentifier);
 
             return await _bookmarkService.UpdateAsync(ub!.Id, new Bookmark { Id = ub!.Id, UserIdentifier = ub?.UserIdentifier!, CurrentIndex = nextQuestion.Id });
         }
