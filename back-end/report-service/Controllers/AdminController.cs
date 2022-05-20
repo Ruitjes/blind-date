@@ -7,27 +7,27 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace report_service.Controllers
 {
-	[Route("[controller]")]
-	[ApiController]
-	public class AdminController : ControllerBase
-	{
-		private readonly IAdminService _service;
+    [Route("[controller]")]
+    [ApiController]
+    public class AdminController : ControllerBase
+    {
+        private readonly IAdminService _service;
 
-		public AdminController(IAdminService service)
-		{
-			_service = service;
-		}
+        public AdminController(IAdminService service)
+        {
+            _service = service;
+        }
 
-		[HttpGet("BlockUser/{userIdentifier}")]
+        [HttpGet("BlockUser/{userIdentifier}")]
         public async Task<ActionResult<string>> BlockUser(string userIdentifier)
-		{
-			return await _service.ManageUserBlock(userIdentifier, true);
-		}
+        {
+            return await _service.ManageUserBlock(userIdentifier, true);
+        }
 
-		[HttpGet("UnblockUser/{userIdentifier}")]
-		public async Task<ActionResult<string>> UnblockUser(string userIdentifier)
-		{
-			return await _service.ManageUserBlock(userIdentifier, false);
-		}
-	}
+        [HttpGet("UnblockUser/{userIdentifier}")]
+        public async Task<ActionResult<string>> UnblockUser(string userIdentifier)
+        {
+            return await _service.ManageUserBlock(userIdentifier, false);
+        }
+    }
 }
