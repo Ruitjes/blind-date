@@ -7,6 +7,9 @@ resources:
 - report-service-deployment.yaml
 - search-service-deployment.yaml
 - upload-service-deployment.yaml
+- secret.yaml
+- basic-ingress.yaml
+- rabbitmq-deployment.yaml
 
 namespace: blinddate
 images:
