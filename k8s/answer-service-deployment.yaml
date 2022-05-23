@@ -21,8 +21,8 @@ spec:
     spec:
       containers:
       - name: answer
-        image: seethrough2022/answerservice:latest
-        imagePullPolicy: Always
+        image: answer-service
+        imagePullPolicy: IfNotPresent
         resources: {}
 
         ports:
