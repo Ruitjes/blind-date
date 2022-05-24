@@ -56,16 +56,7 @@ public class AnswerService {
         return answerRepository.findAllByQuestionId(questionId);
     }
 
-    // Delete answer by id
-    public void deleteAnswerPermanent(String id) {
-        answerRepository.deleteById(id);
-    }
-
-    // Delete answers belongs the question with id
-    public void deleteAnswersByQuestionId(String questionId) {
-        answerRepository.deleteAllByQuestionId(questionId);
-    }
-
+      // Delete answer by setting content to deleted
     public Answer deleteAnswer(String answerId){
    final var answer = answerRepository.findById(answerId).orElse(null);
         if (answer == null) {

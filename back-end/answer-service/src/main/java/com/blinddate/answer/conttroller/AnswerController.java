@@ -33,12 +33,6 @@ public class AnswerController {
         answerService.updateAnswer(id, request);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAnswer(@PathVariable String id) {
-        log.info("Deleting answer with id: {}", id);
-        answerService.deleteAnswerPermanent(id);
-    }
-
     @GetMapping("/user/{userId}")
     public Iterable<Answer> getAnswersByUserId(@PathVariable String userId) {
         log.info("Getting answers by user id: {}", userId);
@@ -51,8 +45,8 @@ public class AnswerController {
         return answerService.getAnswersByQuestionId(questionId);
     }
     
-    @PutMapping("/markAnswerAsDeleted/{id}")
-    public Answer markAnswerAsDeleted(@PathVariable String id) {
+    @PutMapping("/deleteAnswer/{id}")
+    public Answer deleteAnswer(@PathVariable String id) {
       return answerService.deleteAnswer(id);
     }
 }
