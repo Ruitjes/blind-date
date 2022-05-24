@@ -18,9 +18,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Auth0.ManagementApi" Version="7.16.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Newtonsoft.Json" />
-    <None Remove="Auth0.ManagementApi" />
-  </ItemGroup>
 </Project>
