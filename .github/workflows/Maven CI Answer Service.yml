@@ -62,8 +62,8 @@ jobs:
         env:
           GH_USERNAME: ${{ github.event.schedule.user.login }}
         run: |
-          git config --local user.name "ofgokbak"
-          git config --local user.email "vanoisterwijk@icloud.com"
+          git config --global user.name "$(git log -n 1 --pretty=format:%an)"
+          git config --global user.email "$(git log -n 1 --pretty=format:%ae)"
           git pull origin ${{ github.ref_name }}
           git add .
           git commit -am "Bump docker tag to answer-service"
