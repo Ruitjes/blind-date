@@ -68,6 +68,10 @@ jobs:
 #           git add .
 #           git commit -am "Bump docker tag to answer-service"
 #           git push
+      - name: Git Branch Name
+        # You may pin to the exact commit or the version.
+        # uses: EthanSK/git-branch-name-action@f85bb8577db20b69f83287e85d9f9caee037cdfc
+        uses: EthanSK/git-branch-name-action@v1
       - name: Add & Commit
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,6 +82,8 @@ jobs:
           commit: "Bump docker tag to answer-service"
           # The name of the custom committer you want to use
           pull: ''
+          # Default: ''
+          tag_push: 'origin HEAD:${GIT_BRANCH_NAME}'
           # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (more info in the README)
           # The token used to make requests to the GitHub API. It's NOT used to make commits and should not be changed.
           github_token: ${{ github.blinddate }}
