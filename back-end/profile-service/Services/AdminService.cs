@@ -67,8 +67,8 @@ namespace profile_service.Services
 
             var content = await response.Content.ReadAsStringAsync();
             var jsonResult = JObject.Parse(content);
-
-            var mgmtToken = jsonResult["access_token"].Value<string>();
+            
+            var mgmtToken = jsonResult["access_token"]?.Value<string>() ?? "";
             return mgmtToken;
         }
     }
