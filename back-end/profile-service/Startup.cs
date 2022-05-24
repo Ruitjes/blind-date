@@ -29,7 +29,7 @@ namespace profile_service
                 {
                     builder
                         .AllowAnyOrigin()
-                        .AllowAnyMethod()
+                        .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
             });
