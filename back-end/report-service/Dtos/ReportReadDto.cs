@@ -6,13 +6,13 @@ namespace report_service.Dtos
 	{
 		public string Id { get; set; }
 
-		public User Reporter { get; set; }
+		public UserDto Reporter { get; set; }
 
-		public User Reported { get; set; }
+		public UserDto Reported { get; set; }
 
 		public string ReportedContent { get; set; }
 
-		public Question Question { get; set; }
+		public QuestionDto Question { get; set; }
 
 		public DateTime CreatedAt { get; set; }
 

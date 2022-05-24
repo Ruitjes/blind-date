@@ -18,7 +18,7 @@ namespace report_service.Services
 			_httpContext = httpContext;
 		}
 
-		public async Task<List<Report?>> GetAsync()
+		public async Task<List<Report>> GetAsync()
 		{
 			return await _reportsCollection.Find(x => true).ToListAsync();
 		}
