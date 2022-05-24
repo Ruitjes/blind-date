@@ -4,13 +4,13 @@ on:
   push:
     paths:
       - "back-end/profile-service/**"
-    branches: [main]
+    branches: [main, master]
+    
+  workflow_dispatch: 
+  
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./back-end/profile-service
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
