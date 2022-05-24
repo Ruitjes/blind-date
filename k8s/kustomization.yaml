@@ -26,8 +26,8 @@ images:
   newName: seethrough2022/report-service
   newTag: 4c577ff2b44a37a35268cc589240e941c0285e09
 - name: search-service
-  newName: seethrough2022/searchservice
-  newTag: latest
+  newName: seethrough2022/search-service
+  newTag: f6d2a15941ac3bd126a130f452ef67f1476949e6
 - name: upload-service
   newName: seethrough2022/uploadservice
   newTag: latest
