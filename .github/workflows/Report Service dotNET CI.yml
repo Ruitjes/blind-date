@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "back-end/report-service/**"
-    branches: [main]
+    branches: [main, master]
 jobs:
   build:
     runs-on: ubuntu-latest
