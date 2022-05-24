@@ -66,8 +66,8 @@ namespace question_service.Services
         public async Task<Question> DeleteAsync(ObjectId questionId)
         {
             var update = Builders<Question>.Update
-                            .Set(q => q.FileName, null)
-                            .Set(q => q.Content, null)
+                            .Set(q => q.FileName, "deleted")
+                            .Set(q => q.Content, "deleted")
                             .Set(q => q.Deleted, true);
 
             return await _questions.FindOneAndUpdateAsync(s => s.Id == questionId, update);
