@@ -44,7 +44,7 @@ jobs:
         with:
           context: "back-end/report-service"
           push: true
-          tags: seethrough/report-service:${{ github.sha }}
+          tags: seethrough2022/report-service:${{ github.sha }}
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
