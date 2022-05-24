@@ -1,4 +1,4 @@
-﻿namespace report_service.Data
+﻿namespace profile_service.Models
 {
 	public class AuthSecrets
 	{
@@ -6,7 +6,7 @@
 		public string Audience { get; set; } = null!;
 		public string ClientID { get; set; } = null!;
 
-		public AuthSecrets(string authSecret, string authAudience, string authClientID)
+		public AuthSecrets(string? authSecret, string? authAudience, string? authClientID)
 		{
 			if (authSecret == null || authAudience == null || authClientID == null)
 			{

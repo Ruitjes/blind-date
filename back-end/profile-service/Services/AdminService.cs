@@ -1,12 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
-using report_service.Data;
+using profile_service.Models;
 using Auth0.ManagementApi;
 using Auth0.ManagementApi.Models;
 using Auth0.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace report_service.Services
+namespace profile_service.Services
 {
 	public class AdminService : IAdminService
 	{
@@ -33,7 +33,9 @@ namespace report_service.Services
                 // Set user blocked boolean to blockStatus.
                 User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest { Blocked = blockStatus });
 
-                return new ObjectResult((bool)user.Blocked ? $"{user.FullName} successfully blocked" : $"{user.FullName} successfully unblocked") {StatusCode = 200 };
+                bool UserIsBlocked = user?.Blocked ?? false;
+
+                return new ObjectResult(UserIsBlocked ? $"{user.FullName} successfully blocked" : $"{user.FullName} successfully unblocked") {StatusCode = 200 };
             }
             catch(ErrorApiException apiError)
             {

@@ -20,14 +20,6 @@ string connectionString = Environment.GetEnvironmentVariable("DbConnectionString
 string databaseName = Environment.GetEnvironmentVariable("DbName");
 string reportsCollectionName = Environment.GetEnvironmentVariable("DbReportCollectionName");
 
-// Enviroment variables for management api
-string auth_secret = Environment.GetEnvironmentVariable("AUTH0_MANAGEMENT_SECRET");
-string auth_client = Environment.GetEnvironmentVariable("AUTH0_MANAGEMENT_CLIENT_ID");
-string auth_audience = Environment.GetEnvironmentVariable("AUTH0_MANAGEMENT_AUDIENCE");
-
-// Auth secrets
-builder.Services.AddSingleton(new AuthSecrets(auth_secret,auth_audience,auth_client));
-
 // DB Settings
 builder.Services.AddSingleton(new ReportsDatabaseSettings(
 	connectionString, databaseName, reportsCollectionName
@@ -35,9 +27,6 @@ builder.Services.AddSingleton(new ReportsDatabaseSettings(
 
 // DB class
 builder.Services.AddScoped<IReportsService, ReportsService>();
-
-// Admin service scoped
-builder.Services.AddScoped<IAdminService, AdminService>();
 
 // Automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

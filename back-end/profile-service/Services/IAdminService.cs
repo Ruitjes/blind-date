@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace report_service.Services
+namespace profile_service.Services
 {
 	public interface IAdminService
 	{
