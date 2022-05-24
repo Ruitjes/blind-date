@@ -37,7 +37,8 @@ namespace question_service
                 });
             });
 
-            services.AddSingleton<IQuestionService, QuestionService>();
+            services.AddScoped<IExternalServices, ExternalServices>();
+            services.AddScoped<IQuestionService, QuestionService>();
             services.AddSingleton<IBookmarkService, BookmarkService>();
         }
 

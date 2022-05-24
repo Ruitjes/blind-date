@@ -9,12 +9,14 @@ namespace question_service.Services
     public class QuestionService : IQuestionService
     {
         private readonly IMongoCollection<Question> _questions;
+        private readonly IExternalServices _externalServices;
 
-        public QuestionService(IMongoDbSettings settings)
+        public QuestionService(IMongoDbSettings settings, IExternalServices externalServices)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
             _questions = database.GetCollection<Question>("Question");
+            _externalServices = externalServices;
         }
 
         public async Task<List<Question>> GetAllAsync()
@@ -29,26 +31,35 @@ namespace question_service.Services
 
         public async Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark, string userIdentifier)
         {
+            Profile? userProfile = await _externalServices.GetProfileWithUserIdentifierAsync(userIdentifier);
+            List<string?> interests = userProfile?.Interests as List<string?> ?? new List<string?>();
+            interests.Add(null); // Allow for questions with no linked interest to still show in people's feed.
+
+            //Could make a shorthand operator inside the find to shorten the amount of lines. but that would make it unreadable.
             if (bookmark == null)
             {
-                return await _questions.Find(s => s.UserIdentifier != userIdentifier).FirstOrDefaultAsync();
-
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).FirstOrDefaultAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
-        public async Task<List<Question>> GetNextQuestionBatchBasedOnUserBookmark(ObjectId? bookmark)
+        public async Task<List<Question>> GetNextQuestionBatchBasedOnUserBookmark(ObjectId? bookmark, string userIdentifier)
         {
+            Profile? userProfile = await _externalServices.GetProfileWithUserIdentifierAsync(userIdentifier);
+            List<string?> interests = userProfile?.Interests as List<string?> ?? new List<string?>();
+            interests.Add(null); // Allow for questions with no linked interest to still show in people's feed.
+
+
             if (bookmark == null)
             {
-                return await _questions.Find(s => true).Limit(5).ToListAsync();
+                return await _questions.Find(s => true && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).Limit(5).ToListAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark).Limit(5).ToListAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).Limit(5).ToListAsync();
             }
         }
 
