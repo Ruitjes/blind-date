@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace report_service.Models
+namespace report_service.Dtos
 {
-	public class User
+	public class QuestionDto
 	{
 		[Required]
 		public string Id { get; set; }
 
 		[Required]
-		public string Name { get; set; }
+		public string Content { get; set; }
 	}
 }
