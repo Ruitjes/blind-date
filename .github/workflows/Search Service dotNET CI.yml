@@ -5,10 +5,7 @@ on:
     paths:
       - "back-end/search-service/**"
     branches: [main]
-  pull_request:
-    paths:
-      - "back-end/search-service/**"
-    branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
