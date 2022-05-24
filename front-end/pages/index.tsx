@@ -2,23 +2,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Subtitle from '../components/Subtitle';
+import { useTranslation } from 'react-i18next';
 
 const Home: NextPage = () => {
   useEffect(() => {
     document.title = "Home Page"
   }, [])
   
+  const { t } = useTranslation();
+
   const router = useRouter();
+  
   const navigateToFeed = () => {
     router.push('/feed');
   }
   const navigateToAsk = () => {
     router.push('/ask');
   }
+
   const navigateToProfile = () => {
     router.push('/profile');
   }
+
   const navigateToMyQuestions = () => {
     router.push('/myQuestions')
   }
@@ -48,7 +53,7 @@ const Home: NextPage = () => {
 
       <div className="flex absolute inset-0 pointer-events-none">
         <div className="flex h-36 w-36 m-auto justify-center rounded-full bg-white">
-          <h1 className="self-center text-center text-4xl font-medium">Or</h1>
+          <h1 className="self-center text-center text-4xl font-medium">{t('Hello World!')}</h1>
         </div>
       </div>
 
