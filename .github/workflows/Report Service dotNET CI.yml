@@ -5,6 +5,9 @@ on:
     paths:
       - "back-end/report-service/**"
     branches: [main, master]
+    
+  workflow_dispatch:    
+    
 jobs:
   build:
     runs-on: ubuntu-latest
