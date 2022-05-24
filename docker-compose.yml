@@ -77,3 +77,22 @@ services:
           - MongoDbSettings__ConnectionString=${DB_URL_PROFILE}
           - Auth0Settings__Authority=${AUTH0_AUTHORITY}
           - Auth0Settings__Audience=${AUTH0_AUDIENCE}
+          - AUTH0_MANAGEMENT_SECRET=${AUTH0_MANAGEMENT_SECRET}
+          - AUTH0_MANAGEMENT_CLIENT_ID=${AUTH0_MANAGEMENT_CLIENT_ID}
+          - AUTH0_MANAGEMENT_AUDIENCE=${AUTH0_MANAGEMENT_AUDIENCE}
+          - RabbitMQ_URI=${RabbitMQ_URI}
+      restart: on-failure
+      depends_on:
+        - rabbitmq
+
+    rabbitmq:
+        image: rabbitmq
+        command: rabbitmq-server
+        expose:
+        - 5672
+        - 15672
+        healthcheck:
+            test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+            interval: 5s
+            timeout: 15s
+            retries: 1
