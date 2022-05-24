@@ -79,13 +79,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # You may pin to the exact commit or the version.
-        # uses: EndBug/add-and-commit@050a66787244b10a4874a2a5f682130263edc192
         uses: EndBug/add-and-commit@v9.0.0
         with:
           commit: "Bump docker tag to answer-service"
           # The name of the custom committer you want to use
           pull: ''
-          push: 'origin HEAD:refs/heads/${GIT_BRANCH_NAME} --force'
+          push: "origin ${GIT_BRANCH_NAME} --set-upstream"
           # Default: ''
 #           tag_push: 'origin HEAD:${GIT_BRANCH_NAME} --force'
           # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (more info in the README)
