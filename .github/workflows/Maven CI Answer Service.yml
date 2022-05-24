@@ -20,35 +20,35 @@ jobs:
           java-version: "17"
           distribution: "temurin"
           cache: maven
-      - name: Build with Maven
-        env:
-          env.DB_URL_ANSWER: "${{secrets.DB_URL_ANSWER}}"
-          Auth0Settings__Authority: "${{secrets.AUTH0_AUTHORITY}}"
-          Auth0Settings__Audience: "${{secrets.AUTH0_AUDIENCE}}"
-        run: mvn -B package --file back-end/answer-service/pom.xml
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+#       - name: Build with Maven
+#         env:
+#           env.DB_URL_ANSWER: "${{secrets.DB_URL_ANSWER}}"
+#           Auth0Settings__Authority: "${{secrets.AUTH0_AUTHORITY}}"
+#           Auth0Settings__Audience: "${{secrets.AUTH0_AUDIENCE}}"
+#         run: mvn -B package --file back-end/answer-service/pom.xml
+#       - name: Set up QEMU
+#         uses: docker/setup-qemu-action@v1
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+#       - name: Set up Docker Buildx
+#         uses: docker/setup-buildx-action@v1
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+#       - name: Login to DockerHub
+#         uses: docker/login-action@v1
+#         with:
+#           username: ${{ secrets.DOCKER_USER }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: "back-end/answer-service"
-          push: true
-          tags: seethrough2022/answer-service:${{ github.sha }}
+#       - name: Build and push
+#         uses: docker/build-push-action@v2
+#         with:
+#           context: "back-end/answer-service"
+#           push: true
+#           tags: seethrough2022/answer-service:${{ github.sha }}
 
-      - name: Setup Kustomize
-        uses: imranismail/setup-kustomize@v1
-        with:
-          kustomize-version: "3.6.1"
+#       - name: Setup Kustomize
+#         uses: imranismail/setup-kustomize@v1
+#         with:
+#           kustomize-version: "3.6.1"
 
       - name: Update Kubernetes resources
         env:
@@ -58,16 +58,6 @@ jobs:
           kustomize edit set image answer-service=$DOCKER_USER/answer-service:$GITHUB_SHA
           cat kustomization.yaml
  
-#       - name: Commit and push changes
-#         env:
-#           GH_USERNAME: ${{ github.event.schedule.user.login }}
-#         run: |
-#           git config --global user.name "$(git log -n 1 --pretty=format:%an)"
-#           git config --global user.email "$(git log -n 1 --pretty=format:%ae)"
-#           git pull origin ${{ github.ref_name }}
-#           git add .
-#           git commit -am "Bump docker tag to answer-service"
-#           git push
       - name: Git Branch Name
         # You may pin to the exact commit or the version.
         # uses: EthanSK/git-branch-name-action@f85bb8577db20b69f83287e85d9f9caee037cdfc
@@ -84,7 +74,7 @@ jobs:
           message: "Bump docker tag to answer-service"
           # The name of the custom committer you want to use
           pull: ''
-          push: origin HEAD:refs/heads/$GIT_BRANCH_NAME --force
+          tag_push: '--force'
           # Whether to push the commit and, if any, its tags to the repo. It can also be used to set the git push arguments (more info in the README)
           # The token used to make requests to the GitHub API. It's NOT used to make commits and should not be changed.
           github_token: ${{ env.GITHUB_TOKEN }}
