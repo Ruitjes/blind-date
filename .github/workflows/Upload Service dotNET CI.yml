@@ -5,10 +5,7 @@ on:
     paths:
       - "back-end/upload-service/**"
     branches: [main]
-  pull_request:
-    paths:
-      - "back-end/upload-service/**"
-    branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
