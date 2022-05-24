@@ -1,20 +1,17 @@
-name: .NET Upload Service CI
+name: .NET Search Service Kustomize new tag
 
 on:
   push:
     paths:
-      - "back-end/upload-service/**"
-    branches: [main]
-  pull_request:
-    paths:
-      - "back-end/upload-service/**"
-    branches: [main]
+      - "back-end/search-service/**"
+    branches: [main, master]
+    
+  workflow_dispatch: 
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./back-end/upload-service
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -42,9 +39,9 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: "back-end/upload-service"
+          context: "back-end/search-service"
           push: true
-          tags: seethrough2022/upload-service:${{ github.sha }}
+          tags: seethrough2022/search-service:${{ github.sha }}
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
@@ -56,15 +53,17 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
         run: |
           cd k8s
-          kustomize edit set image upload-service=$DOCKER_USER/upload-service:$GITHUB_SHA
+          kustomize edit set image search-service=$DOCKER_USER/search-service:$GITHUB_SHA
           cat kustomization.yaml
-
-      - name: Commit files
-        run: |
-          git config --local user.name "$(git log -n 1 --pretty=format:%an)"
-          git config --local user.email "$(git log -n 1 --pretty=format:%ae)"
-          git stash
-          git pull
-          git stash apply
-          git add .
-          git commit -am "Bump docker tag to upload service"
+      - name: Add & Commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        # You may pin to the exact commit or the version.
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: "Bump docker tag to search-service"
+          # The name of the custom committer you want to use
+          pull: ''
+          push: origin main --force
+          # The token used to make requests to the GitHub API. It's NOT used to make commits and should not be changed.
+          github_token: ${{ env.GITHUB_TOKEN }}
