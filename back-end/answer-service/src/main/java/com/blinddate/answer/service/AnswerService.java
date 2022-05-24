@@ -72,7 +72,7 @@ public class AnswerService {
             return null;
         }
         answer.setDeleted(true);
-        answer.setContent("");
+        answer.setContent("Deleted");
         return answerRepository.save(answer);
     }
 }
