@@ -73,7 +73,7 @@ jobs:
         # uses: EthanSK/git-branch-name-action@f85bb8577db20b69f83287e85d9f9caee037cdfc
         uses: EthanSK/git-branch-name-action@v1
       - name: Echo the branch name
-        run: echo "Branch name ${GIT_BRANCH_NAME
+        run: echo "Branch name ${GIT_BRANCH_NAME}"
         
       - name: Add & Commit
         env:
