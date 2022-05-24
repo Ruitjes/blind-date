@@ -23,8 +23,8 @@ images:
   newName: seethrough2022/questionservice
   newTag: latest
 - name: report-service
-  newName: seethrough2022/reportservice
-  newTag: latest
+  newName: seethrough2022/report-service
+  newTag: 4c577ff2b44a37a35268cc589240e941c0285e09
 - name: search-service
   newName: seethrough2022/searchservice
   newTag: latest
