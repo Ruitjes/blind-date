@@ -62,8 +62,8 @@ jobs:
         env:
           GH_USERNAME: ${{ github.event.schedule.user.login }}
         run: |
-          git config --local user.name "$(git log -n 1 --pretty=format:%an)"
-          git config --local user.email "$(git log -n 1 --pretty=format:%ae)"
+          git config --local user.name "ofgokbak"
+          git config --local user.email "vanoisterwijk@icloud.com"
           git stash
           git pull origin ${{ github.ref_name }}
           git stash apply
