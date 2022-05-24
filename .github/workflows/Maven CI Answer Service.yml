@@ -64,9 +64,7 @@ jobs:
         run: |
           git config --local user.name "ofgokbak"
           git config --local user.email "vanoisterwijk@icloud.com"
-          git stash
           git pull origin ${{ github.ref_name }}
-          git stash apply
           git add .
           git commit -am "Bump docker tag to answer-service"
           git push
