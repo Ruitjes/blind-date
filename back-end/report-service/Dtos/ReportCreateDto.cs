@@ -9,12 +9,12 @@ namespace report_service.Dtos
 		public User Reporter { get; set; }
 
 		[Required]
-		public User Reported { get; set; }
+		public UserDto Reported { get; set; }
 
 		[Required]
 		public string ReportedContent { get; set; }
 
 		[Required]
-		public Question Question { get; set; }
+		public QuestionDto Question { get; set; }
 	}
 }

@@ -84,20 +84,22 @@ const Feed = () => {
 	const reportQuestion = () => {
 		const data = {
 			reporter: {
-				userId: user!.sub?.toString(),
-				name: user!.nickname?.toString(),
+				id: user!.sub?.toString(),
+				name: user?.name,
 			},
 			reported: {
-				userId: CurrentQuestion!.userIdentifier?.toString(),
+				id: CurrentQuestion!.userIdentifier?.toString(),
 				// TODO: send reported user name
-				name: 'Bea',
+				name: ""
 			},
 			reportedContent: CurrentQuestion.content,
 			question: {
-				questionId: CurrentQuestion.id?.toString(),
-				questionContent: CurrentQuestion.content,
-			},
+				id: CurrentQuestion.id?.toString(),
+				content: CurrentQuestion.content
+			}
 		};
+
+		console.log(data);
 
 		axios
 			.post('/api/reportQuestion', data)

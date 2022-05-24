@@ -32,7 +32,7 @@ namespace question_service
                 {
                     builder
                         .AllowAnyOrigin()
-                        .AllowAnyMethod()
+                        .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
             });
