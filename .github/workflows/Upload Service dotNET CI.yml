@@ -55,7 +55,6 @@ jobs:
           cd k8s
           kustomize edit set image upload-service=$DOCKER_USER/upload-service:$GITHUB_SHA
           cat kustomization.yaml
-
       - name: Add & Commit
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
