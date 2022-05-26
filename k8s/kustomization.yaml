@@ -14,20 +14,20 @@ resources:
 namespace: blinddate
 images:
 - name: answer-service
-  newName: seethrough2022/answerservice
-  newTag: latest
+  newName: seethrough2022/answer-service
+  newTag: 47dd5ab99cedff9519874fa94247abfdff93d896
 - name: profile-service
-  newName: seethrough2022/profileservice
-  newTag: latest
+  newName: seethrough2022/profile-service
+  newTag: 107087f953b16c84a31ffe31c6b11eaa11496325
 - name: question-service
-  newName: seethrough2022/questionservice
-  newTag: latest
+  newName: seethrough2022/question-service
+  newTag: 0df6f55ec819ac4379ef21c59c1696cefd034819
 - name: report-service
-  newName: seethrough2022/reportservice
-  newTag: latest
+  newName: seethrough2022/report-service
+  newTag: 4c577ff2b44a37a35268cc589240e941c0285e09
 - name: search-service
-  newName: seethrough2022/searchservice
-  newTag: latest
+  newName: seethrough2022/search-service
+  newTag: f6d2a15941ac3bd126a130f452ef67f1476949e6
 - name: upload-service
-  newName: seethrough2022/uploadservice
-  newTag: latest
+  newName: seethrough2022/upload-service
+  newTag: 23921ad1cc9e0382ae3736034f28e340c49ea5d8
