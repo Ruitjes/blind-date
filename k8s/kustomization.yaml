@@ -15,7 +15,7 @@ namespace: blinddate
 images:
 - name: answer-service
   newName: seethrough2022/answer-service
-  newTag: 47dd5ab99cedff9519874fa94247abfdff93d896
+  newTag: 9587aec1e6d7c0161436b00e5ada0c29cdc0ecdc
 - name: profile-service
   newName: seethrough2022/profile-service
   newTag: 107087f953b16c84a31ffe31c6b11eaa11496325
