@@ -7,6 +7,7 @@ export class Profile {
     name: string = "";
     gender: string = "";
     age: number = 0;
+    language: string = "";
     interests: string[] = [];
 }
 
@@ -22,13 +23,16 @@ const ProfileComponent = () => {
     }, [user]);
 
     const getProfileOfUser = () => {
-       if(user != null)
+        if(user != null)
        {
             axios.get<Profile>('api/profileService/getProfile/').then((response: any) => {
-            SetProfile(response.data);
-            console.log(response.data);
-            if (response.data.content == "" || response.data.content == null) { SetHasProfile(true); } else { SetHasProfile(false); }
-           
+                if (response.data == "" || response.data == null) { 
+                     SetHasProfile(false);    
+                } 
+                else {  
+                    SetProfile(response.data); 
+                    SetHasProfile(true);
+                }   
                 }).catch((err) => { console.log(err); });
         }
     };
@@ -39,10 +43,12 @@ const ProfileComponent = () => {
               "name":profile.name,
               "gender": profile.gender,
               "age": profile.age,
-              "interests": profile.interests
+              "interests": profile.interests,
+              "language": profile.language
         };
         axios.post('api/profileService/createProfile', data).then((res: any) => {
             SetProfile(res.data);
+            window.location.reload();
         }).catch((err) => { console.log(err); });
     };
 
@@ -52,20 +58,15 @@ const ProfileComponent = () => {
               "name":profile.name,
               "gender": profile.gender,
               "age": profile.age,
-              "interests": profile.interests
+              "interests": profile.interests,
+              "language": profile.language
         };
         axios.put('api/profileService/updateProfile', data).then((res: any) => {
             SetProfile(res.data);
             window.location.reload();
         }).catch((err) => { console.log(err); });
     };
-
-    if(profile.oAuthIdentifier == null)
-    {
-       return <div>Loading...</div>;
-    }
-    else
-    {
+    
     return (
         <div className='bg-blue-200 flex flex-col h-full'>
    <div className="container rounded bg-blue-100 mt-10">
@@ -73,7 +74,10 @@ const ProfileComponent = () => {
         <div className="mt-5 text-center">
            Hi {profile.name}!
             <div className="p-3 py-5">
-                    <h1>Edit your profile</h1>
+            {HasProfile ? 
+                (   <h1>Edit your profile</h1>) : 
+                (   <h1>Add your profile information</h1>)}
+                 
                 <div className="row mt-2">
                     <div className="col-md-6"><b><p>Name</p> </b>
                     </div>
@@ -85,6 +89,12 @@ const ProfileComponent = () => {
                     <input id="genderinput" placeholder="Gender" aria-required="true" value={profile.gender} onChange={(e) => {SetProfile({...profile, gender: e.target.value}) }}/> 
                     <div className="col-md-12"><b><p>Age</p></b></div>
                     <input id="ageinput" type="number" placeholder="Age" aria-required="true" value={profile.age} onChange={(e) => {SetProfile({...profile, age: Number(e.target.value)}) }}/> 
+                    <div className="col-md-12"><b><p>Language</p></b></div>
+                    <select name="language" id="language"  value={profile.language} onChange={(e) => {SetProfile({...profile, language: e.target.value}) }}>
+                    <option value="">None</option>
+                    <option value="english">English</option>
+                    <option value="dutch">Dutch</option>
+                    </select>            
                 </div>
                 <div className="col-md-12"><b><p>Interests</p> </b> </div>
                 <ul>
@@ -107,7 +117,6 @@ const ProfileComponent = () => {
 </div>
 </div>
     );
- }
-};
+ };
 
 export default ProfileComponent;

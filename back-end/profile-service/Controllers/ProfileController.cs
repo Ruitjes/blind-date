@@ -33,7 +33,6 @@ public class ProfileController : Controller
         string userIdentifier = _profileService.GetUserByJWTToken();
         if (userIdentifier == null) return NotFound();
         var profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
-
         return Ok(profile);
     }
 
