@@ -19,7 +19,7 @@ namespace profile_service.Messaging
                
                 var factory = new ConnectionFactory
                 {
-                    Uri = new Uri($"amqp://192.168.10.1:5672"),
+                    Uri = new Uri($"amqp://guest:guest@rabbitmq-clusterip-srv:5672"),
                     AutomaticRecoveryEnabled = true // When the connection is lost, this will automatically reconnect us when it can get back up
                 };
                 _connection = factory.CreateConnection();
