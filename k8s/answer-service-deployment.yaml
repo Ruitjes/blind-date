@@ -27,6 +27,11 @@ spec:
 
         ports:
           - containerPort: 9092
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 300m
 
         env:
           - name: env.DB_URL_ANSWER
