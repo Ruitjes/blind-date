@@ -23,7 +23,6 @@ spec:
       - name: answer
         image: answer-service
         imagePullPolicy: IfNotPresent
-        resources: {}
 
         ports:
           - containerPort: 9092
