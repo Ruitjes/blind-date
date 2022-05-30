@@ -13,4 +13,5 @@ public class Answer {
     private String questionId;
     private UserProfile userProfile;
     private String createdAt;
+    private boolean deleted;
 }
