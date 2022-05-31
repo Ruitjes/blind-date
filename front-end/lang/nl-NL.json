@@ -21,6 +21,17 @@
         "What is on your mind?" : "Waar denk je aan?",
         "What would you like to ask?" : "Wat zou je willen vragen?",
         "Write something..." : "Schrijf iets...",
-        "Your questions" : "Jouw vragen"
+        "Your questions" : "Jouw vragen",
+        "My Profile" : "Mijn Profiel",
+        "Display name" : "Scherm naam",
+        "Date of birth" : "Geboortedatum",
+        "Gender" : "Gender",
+        "Male" : "Man",
+        "Female" : "Vrouw",
+        "Other" : "Anders",
+        "Language" : "Taal",
+        "English" : "Engels",
+        "Dutch" : "Nederlands",
+        "Interests": "Interesses"
     }
 }

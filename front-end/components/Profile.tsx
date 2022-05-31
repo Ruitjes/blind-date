@@ -3,6 +3,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import axios from "axios";
 import ProfileSkeleton from "./ProfileSkeleton";
 import BackButton from "./BackButton";
+import { useTranslation } from 'react-i18next';
 
 export class Profile {
     oAuthIdentifier: string | null = null;
@@ -14,6 +15,7 @@ export class Profile {
 }
 
 const ProfileComponent = () => {
+    const { t } = useTranslation();
     const { user } = useUser();
     const [profile, SetProfile] = useState<Profile>(new Profile());
     const [newInterest, setNewInterest] = useState<string>("");
@@ -99,7 +101,7 @@ const ProfileComponent = () => {
                                                 <div className="flex flex-wrap -mx-3">
                                                     <div className="w-full px-3">
                                                         <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                            Display name
+                                                            {t("Display name")}
                                                         </label>
                                                         <input className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" value={profile.name} onChange={(e) => { SetProfile({ ...profile, name: e.target.value }) }} />
                                                     </div>
@@ -108,7 +110,7 @@ const ProfileComponent = () => {
                                                 <div className="flex flex-wrap -mx-3">
                                                     <div className="w-full px-3">
                                                         <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                            Date of birth
+                                                            {t("Date of birth")}
                                                         </label>
                                                         <input className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
                                                     </div>
@@ -117,14 +119,14 @@ const ProfileComponent = () => {
                                                 <div className="flex flex-wrap -mx-3 px-3">
                                                     <div className="w-full">
                                                         <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                            Gender
+                                                            {t("Gender")}
                                                         </label>
                                                     </div>
                                                     <div className="inline-block relative w-full">
                                                         <select className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }}>
-                                                            <option value="Male">Male</option>
-                                                            <option value="Female">Female</option>
-                                                            <option value="Other">Other</option>
+                                                            <option value="Male">{t("Male")}</option>
+                                                            <option value="Female">{t("Female")}</option>
+                                                            <option value="Other">{t("Other")}</option>
                                                         </select>
                                                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -135,13 +137,13 @@ const ProfileComponent = () => {
                                                 <div className="flex flex-wrap -mx-3 px-3">
                                                     <div className="w-full">
                                                         <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                            Language
+                                                            {t("Language")}
                                                         </label>
                                                     </div>
                                                     <div className="inline-block relative w-full">
                                                         <select className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value={profile.language} onChange={(e) => { SetProfile({ ...profile, language: e.target.value }) }}>
-                                                            <option value="en-US">English</option>
-                                                            <option value="nl-NL">Dutch</option>
+                                                            <option value="en-US">{t("English")}</option>
+                                                            <option value="nl-NL">{t("Dutch")}</option>
                                                         </select>
                                                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                                                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -151,7 +153,7 @@ const ProfileComponent = () => {
 
                                                 <div>
                                                     <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                        Interests
+                                                        {t("Interests")}
                                                     </label>
                                                     <div className="flex flex-col space-y-4 items-center mx-4 sm:mx-0">
                                                         <div className="flex flex-wrap items-stretch w-full relative">

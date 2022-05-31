@@ -21,6 +21,17 @@
         "What is on your mind?" : "What is on your mind?",
         "What would you like to ask?" : "What would you like to ask?",
         "Write something..." : "Write something...",
-        "Your questions" : "Your questions"
+        "Your questions" : "Your questions",
+        "My Profile" : "My Profile",
+        "Display name" : "Display name",
+        "Date of birth" : "Date of birth",
+        "Gender" : "Gender",
+        "Male" : "Male",
+        "Female" : "Female",
+        "Other" : "Other",
+        "Language" : "Language",
+        "English" : "English",
+        "Dutch" : "Dutch",
+        "Interests": "Interests"
     }
 }
