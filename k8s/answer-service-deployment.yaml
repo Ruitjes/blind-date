@@ -7,7 +7,7 @@ metadata:
     app: answer
 
 spec:
-  replicas: 1
+  replicas: 3
 
   selector:
     matchLabels:
@@ -23,10 +23,14 @@ spec:
       - name: answer
         image: answer-service
         imagePullPolicy: IfNotPresent
-        resources: {}
 
         ports:
           - containerPort: 9092
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 300m
 
         env:
           - name: env.DB_URL_ANSWER

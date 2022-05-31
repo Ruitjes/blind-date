@@ -38,11 +38,11 @@ namespace question_service.Services
             //Could make a shorthand operator inside the find to shorten the amount of lines. but that would make it unreadable.
             if (bookmark == null)
             {
-                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier && s.Deleted == false).FirstOrDefaultAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && s.Deleted == false).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
@@ -74,14 +74,19 @@ namespace question_service.Services
             await _questions.ReplaceOneAsync(s => s.Id == id, question);
         }
 
-        public async Task DeleteAsync(ObjectId id)
+        public async Task<Question> DeleteAsync(ObjectId questionId)
         {
-            await _questions.DeleteOneAsync(s => s.Id == id);
+            var update = Builders<Question>.Update
+                            .Set(q => q.FileName, "deleted")
+                            .Set(q => q.Content, "deleted")
+                            .Set(q => q.Deleted, true);
+
+            return await _questions.FindOneAndUpdateAsync(s => s.Id == questionId, update);
         }
 
         public async Task<List<Question>> GetQuestionsByUser(string userId)
         {
-            return await _questions.Find(s => s.UserIdentifier == userId).ToListAsync(); ;
+            return await _questions.Find(s => s.UserIdentifier == userId).ToListAsync();
         }
     }
 }

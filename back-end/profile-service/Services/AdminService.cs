@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace profile_service.Services
 {
-	public class AdminService : IAdminService
-	{
+    public class AdminService : IAdminService
+    {
 
         private readonly AuthSecrets _authSecrets;
         private readonly ILogger<AdminService> _logger;
@@ -20,7 +20,7 @@ namespace profile_service.Services
             _logger = logger;
         }
 
-        public async Task<ActionResult<string>> ManageUserBlock(string userIdentifier,bool blockStatus)
+        public async Task<ActionResult<string>> ManageUserBlock(string userIdentifier, bool blockStatus)
         {
             try
             {
@@ -34,10 +34,8 @@ namespace profile_service.Services
                 User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest { Blocked = blockStatus });
 
                 bool UserIsBlocked = user?.Blocked ?? false;
-
-                return new ObjectResult(UserIsBlocked ? $"{user.FullName} successfully blocked" : $"{user.FullName} successfully unblocked") {StatusCode = 200 };
             }
-            catch(ErrorApiException apiError)
+            catch (ErrorApiException apiError)
             {
                 _logger.LogError(apiError, "Probably invalid Auth0 ID given, but logging for analysis");
                 return new ObjectResult("Invalid Auth0 ID given") { StatusCode = 400 };
@@ -46,7 +44,6 @@ namespace profile_service.Services
             {
                 _logger.LogError(ex, "Something went wrong at BlockUser in the AdminService");
                 return new ObjectResult("Something went wrong trying to block a user with the management API") { StatusCode = 500 };
-
             }
         }
 
@@ -67,7 +64,6 @@ namespace profile_service.Services
 
             var content = await response.Content.ReadAsStringAsync();
             var jsonResult = JObject.Parse(content);
-            
             var mgmtToken = jsonResult["access_token"]?.Value<string>() ?? "";
             return mgmtToken;
         }

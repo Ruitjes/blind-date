@@ -2,6 +2,7 @@ using question_service.Interfaces;
 using question_service.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using Microsoft.AspNetCore.Authorization;
 
 namespace question_service.Controllers;
 
@@ -9,7 +10,6 @@ namespace question_service.Controllers;
 [Route("[controller]")]
 public class QuestionController : Controller
 {
-
     private readonly IQuestionService _questionService;
 
     public QuestionController(IQuestionService questionService)
@@ -42,5 +42,12 @@ public class QuestionController : Controller
         newQuestion.AddedOn = DateTime.UtcNow;
 
         return await _questionService.CreateAsync(newQuestion);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("DeleteQuestion")]
+    public async Task<Question> DeleteQuestion(string id)
+    {
+        return await _questionService.DeleteAsync(new ObjectId(id));
     }
 }

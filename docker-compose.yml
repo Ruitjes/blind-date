@@ -77,9 +77,9 @@ services:
           - MongoDbSettings__ConnectionString=${DB_URL_PROFILE}
           - Auth0Settings__Authority=${AUTH0_AUTHORITY}
           - Auth0Settings__Audience=${AUTH0_AUDIENCE}
-          - AUTH0_MANAGEMENT_SECRET=${AUTH0_MANAGEMENT_SECRET}
-          - AUTH0_MANAGEMENT_CLIENT_ID=${AUTH0_MANAGEMENT_CLIENT_ID}
-          - AUTH0_MANAGEMENT_AUDIENCE=${AUTH0_MANAGEMENT_AUDIENCE}
+          - Auth0Management_Secret=${AUTH0_MANAGEMENT_SECRET}
+          - Auth0Management_ClientID=${AUTH0_MANAGEMENT_CLIENT_ID}
+          - Auth0Management_Audience=${AUTH0_MANAGEMENT_AUDIENCE}
           - RabbitMQ_URI=${RabbitMQ_URI}
       restart: on-failure
       depends_on:
