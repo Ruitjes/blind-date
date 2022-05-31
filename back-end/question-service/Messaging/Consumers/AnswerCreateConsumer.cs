@@ -29,7 +29,7 @@ namespace question_service.Messaging.Consumers
 
             _channel.QueueBind(
                 queue: "questionservice-answer-events",
-                exchange: "awnsers",
+                exchange: "answers",
                 routingKey: ""
             );
         }
