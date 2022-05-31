@@ -1,17 +1,20 @@
 ﻿using System.Text;
 using System.Text.Json;
 using question_service.Events;
+using question_service.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 namespace question_service.Messaging.Consumers
 {
-    public class AnswerCreateConsumer : BackgroundService
+    public class AnswerDeleteConsumer : BackgroundService
     {
         private readonly IModel _channel;
+        private readonly IQuestionService _service;
 
-        public AnswerCreateConsumer(RabbitMqConnection connection)
+        public AnswerDeleteConsumer(RabbitMqConnection connection, IQuestionService service)
         {
+            _service = service;
             _channel = connection.CreateChannel();
 
             _channel.ExchangeDeclare(
@@ -36,14 +39,18 @@ namespace question_service.Messaging.Consumers
             stoppingToken.ThrowIfCancellationRequested();
 
             var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (sender, args) =>
+            consumer.Received += async (sender, args) =>
             {
-                if (args.BasicProperties.Headers.TryGetValue("MessageType", out var messageType))
+                if (args.BasicProperties.Headers.TryGetValue("MessageType", out var objValue) && objValue is byte[] valueAsBytes)
                 {
-                    if ((string)messageType == nameof(CreateAnswerEvent))
+                    var messageType = Encoding.UTF8.GetString(valueAsBytes);
+                    if (messageType == nameof(DeleteAnswerEvent))
                     {
                         var content = Encoding.UTF8.GetString(args.Body.ToArray());
                         var message = JsonSerializer.Deserialize<CreateAnswerEvent>(content);
+
+                        await _service.DecrementNumberOfQuestionsAsync(message.Id);
+                        _channel.BasicAck(args.DeliveryTag, multiple: false);
                     }
                 }
             };

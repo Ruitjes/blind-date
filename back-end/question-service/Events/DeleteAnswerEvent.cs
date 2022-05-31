@@ -2,7 +2,7 @@
 
 namespace question_service.Events
 {
-    public class CreateDeleteAnswer
+    public class DeleteAnswerEvent
     {
         public ObjectId Id { get; set; }
     }

@@ -2,18 +2,17 @@
 using System.Text.Json;
 using question_service.Events;
 using question_service.Interfaces;
-using question_service.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 namespace question_service.Messaging.Consumers
 {
-    public class AnswerDeleteConsumer : BackgroundService
+    public class AnswerCreateConsumer : BackgroundService
     {
         private readonly IModel _channel;
         private readonly IQuestionService _service;
 
-        public AnswerDeleteConsumer(RabbitMqConnection connection, IQuestionService service)
+        public AnswerCreateConsumer(RabbitMqConnection connection, IQuestionService service)
         {
             _service = service;
             _channel = connection.CreateChannel();
@@ -45,12 +44,12 @@ namespace question_service.Messaging.Consumers
                 if (args.BasicProperties.Headers.TryGetValue("MessageType", out var objValue) && objValue is byte[] valueAsBytes)
                 {
                     var messageType = Encoding.UTF8.GetString(valueAsBytes);
-                    if (messageType == nameof(DeleteAnswerEvent))
+                    if (messageType == nameof(CreateAnswerEvent))
                     {
                         var content = Encoding.UTF8.GetString(args.Body.ToArray());
                         var message = JsonSerializer.Deserialize<CreateAnswerEvent>(content);
 
-                        await _service.DecrementNumberOfQuestionsAsync(message.Id);
+                        await _service.IncrementNumberOfQuestionsAsync(message.Id);
                         _channel.BasicAck(args.DeliveryTag, multiple: false);
                     }
                 }
