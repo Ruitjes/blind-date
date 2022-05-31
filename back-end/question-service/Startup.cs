@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using question_service.Classes;
 using question_service.Configurations;
 using question_service.Interfaces;
+using question_service.Messaging;
 using question_service.Services;
 
 namespace question_service
@@ -40,6 +41,12 @@ namespace question_service
             services.AddScoped<IExternalServices, ExternalServices>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddSingleton<IBookmarkService, BookmarkService>();
+
+            //RabbitMQ connection
+            string? rabbitmq_conn = Environment.GetEnvironmentVariable("RabbitMQ_URI");
+            services.AddSingleton(new RabbitMqConnection(rabbitmq_conn));
+
+            services.AddScoped<IMessageBusPublisher, MessageBusPublisher>();
         }
 
         public void ConfigureAuthentication(IServiceCollection services)
