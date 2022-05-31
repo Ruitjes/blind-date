@@ -19,6 +19,8 @@ namespace profile_service.Models
 
         public List<string> Interests { get; set; } = new List<string>();
 
+        public string Language { get; set; }
+
         public Profile(string oAuthIdentifier, string name, string gender, int age, List<string> interests)
         {
             OAuthIdentifier = oAuthIdentifier;
@@ -26,6 +28,7 @@ namespace profile_service.Models
             Gender = gender;
             Age = age;
             Interests = interests;
+            Language = Language;
         }
     }
 }
