@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 
 
@@ -26,21 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AnswerController {
     private final AnswerService answerService;
-
-
-    @Autowired
-    private AmqpTemplate rabbitTemplate;
-
-    @Value("answerqueue")
-    private String queueName;
-    @Value("answers")
-    private String exchange;
-
+    
+    private final RabbitTemplate rabbitTemplate;
 
     @PostMapping
     public void saveAnswer(@RequestBody AnswerCreatingRequest request) {
         log.info("Adding answer: {}", request);
-        answerService.saveAnswer(request);
+       
+     Answer answer = answerService.saveAnswer(request);
+      rabbitTemplate.convertAndSend("answers", "#", answer, m -> {
+           m.getMessageProperties().getHeaders().put("MessageType", "CreateAnswerEvent");
+           return m;
+        });
     }
 
     @GetMapping("/{id}")
@@ -58,7 +55,6 @@ public class AnswerController {
     @GetMapping("/user/{userId}")
     public Iterable<Answer> getAnswersByUserId(@PathVariable String userId) {
         log.info("Getting answers by user id: {}", userId);
-        rabbitTemplate.convertAndSend(exchange, "#", "hello");
         return answerService.getAnswersByUserId(userId);
     }
 
@@ -70,6 +66,11 @@ public class AnswerController {
     
     @PutMapping("/deleteAnswer/{id}")
     public Answer deleteAnswer(@PathVariable String id) {
-      return answerService.deleteAnswer(id);
+      Answer answer = answerService.deleteAnswer(id);
+         rabbitTemplate.convertAndSend("answers", "#", answer, m -> {
+           m.getMessageProperties().getHeaders().put("MessageType", "DeleteAnswerEvent");
+           return m;
+        });
+        return answer;
     }
 }
