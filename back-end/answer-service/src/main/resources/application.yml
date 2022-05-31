@@ -2,6 +2,10 @@ spring:
   data:
     mongodb:
       uri: ${env.DB_URL_ANSWER}
+  rabbitmq:
+    uri: ${env.RabbitMQ_URI}
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 9092
 

@@ -20,6 +20,7 @@ services:
             context: ./back-end/answer-service/
         environment:
             - DB_URL_ANSWER=${DB_URL_ANSWER}
+            - RabbitMQ_URI=${RabbitMQ_URI}
         ports:
         - 9092:9092
 
