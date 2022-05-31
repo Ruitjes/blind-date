@@ -3,6 +3,7 @@ using question_service.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Microsoft.AspNetCore.Authorization;
+using question_service.Messaging;
 
 namespace question_service.Controllers;
 
@@ -11,10 +12,12 @@ namespace question_service.Controllers;
 public class QuestionController : Controller
 {
     private readonly IQuestionService _questionService;
+    private readonly IMessageBusPublisher _messageBusPublisher;
 
-    public QuestionController(IQuestionService questionService)
+    public QuestionController(IQuestionService questionService, IMessageBusPublisher messageBusPublisher)
     {
         _questionService = questionService;
+        _messageBusPublisher = messageBusPublisher;
     }
 
     [HttpGet("GetAllQuestions")]
@@ -44,10 +47,11 @@ public class QuestionController : Controller
         return await _questionService.CreateAsync(newQuestion);
     }
 
-    [Authorize(Roles = "Admin")]
     [HttpDelete("DeleteQuestion")]
     public async Task<Question> DeleteQuestion(string id)
     {
+        _messageBusPublisher.PublishMessage("DeleteQuestion", id);
+
         return await _questionService.DeleteAsync(new ObjectId(id));
     }
 }
