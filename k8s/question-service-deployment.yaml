@@ -20,38 +20,45 @@ spec:
 
     spec:
       containers:
-      - name: question
-        image: question-service
-        imagePullPolicy: IfNotPresent
-        resources: {}
+        - name: question
+          image: question-service
+          imagePullPolicy: IfNotPresent
+          resources: {}
 
-        ports:
-          - containerPort: 80
+          ports:
+            - containerPort: 80
 
-        env:
-          - name: MongoDbSettings__ConnectionString
-            valueFrom:
-              secretKeyRef:
-                name: secret
-                key: DB_URL_QUESTION
-                optional: false
+          env:
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: DB_URL_QUESTION
+                  optional: false
 
-          - name: MongoDbSettings__DatabaseName
-            value: QuestionDB
+            - name: MongoDbSettings__DatabaseName
+              value: QuestionDB
 
-          - name: Auth0Settings__Authority
-            valueFrom:
-              secretKeyRef:
-                name: secret
-                key: AUTH0_AUTHORITY
-                optional: false
-          
-          - name: Auth0Settings__Audience
-            valueFrom:
-              secretKeyRef:
-                name: secret
-                key: AUTH0_AUDIENCE
-                optional: false
+            - name: Auth0Settings__Authority
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: AUTH0_AUTHORITY
+                  optional: false
+
+            - name: Auth0Settings__Audience
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: AUTH0_AUDIENCE
+                  optional: false
+
+            - name: RabbitMQ_URI
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: RabbitMQ_URI
+                  optional: false
 
 ---
 apiVersion: v1
@@ -61,7 +68,6 @@ metadata:
   name: question-service
 
 spec:
-
   selector:
     app: question
 
