@@ -14,5 +14,7 @@ namespace question_service.Interfaces
         public Task UpdateAsync(ObjectId id, Question question);
         public Task<Question> DeleteAsync(ObjectId id);
         public Task<List<Question>> GetQuestionsByUser(string userId);
+        Task IncrementNumberOfQuestionsAsync(ObjectId id);
+        Task DecrementNumberOfQuestionsAsync(ObjectId id);
     }
 }
