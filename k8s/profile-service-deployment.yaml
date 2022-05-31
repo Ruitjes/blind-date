@@ -53,6 +53,33 @@ spec:
                 key: AUTH0_AUDIENCE
                 optional: false
 
+          - name: Auth0Management_Secret
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_MANAGEMENT_SECRET
+                optional: false
+
+          - name: Auth0Management_ClientID
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_MANAGEMENT_CLIENT_ID
+                optional: false
+
+          - name: Auth0Management_Audience
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: AUTH0_MANAGEMENT_AUDIENCE
+                optional: false
+
+          - name: RabbitMQ_URI
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: RabbitMQ_URI
+                optional: false
 ---
 apiVersion: v1
 kind: Service

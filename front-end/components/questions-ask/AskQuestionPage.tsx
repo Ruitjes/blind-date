@@ -8,6 +8,7 @@ import common_api from "../../utils/common_api";
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
 import Loading from "../Loading";
+import { useTranslation } from "react-i18next";
 
 const AskQuestionPage = () => {
     const { user } = useUser();
@@ -16,6 +17,8 @@ const AskQuestionPage = () => {
     const [loading, setLoading] = useState<boolean>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
+
+    const { t } = useTranslation();
 
     const handleTextChanged = (e: React.ChangeEvent<HTMLDivElement>) => {
         setText(e.target.textContent ?? undefined);
@@ -68,14 +71,14 @@ const AskQuestionPage = () => {
                         <div className="flex flex-col py-1">
                             <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
                                 <FontAwesomeIcon className="p-2" fixedWidth size="6x" color="#333" icon={['fas', 'question-circle']} />
-                                <Header center text="Create a question" />
+                                <Header center text={t("Create a question")} />
                             </div>
                         </div>
 
                         <div className="flex flex-col py-1">
                             <div className="flex flex-col info-card p-4 drop-shadow-lg">
-                                <Header text="Question" />
-                                <Subtitle text="What would you like to ask?" />
+                                <Header text={t("Question")} />
+                                <Subtitle text={t("What would you like to ask?")} />
                                 <AskQuestionEditBox onChange={handleTextChanged} />
                             </div>
                         </div>
@@ -84,8 +87,8 @@ const AskQuestionPage = () => {
                             <label className="flex flex-col info-card p-4 drop-shadow-lg">
                                 <div className="flex flex-grow">
                                     <div className="flex flex-col" aria-hidden>
-                                        <Header text="Picture" />
-                                        <Subtitle text="Add an image in your question to share with others." />
+                                        <Header text={t("Picture")} />
+                                        <Subtitle text={t("Add an image in your question to share with others.")} />
                                     </div>
 
                                     <div className="flex flex-col relative">
@@ -122,8 +125,8 @@ const AskQuestionPage = () => {
                         </div>
 
                         <div className="flex flex-col flex-grow justify-end">
-                            <button type="submit" className="info-card p-4 drop-shadow-lg" aria-label="Share the question">
-                                <Header center text="Share" />
+                            <button type="submit" className="info-card p-4 drop-shadow-lg" aria-label={t("Share the question")}>
+                                <Header center text={t("Share")} />
                             </button>
                         </div>
 

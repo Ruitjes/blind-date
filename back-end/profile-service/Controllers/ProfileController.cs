@@ -37,6 +37,15 @@ public class ProfileController : Controller
     return Ok(profile);
   }
 
+  [HttpGet("GetProfileWithUserIdentifier/{userIdentifier}")]
+  public async Task<ActionResult<Profile>> GetProfile(string userIdentifier)
+  {
+      var profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+      if (profile == null) return NotFound();
+
+      return Ok(profile);
+  }
+    
   [HttpPut("UpdateProfile")]
   public async Task<ActionResult<Profile>> UpdateProfile(Profile p)
   {
@@ -44,6 +53,7 @@ public class ProfileController : Controller
     Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
     Profile updatedProfile = await _profileService.UpdateAsync(profile.Id, p);
     _messageBusPublisher.PublishMessage("UpdatedUser", updatedProfile);
+
 
     return Ok(updatedProfile);
   }
