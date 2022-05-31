@@ -28,8 +28,7 @@ namespace question_service.Services
         {
             return await _questions.Find(s => s.Id == id).FirstOrDefaultAsync();
         }
-
-        public async Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark, string userIdentifier)
+      public async Task<Question> GetNextQuestionBasedOnUserBookmark(ObjectId? bookmark, string userIdentifier)
         {
             Profile? userProfile = await _externalServices.GetProfileWithUserIdentifierAsync(userIdentifier);
             List<string?> interests = userProfile?.Interests as List<string?> ?? new List<string?>();
@@ -38,11 +37,11 @@ namespace question_service.Services
             //Could make a shorthand operator inside the find to shorten the amount of lines. but that would make it unreadable.
             if (bookmark == null)
             {
-                return await _questions.Find(s => s.UserIdentifier != userIdentifier && s.Deleted == false).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).FirstOrDefaultAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && s.Deleted == false).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
