@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import XHR from 'i18next-http-backend';
 import * as nl from './lang/nl-NL.json';
 import * as en from './lang/en-US.json';
+import 'moment/locale/nl';
 
 i18n
     .use(XHR)

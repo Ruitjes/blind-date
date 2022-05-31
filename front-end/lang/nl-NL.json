@@ -23,7 +23,10 @@
         "Write something..." : "Schrijf iets...",
         "Your questions" : "Jouw vragen",
         "{{count}} people have responded_one": "{{count}} persoon heeft gereageerd",
-        "{{count}} people have responded_other": "{{count}} personen hebben gereageerd"
+        "{{count}} people have responded_other": "{{count}} personen hebben gereageerd",
+        "answered on": "beantwoordde op",
+        "You": "Jij",
+        "asked on": "vroeg op"
 
     }
 }
