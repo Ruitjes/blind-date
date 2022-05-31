@@ -1,5 +1,26 @@
 {
     "translation": {
-        "Hello World!": "Hello World!"
+        "Add an image in your question to share with others." : "Add an image in your question to share with others.",
+        "Answer a question" : "Answer a question",
+        "Ask a question" : "Ask a question",
+        "Create a question" : "Create a question",
+        "My Questions" : "My Questions",
+        "No answers found" : "No answers found",
+        "No questions, come back at a later time." : "No questions, come back at a later time.",
+        "Or" : "Or",
+        "Picture" : "Picture",
+        "Question" : "Question",
+        "Reply to the question" : "Reply to the question",
+        "Report the question" : "Report the question",
+        "Share" : "Share",
+        "Share Question" : "Share Question",
+        "Share the question" : "Share the question",
+        "Skip the question" : "Skip the question",
+        "Type your answer here" : "Type your answer here",
+        "Type your question here" : "Type your question here",
+        "What is on your mind?" : "What is on your mind?",
+        "What would you like to ask?" : "What would you like to ask?",
+        "Write something..." : "Write something...",
+        "Your questions" : "Your questions"
     }
 }

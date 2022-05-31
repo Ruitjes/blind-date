@@ -5,6 +5,7 @@ import Button from './Button';
 import axios from 'axios';
 import Banner from './Banner';
 import Loading from './Loading';
+import { useTranslation } from 'react-i18next';
 
 const Feed = () => {
 	const { user } = useUser();
@@ -19,6 +20,8 @@ const Feed = () => {
 	// Report result
 	const [reportResultMessage, setReportResultMessage] = useState('');
 	const [reportResultInfo, setReportResultInfo] = useState('');
+
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		// Fetch questions and set state
@@ -125,7 +128,7 @@ const Feed = () => {
 					<div className="flex flex-col mt-4 mb-6">
 						<div className="flex flex-col flex-grow p-4">
 							{ OutOfQuestions ? (
-                                <Question loading={loading} text="No questions, come back at a later time."/>
+                                <Question loading={loading} text={t("No questions, come back at a later time.")}/>
                             ) : (
                                 <Question loading={loading} text={CurrentQuestion?.content} onReportClick={reportQuestion}/>
                             )}
@@ -148,8 +151,8 @@ const Feed = () => {
                                 disabled={loading ? true : false}
 								onChange={handleAnswerTextChanged}
 								className="flex flex-grow resize-none rounded-lg text-2xl outline-none p-4"
-								placeholder="Write something..."
-								aria-label="Type your answer here"
+								placeholder={t("Write something...")}
+								aria-label={t("Type your answer here")}
 								aria-required="true" />
 						</div>
 					</div>
@@ -157,7 +160,7 @@ const Feed = () => {
 					<div className="flex flex-col">
 						<div className="flex pt-4 mx-4 max-w-sm justify-between">
 							<Button
-								ariaLabel="Skip the question"
+								ariaLabel={t("Skip the question")}
 								icon="xmark"
 								color="lightcoral"
 								onClick={
@@ -166,13 +169,11 @@ const Feed = () => {
 										: () => { }
 								} />
 							<Button
-								ariaLabel="Reply the question"
+								ariaLabel={t("Reply to the question")}
 								icon="reply"
 								color="lightsteelblue"
                                 disabled={loading ? true : false}
-								onClick={
-									!OutOfQuestions ? answerQuestion : () => { }
-								} />
+								onClick={!OutOfQuestions ? answerQuestion : () => { }} />
 						</div>
 					</div>
 				</div>

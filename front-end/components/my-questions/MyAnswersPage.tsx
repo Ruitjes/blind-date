@@ -5,6 +5,7 @@ import Header from "../Header";
 import Loading from "../Loading";
 import MyAnswer from "./MyAnswer";
 import Question from '../Question';
+import { useTranslation } from "react-i18next";
 
 type Props = {
     question: {
@@ -21,6 +22,8 @@ const MyAnswersPage = (props: Props) => {
     const [answers, setAnswers] = useState<any>();
     const [answersError, setAnswersError] = useState<Error>();
     const [answersLoading, setAnswersLoading] = useState<boolean>(true);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -48,7 +51,7 @@ const MyAnswersPage = (props: Props) => {
                     </div>
 
                     <div className="flex flex-col flex-grow p-6 -mx-4 -mb-6">
-                        {answers?.length === 0 && <h1>No answers found </h1>}
+                        {answers?.length === 0 && <h1>{t("No answers found")}</h1>}
                         <div className="flex flex-col shadow-lg drop-shadow-lg bg-white rounded-lg">
                             {
                                  answers && answers.map((answer: any, index: number) => (

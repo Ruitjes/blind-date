@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       <div className="flex flex-grow bg-pink-400" onClick={navigateToAsk}>
         <div className='flex flex-grow -skew-y-12 bg-inherit'>
           <div className='flex flex-grow items-center justify-center skew-y-12'>
-            <button className="text-white text-center text-4xl font-medium" onClick={navigateToAsk}>Ask a question</button>
+            <button className="text-white text-center text-4xl font-medium" onClick={navigateToAsk}>{t("Ask a question")}</button>
           </div>
         </div>
       </div>
@@ -46,21 +46,21 @@ const Home: NextPage = () => {
       <div className="flex flex-grow bg-blue-500" onClick={navigateToFeed}>
         <div className='flex flex-grow -skew-y-12 bg-inherit'>
           <div className='flex flex-grow items-center justify-center skew-y-12'>
-            <button className="text-white text-center text-4xl font-medium" onClick={navigateToFeed}>Answer a question</button>
+            <button className="text-white text-center text-4xl font-medium" onClick={navigateToFeed}>{t('Answer a question')}</button>
           </div>
         </div>
       </div>
 
       <div className="flex absolute inset-0 pointer-events-none">
         <div className="flex h-36 w-36 m-auto justify-center rounded-full bg-white">
-          <h1 className="self-center text-center text-4xl font-medium">{t('Hello World!')}</h1>
+          <h1 className="self-center text-center text-4xl font-medium">{t('Or')}</h1>
         </div>
       </div>
 
       <div className="flex absolute right-0 bottom-0 p-4">
         <div className="flex flex-col" onClick={navigateToMyQuestions}>
           <FontAwesomeIcon color='white' size='2x' icon={['fas', 'book-open']} />
-          <p className="text-white font-medium">My Questions</p>
+          <p className="text-white font-medium">{t("My Questions")}</p>
         </div>
       </div>
 
