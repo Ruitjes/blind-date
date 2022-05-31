@@ -5,9 +5,9 @@ namespace report_service.Models
 	public class Question
 	{
 		[Required]
-		public string QuestionId { get; set; }
+		public string Id { get; set; }
 
 		[Required]
-		public string QuestionContent { get; set; }
+		public string Content { get; set; }
 	}
 }

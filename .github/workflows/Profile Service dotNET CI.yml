@@ -1,0 +1,68 @@
+name: .NET Profile Service Kustomize tag
+
+on:
+  push:
+    paths:
+      - "back-end/profile-service/**"
+    branches: [main, master]
+    
+  workflow_dispatch: 
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: "back-end/profile-service"
+          push: true
+          tags: seethrough2022/profile-service:${{ github.sha }}
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Update Kubernetes resources
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        run: |
+          cd k8s
+          kustomize edit set image profile-service=$DOCKER_USER/profile-service:$GITHUB_SHA
+          cat kustomization.yaml
+      - name: Add & Commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        # You may pin to the exact commit or the version.
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: "Bump docker tag to profile-service"
+          # The name of the custom committer you want to use
+          pull: ''
+          push: origin main --force
+          # The token used to make requests to the GitHub API. It's NOT used to make commits and should not be changed.
+          github_token: ${{ env.GITHUB_TOKEN }}

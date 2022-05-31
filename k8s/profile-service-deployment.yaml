@@ -21,7 +21,8 @@ spec:
     spec:
       containers:
       - name: profile
-        image: seethrough2022/profileservice:latest
+        image: profile-service
+        imagePullPolicy: IfNotPresent
         resources: {}
 
         ports:

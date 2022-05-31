@@ -1,0 +1,68 @@
+name: Maven Kuztomize new tag for Answer Service
+
+on:
+  push:
+    paths:
+      - "back-end/answer-service/**"
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: maven
+      - name: Build with Maven
+        env:
+          env.DB_URL_ANSWER: "${{secrets.DB_URL_ANSWER}}"
+          Auth0Settings__Authority: "${{secrets.AUTH0_AUTHORITY}}"
+          Auth0Settings__Audience: "${{secrets.AUTH0_AUDIENCE}}"
+        run: mvn -B package --file back-end/answer-service/pom.xml
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: "back-end/answer-service"
+          push: true
+          tags: seethrough2022/answer-service:${{ github.sha }}
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Update Kubernetes resources
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        run: |
+          cd k8s
+          kustomize edit set image answer-service=$DOCKER_USER/answer-service:$GITHUB_SHA
+          cat kustomization.yaml
+
+      - name: Add & Commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        # You may pin to the exact commit or the version.
+        uses: EndBug/add-and-commit@v9.0.0
+        with:
+          message: "Bump docker tag to answer-service"
+          # The name of the custom committer you want to use
+          pull: ''
+          push: origin main --force
+          # The token used to make requests to the GitHub API. It's NOT used to make commits and should not be changed.
+          github_token: ${{ env.GITHUB_TOKEN }}

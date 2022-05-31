@@ -10,7 +10,6 @@ namespace question_service.Controllers;
 [Route("[controller]")]
 public class QuestionController : Controller
 {
-
     private readonly IQuestionService _questionService;
 
     public QuestionController(IQuestionService questionService)
