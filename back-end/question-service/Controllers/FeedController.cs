@@ -24,7 +24,7 @@ public class FeedController : Controller
     {
         Bookmark usersBookmark = await _bookmarkService.GetByUserIdentifier(userIdentifier);
 
-        return await _questionService.GetNextQuestionBatchBasedOnUserBookmark(usersBookmark?.CurrentIndex);
+        return await _questionService.GetNextQuestionBatchBasedOnUserBookmark(usersBookmark?.CurrentIndex, userIdentifier);
     }
 
     [HttpGet("GetQuestionForUser/{userIdentifier}")]

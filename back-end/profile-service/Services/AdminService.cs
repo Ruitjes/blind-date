@@ -33,8 +33,7 @@ namespace profile_service.Services
                 // Set user blocked boolean to blockStatus.
                 User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest { Blocked = blockStatus });
 
-                bool UserIsBlocked = user?.Blocked ?? false;
-
+                bool UserIsBlocked = user?.Blocked ?? false
                 return new ObjectResult(UserIsBlocked ? $"{user.FullName} successfully blocked" : $"{user.FullName} successfully unblocked") { StatusCode = 200 };
             }
             catch (ErrorApiException apiError)
@@ -46,7 +45,6 @@ namespace profile_service.Services
             {
                 _logger.LogError(ex, "Something went wrong at BlockUser in the AdminService");
                 return new ObjectResult("Something went wrong trying to block a user with the management API") { StatusCode = 500 };
-
             }
         }
 
@@ -67,7 +65,6 @@ namespace profile_service.Services
 
             var content = await response.Content.ReadAsStringAsync();
             var jsonResult = JObject.Parse(content);
-
             var mgmtToken = jsonResult["access_token"]?.Value<string>() ?? "";
             return mgmtToken;
         }
