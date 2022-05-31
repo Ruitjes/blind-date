@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using MongoDB.Bson;
 using question_service.Events;
 using question_service.Interfaces;
 using RabbitMQ.Client;
@@ -47,9 +48,11 @@ namespace question_service.Messaging.Consumers
                     if (messageType == nameof(CreateAnswerEvent))
                     {
                         var content = Encoding.UTF8.GetString(args.Body.ToArray());
-                        var message = JsonSerializer.Deserialize<CreateAnswerEvent>(content);
+                        var message = JsonSerializer.Deserialize<CreateAnswerEvent>(content, new JsonSerializerOptions { 
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase 
+                        });
 
-                        await _service.IncrementNumberOfQuestionsAsync(message.Id);
+                        await _service.IncrementNumberOfQuestionsAsync(new ObjectId(message.QuestionId));
                         _channel.BasicAck(args.DeliveryTag, multiple: false);
                     }
                 }
