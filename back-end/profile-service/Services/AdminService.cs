@@ -33,7 +33,7 @@ namespace profile_service.Services
                 // Set user blocked boolean to blockStatus.
                 User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest { Blocked = blockStatus });
 
-                bool UserIsBlocked = user?.Blocked ?? false
+                bool UserIsBlocked = user?.Blocked ?? false;
                 return new ObjectResult(UserIsBlocked ? $"{user.FullName} successfully blocked" : $"{user.FullName} successfully unblocked") { StatusCode = 200 };
             }
             catch (ErrorApiException apiError)
