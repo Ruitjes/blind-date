@@ -39,9 +39,9 @@ namespace profile_service
             // Admin service scoped
             services.AddScoped<IAdminService, AdminService>();
             // Enviroment variables for management api
-            string? auth_secret = Environment.GetEnvironmentVariable("AUTH0_MANAGEMENT_SECRET");
-            string? auth_client = Environment.GetEnvironmentVariable("AUTH0_MANAGEMENT_CLIENT_ID");
-            string? auth_audience = Environment.GetEnvironmentVariable("AUTH0_MANAGEMENT_AUDIENCE");
+            string? auth_secret = Environment.GetEnvironmentVariable("Auth0Management_Secret");
+            string? auth_client = Environment.GetEnvironmentVariable("Auth0Management_ClientID");
+            string? auth_audience = Environment.GetEnvironmentVariable("Auth0Management_Audience");
 
             // Auth secrets
             services.AddSingleton(new AuthSecrets(auth_secret, auth_audience, auth_client));
