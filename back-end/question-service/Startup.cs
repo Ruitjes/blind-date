@@ -39,14 +39,14 @@ namespace question_service
                 });
             });
 
-            services.AddScoped<IExternalServices, ExternalServices>();
-            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddSingleton<IExternalServices, ExternalServices>();
+            services.AddSingleton<IQuestionService, QuestionService>();
             services.AddSingleton<IBookmarkService, BookmarkService>();
 
             var rabbitMqSection = Configuration.GetSection(nameof(RabbitMqSettings));
             var rabbitMqSettings = rabbitMqSection.Get<RabbitMqSettings>();
 
-            services.AddSingleton(rabbitMqSettings);
+            services.AddSingleton<IRabbitMqSettings>(rabbitMqSettings);
             services.AddSingleton<RabbitMqConnection>();
 
             services.AddHostedService<AnswerCreateConsumer>();

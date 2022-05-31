@@ -41,12 +41,15 @@ namespace question_service.Messaging
 
         public void Dispose()
         {
-            if (_connection.IsOpen)
+            if (_connection != null)
             {
-                _connection.Dispose();
-            }
+                if (_connection.IsOpen)
+                {
+                    _connection.Dispose();
+                }
 
-            _connection = null;
+                _connection = null;
+            }
         }
     }
 }
