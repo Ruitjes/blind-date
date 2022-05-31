@@ -3,7 +3,7 @@ spring:
     mongodb:
       uri: ${env.DB_URL_ANSWER}
   rabbitmq:
-    uri: ${env.RabbitMQ_URI}
+    addresses: ${env.RabbitMQ_URI}
   main:
     allow-bean-definition-overriding: true
 server:
