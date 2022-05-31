@@ -47,7 +47,7 @@ namespace profile_service.Services
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,
             Builders<Profile>.Update.Set(p => p.Interests, profile.Interests)
-                                    .Set(p => p.Age, profile.Age)
+                                    .Set(p => p.Birthdate, profile.Birthdate)
                                     .Set(p => p.Gender, profile.Gender)
                                     .Set(p => p.Name, profile.Name)
                                     .Set(p => p.Language, profile.Language));
