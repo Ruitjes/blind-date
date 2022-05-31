@@ -4,7 +4,6 @@ using report_service.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 
 namespace report_service.Controllers
 {
@@ -39,18 +38,7 @@ namespace report_service.Controllers
 		[HttpPost]
 		public async Task<ActionResult<ReportReadDto>> CreateReport(ReportCreateDto reportCreateDto)
 		{
-			// TODO: get user from token
-			//string userIdentifier = _profileService.GetUserByJWTToken();
-			//string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-			//Console.WriteLine("----------->" + userId);
-
 			string reporterId = _service.GetUserByJWTToken();
-
-			Console.WriteLine("-----------> " + reportCreateDto);
-			Console.WriteLine("-----------> " + reportCreateDto.Question.Id);
-			Console.WriteLine("-----------> " + reportCreateDto.Question.Content);
-			Console.WriteLine("-----------> " + reportCreateDto.Reported.Id);
-			Console.WriteLine("-----------> " + reportCreateDto.ReportedContent);
 
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
@@ -68,11 +56,29 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
 		{
 			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
 
 			return Ok(reports);
+		}
+		
+		[HttpPatch("{id}")]
+		[Authorize(Roles = "Admin")]
+		public async Task<ActionResult> HandleReport(string id, [FromBody] string newStatus)
+		{
+			var report = await _service.GetAsync(id);
+
+			if(report == null) {
+				return NotFound($"Report with id: {id} was not found");
+			}
+
+			Enum.TryParse(newStatus, out Status newStatusEnum);
+
+			await _service.HandleAsync(report, newStatusEnum);
+
+			return Ok();
 		}
 	}
 }
