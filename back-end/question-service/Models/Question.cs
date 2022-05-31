@@ -16,4 +16,6 @@ public class Question
     public string? UserIdentifier { get; set; }
 
     public string? FileName { get; set; }
+
+    public bool Deleted { get; set; } = false;
 }

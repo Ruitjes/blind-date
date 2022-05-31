@@ -12,7 +12,7 @@ namespace question_service.Interfaces
         public Task<List<Question>> GetNextQuestionBatchBasedOnUserBookmark(ObjectId? bookmark);
         public Task<Question> CreateAsync(Question question);
         public Task UpdateAsync(ObjectId id, Question question);
-        public Task DeleteAsync(ObjectId id);
+        public Task<Question> DeleteAsync(ObjectId id);
         public Task<List<Question>> GetQuestionsByUser(string userId);
     }
 }
