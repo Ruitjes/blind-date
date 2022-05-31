@@ -11,6 +11,7 @@ services:
             - MongoDbSettings__ConnectionString=${DB_URL_QUESTION}
             - Auth0Settings__Authority=${AUTH0_AUTHORITY}
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
+            - RabbitMQ_URI=${RabbitMQ_URI}
 
     answer-service:
         image: answerservice

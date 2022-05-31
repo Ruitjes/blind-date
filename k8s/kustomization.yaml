@@ -22,7 +22,7 @@ images:
   newTag: d2476b3843e0b02ec656bbc701d63d587c19a958
 - name: question-service
   newName: seethrough2022/question-service
-  newTag: 206408c81f18931c774992f48728d32a3ddede49
+  newTag: 7a6eb9b99f1eaf6c7f06ecd724607f8f123c4d21
 - name: report-service
   newName: seethrough2022/report-service
   newTag: 4c577ff2b44a37a35268cc589240e941c0285e09
