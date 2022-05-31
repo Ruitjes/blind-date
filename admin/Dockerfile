@@ -6,6 +6,6 @@ RUN npm install
 COPY . /app
 RUN npm run build --prod
 
-FROM nginx:1.20.1
+FROM nginx:stable
 COPY --from=build-step /app/dist/admin /usr/share/nginx/html
 EXPOSE 3001:80
