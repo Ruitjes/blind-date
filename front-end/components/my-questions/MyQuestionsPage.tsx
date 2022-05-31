@@ -5,6 +5,7 @@ import Header from "../Header";
 import MyQuestion from "./MyQuestion";
 import Loading from "../Loading";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 
 const MyQuestionsPage = () => {
 
@@ -13,6 +14,7 @@ const MyQuestionsPage = () => {
     const [data, setData] = useState<any>();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -34,7 +36,7 @@ const MyQuestionsPage = () => {
 
                     <div className="flex flex-col py-1">
                         <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
-                            <Header center text="Your questions" />
+                            <Header center text={t("Your questions")} />
                         </div>
                     </div>
 

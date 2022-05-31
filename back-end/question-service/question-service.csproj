@@ -15,14 +15,18 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.4" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Classes\" />
     <None Remove="Newtonsoft.Json" />
     <None Remove="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <None Remove="Messaging\" />
+    <None Remove="RabbitMQ.Client" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
+    <Folder Include="Messaging\" />
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import Loading from './Loading';
 import ReportButton from './ReportButton';
 
@@ -8,6 +9,8 @@ type Props = {
 };
 
 const Question = (props: Props) => {
+	const { t } = useTranslation();
+	
     return (
         <div className="flex flex-col">
 			<div className="info-card layer-2 -m-4 p-4 drop-shadow-lg">
@@ -26,7 +29,7 @@ const Question = (props: Props) => {
 						{props.onReportClick && (
 							<div className="self-end">
 								<ReportButton
-									ariaLabel="Report the question"
+									ariaLabel={t("Report the question")}
 									icon="circle-exclamation"
 									color="indianred"
 									className="report-button"
