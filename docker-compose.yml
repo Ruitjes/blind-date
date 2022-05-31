@@ -87,11 +87,11 @@ services:
         - rabbitmq
 
     rabbitmq:
-        image: rabbitmq
-        command: rabbitmq-server
-        expose:
-        - 5672
-        - 15672
+        image: rabbitmq:3.9-management
+        container_name: rabbitmq
+        ports:
+        - 5672:5672
+        - 15672:15672
         healthcheck:
             test: [ "CMD", "nc", "-z", "localhost", "5672" ]
             interval: 5s
