@@ -7,6 +7,17 @@ import com.blinddate.answer.model.AnswerCreatingRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+
+
 
 @RestController
 @RequestMapping("/answers")
@@ -15,6 +26,16 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class AnswerController {
     private final AnswerService answerService;
+
+
+    @Autowired
+    private AmqpTemplate rabbitTemplate;
+
+    @Value("answerqueue")
+    private String queueName;
+    @Value("answers")
+    private String exchange;
+
 
     @PostMapping
     public void saveAnswer(@RequestBody AnswerCreatingRequest request) {
@@ -37,6 +58,7 @@ public class AnswerController {
     @GetMapping("/user/{userId}")
     public Iterable<Answer> getAnswersByUserId(@PathVariable String userId) {
         log.info("Getting answers by user id: {}", userId);
+        rabbitTemplate.convertAndSend(exchange, "#", "hello");
         return answerService.getAnswersByUserId(userId);
     }
 
