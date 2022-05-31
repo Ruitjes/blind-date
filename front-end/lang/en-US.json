@@ -21,6 +21,8 @@
         "What is on your mind?" : "What is on your mind?",
         "What would you like to ask?" : "What would you like to ask?",
         "Write something..." : "Write something...",
-        "Your questions" : "Your questions"
+        "Your questions" : "Your questions",
+        "{{count}} people have responded_one": "{{count}} person has responded",
+        "{{count}} people have responded_other": "{{count}} people have responded"
     }
 }

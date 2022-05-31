@@ -21,6 +21,9 @@
         "What is on your mind?" : "Waar denk je aan?",
         "What would you like to ask?" : "Wat zou je willen vragen?",
         "Write something..." : "Schrijf iets...",
-        "Your questions" : "Jouw vragen"
+        "Your questions" : "Jouw vragen",
+        "{{count}} people have responded_one": "{{count}} persoon heeft gereageerd",
+        "{{count}} people have responded_other": "{{count}} personen hebben gereageerd"
+
     }
 }

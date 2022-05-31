@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { t } from "i18next";
 import moment from "moment";
 
 type Props = {
@@ -19,7 +20,9 @@ const MyQuestion = (props: Props) => {
             <div className="flex flex-row">
                 <div className="flex flex-col flex-grow p-2">
                     <div className="flex flex-row flex-grow items-center">
-                        <p className="flex-grow">0 people have responded</p>
+                        <p className="flex-grow">{t("{{count}} people have responded", {
+                            count: props.question.numberOfAnswers  
+                        })}</p>
                         <FontAwesomeIcon icon={['fas', 'chevron-right']} />
                     </div>
                 </div>
