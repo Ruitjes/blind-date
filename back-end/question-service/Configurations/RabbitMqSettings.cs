@@ -2,6 +2,6 @@
 {
     public class RabbitMqSettings : IRabbitMqSettings
     {
-        public string? ConnectionString { get; }
+        public string? ConnectionString { get; init; }
     }
 }
