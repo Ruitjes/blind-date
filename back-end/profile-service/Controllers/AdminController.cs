@@ -5,7 +5,7 @@ using profile_service.Interfaces;
 using profile_service.Messaging;
 using profile_service.Models;
 
-namespace report_service.Controllers
+namespace profile_service.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -33,7 +33,7 @@ namespace report_service.Controllers
             {
                 try
                 {
-                    _messageBusPublisher.PublishMessage("DeletedUser", profile);
+                    _messageBusPublisher.PublishMessage("BlockedUser", profile);
                 }
                 catch(Exception ex)
                 {
