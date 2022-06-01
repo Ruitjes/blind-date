@@ -7,7 +7,7 @@ public class Question
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public ObjectId? Id { get; set; }
+    public ObjectId Id { get; set; }
 
     public string? Content { get; set; }
 
@@ -23,5 +23,4 @@ public class Question
     public string LinkedInterest { get; set; } = "";
 
     public string? Language { get; set; }
-
 }

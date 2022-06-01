@@ -10,6 +10,7 @@ export default async function getquestionforuser(req: NextApiRequest, res: NextA
     await http.httptoken(accessToken).get(`/question-service/Feed/GetQuestionForUser/${userIdentifier}`).then((api_res: any) => {
       res.status(200).json(api_res?.data);
     }).catch((err) => {
+      console.log(err)
       res.status(err?.status || 404).end(err.message);
     });
 
