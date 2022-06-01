@@ -37,12 +37,12 @@ const AskQuestionPage = () => {
 
     const getPrefferedLanguage = () => {
         axios.get('api/profileService/getProfile/').then((response: any) => {
-            // This is kinda ugly, we should need to require a user to create a profile before even continue with the platform.    
             if(response.data == '' || response.data == null) {
                     router.push('/profile')
             }
-                
-                setPrefferedLanguage(response.data.language);
+
+            setPrefferedLanguage(response.data.language);
+
             }).catch((err) => { console.log(err); });
     }
 

@@ -37,11 +37,11 @@ namespace question_service.Services
             //Could make a shorthand operator inside the find to shorten the amount of lines. but that would make it unreadable.
             if (bookmark == null)
             {
-                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == userProfile.Language).FirstOrDefaultAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == userProfile.Language).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
@@ -54,11 +54,11 @@ namespace question_service.Services
 
             if (bookmark == null)
             {
-                return await _questions.Find(s => true && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).Limit(5).ToListAsync();
+                return await _questions.Find(s => true && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == userProfile.Language).Limit(5).ToListAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest)).Limit(5).ToListAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == userProfile.Language).Limit(5).ToListAsync();
             }
         }
 
