@@ -56,7 +56,6 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet]
-		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
 		{
 			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
@@ -65,7 +64,6 @@ namespace report_service.Controllers
 		}
 		
 		[HttpPatch("{id}")]
-		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult> HandleReport(string id, [FromBody] string newStatus)
 		{
 			var report = await _service.GetAsync(id);
