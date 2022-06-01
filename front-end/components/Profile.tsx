@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from "axios";
-import ProfileSkeleton from "./ProfileSkeleton";
 import BackButton from "./BackButton";
 import { useTranslation } from 'react-i18next';
 import FormSelect from "./form/FormSelect";
@@ -100,11 +99,7 @@ const ProfileComponent = () => {
 
                                     <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
 
-                                    <FormSelect loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }}>
-                                        <option value="Male">{t("Male")}</option>
-                                        <option value="Female">{t("Female")}</option>
-                                        <option value="Other">{t("Other")}</option>
-                                    </FormSelect>
+                                    <FormInput loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }} />
 
                                     <FormSelect loading={Loading} label={t("Language")} value={profile.language} onChange={(e) => { SetProfile({ ...profile, language: e.target.value }) }}>
                                         <option value="en-US">{t("English")}</option>
