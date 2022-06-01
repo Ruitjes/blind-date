@@ -42,7 +42,6 @@ const Feed = () => {
 	};
 
 	const getQuestion = () => {
-		console.log("lol", user!.sub)
 		axios
 			.get(`api/getQuestionForUser/${user!.sub}`)
 			.then((res: any) => {
