@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
-const { t } = useTranslation();
 
 const ProfileSkeleton = () => {
+    const { t } = useTranslation();
+    
     return (
         <>
             <div className="flex flex-col flex-grow w-full max-w-sm">
