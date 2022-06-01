@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace question_service.Models
+namespace profile_service.Models
 {
     public class Profile
     {
@@ -17,15 +17,20 @@ namespace question_service.Models
 
         public int Age { get; set; }
 
+        public DateTime Birthdate { get; set; }
+
         public List<string> Interests { get; set; } = new List<string>();
 
-        public Profile(string oAuthIdentifier, string name, string gender, int age, List<string> interests)
+        public string Language { get; set; } = "en-US";
+
+        public Profile(string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests)
         {
             OAuthIdentifier = oAuthIdentifier;
             Name = name;
             Gender = gender;
-            Age = age;
+            Birthdate = birthdate;
             Interests = interests;
+            Language = Language;
         }
     }
 }
