@@ -102,8 +102,8 @@ const ProfileComponent = () => {
                             <FormInput loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }} />
 
                             <FormSelect loading={Loading} label={t("Language")} value={profile.language} onChange={(e) => { SetProfile({ ...profile, language: e.target.value }) }}>
-                                <option value="en-US">{t("English")}</option>
-                                <option value="nl-NL">{t("Dutch")}</option>
+                                <option value="en-US">{t("English")} 🇬🇧</option>
+                                <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
                             </FormSelect>
 
                             <FormTags loading={Loading} label={t("Interests")} childOnClickEvent={removeInterest} tagList={profile?.interests} onClick={addNewInterest} value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }} />
