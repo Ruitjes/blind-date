@@ -9,7 +9,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
 import Loading from "../Loading";
 import { useTranslation } from "react-i18next";
-import { route } from "next/dist/server/router";
+import { Route } from "next/dist/server/router";
 
 const AskQuestionPage = () => {
     const { user } = useUser();
