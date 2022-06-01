@@ -7,7 +7,7 @@ namespace question_service.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId? Id { get; set; }
+        public string Id { get; set; }
 
         public string OAuthIdentifier { get; set; }
 
@@ -19,13 +19,17 @@ namespace question_service.Models
 
         public List<string> Interests { get; set; } = new List<string>();
 
-        public Profile(string oAuthIdentifier, string name, string gender, int age, List<string> interests)
+        public string Language { get; set; }
+
+        public Profile(string id, string oAuthIdentifier, string name, string gender, int age, List<string> interests, string language)
         {
+            Id = id;
             OAuthIdentifier = oAuthIdentifier;
             Name = name;
             Gender = gender;
             Age = age;
             Interests = interests;
+            Language = language;
         }
     }
 }
