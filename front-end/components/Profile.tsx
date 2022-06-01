@@ -92,25 +92,25 @@ const ProfileComponent = () => {
         <div className="bg-gray-700 flex flex-col h-full">
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
                 <BackButton navPage="/" />
-                        <div className="flex flex-col flex-grow w-full max-w-sm">
-                            <div className="flex flex-col mt-4 mb-6">
-                                <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} buttonText={"Save"}>
-                                    <FormInput loading={Loading} label={t("Display name")} type="text" value={profile.name} onChange={(e) => { SetProfile({ ...profile, name: e.target.value }) }} />
+                <div className="flex flex-col flex-grow w-full max-w-sm">
+                    <div className="flex flex-col mt-4 mb-6">
+                        <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} buttonText={"Save"}>
+                            <FormInput loading={Loading} label={t("Display name")} type="text" value={profile.name} onChange={(e) => { SetProfile({ ...profile, name: e.target.value }) }} />
 
-                                    <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
+                            <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
 
-                                    <FormInput loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }} />
+                            <FormInput loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }} />
 
-                                    <FormSelect loading={Loading} label={t("Language")} value={profile.language} onChange={(e) => { SetProfile({ ...profile, language: e.target.value }) }}>
-                                        <option value="en-US">{t("English")}</option>
-                                        <option value="nl-NL">{t("Dutch")}</option>
-                                    </FormSelect>
+                            <FormSelect loading={Loading} label={t("Language")} value={profile.language} onChange={(e) => { SetProfile({ ...profile, language: e.target.value }) }}>
+                                <option value="en-US">{t("English")}</option>
+                                <option value="nl-NL">{t("Dutch")}</option>
+                            </FormSelect>
 
-                                    <FormTags loading={Loading} label={t("Interests")} childOnClickEvent={removeInterest} tagList={profile?.interests} onClick={addNewInterest} value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }} />
-                                </FormWrapper>
+                            <FormTags loading={Loading} label={t("Interests")} childOnClickEvent={removeInterest} tagList={profile?.interests} onClick={addNewInterest} value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }} />
+                        </FormWrapper>
 
-                            </div>
-                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </>);
