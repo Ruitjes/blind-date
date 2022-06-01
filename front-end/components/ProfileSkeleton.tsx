@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
+const { t } = useTranslation();
 
 const ProfileSkeleton = () => {
     return (
@@ -13,7 +15,7 @@ const ProfileSkeleton = () => {
                                     <div className="flex flex-wrap -mx-3">
                                         <div className="w-full px-3">
                                             <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                Display name
+                                                {t("Display name")}
                                             </label>
                                             <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
                                         </div>
@@ -22,7 +24,7 @@ const ProfileSkeleton = () => {
                                     <div className="flex flex-wrap -mx-3">
                                         <div className="w-full px-3">
                                             <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                Date of birth
+                                                {t("Date of birth")}
                                             </label>
                                             <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
                                         </div>
@@ -31,7 +33,7 @@ const ProfileSkeleton = () => {
                                     <div className="flex flex-wrap -mx-3 px-3">
                                         <div className="w-full">
                                             <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                Gender
+                                                {t("Gender")}
                                             </label>
                                         </div>
                                         <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
@@ -40,7 +42,7 @@ const ProfileSkeleton = () => {
                                     <div className="flex flex-wrap -mx-3 px-3">
                                         <div className="w-full">
                                             <label className="block text-gray-700 text-xs font-bold mb-2">
-                                                Language
+                                                {t("Language")}
                                             </label>
                                         </div>
                                         <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
@@ -48,7 +50,7 @@ const ProfileSkeleton = () => {
 
                                     <div>
                                         <label className="block text-gray-700 text-xs font-bold mb-2">
-                                            Interests
+                                            {t("Interests")}
                                         </label>
                                         <div className="flex flex-col space-y-4 items-center mx-4 sm:mx-0">
                                             <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
