@@ -7,6 +7,17 @@ import com.blinddate.answer.model.AnswerCreatingRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+
+
 
 @RestController
 @RequestMapping("/answers")
@@ -15,11 +26,18 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class AnswerController {
     private final AnswerService answerService;
+    
+    private final RabbitTemplate rabbitTemplate;
 
     @PostMapping
     public void saveAnswer(@RequestBody AnswerCreatingRequest request) {
         log.info("Adding answer: {}", request);
-        answerService.saveAnswer(request);
+       
+     Answer answer = answerService.saveAnswer(request);
+      rabbitTemplate.convertAndSend("answers", "#", answer, m -> {
+           m.getMessageProperties().getHeaders().put("MessageType", "CreateAnswerEvent");
+           return m;
+        });
     }
 
     @GetMapping("/{id}")
@@ -48,6 +66,11 @@ public class AnswerController {
     
     @PutMapping("/deleteAnswer/{id}")
     public Answer deleteAnswer(@PathVariable String id) {
-      return answerService.deleteAnswer(id);
+      Answer answer = answerService.deleteAnswer(id);
+         rabbitTemplate.convertAndSend("answers", "#", answer, m -> {
+           m.getMessageProperties().getHeaders().put("MessageType", "DeleteAnswerEvent");
+           return m;
+        });
+        return answer;
     }
 }
