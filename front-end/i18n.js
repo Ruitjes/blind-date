@@ -19,6 +19,8 @@ axios
                     break;
             }
         }
+    }).catch((error) => {
+        console.log(error);
     });
 
 i18n
