@@ -9,6 +9,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
 import Loading from "../Loading";
 import { useTranslation } from "react-i18next";
+import BackButton from "../BackButton";
 
 const AskQuestionPage = () => {
     const { user } = useUser();
@@ -65,6 +66,7 @@ const AskQuestionPage = () => {
         <div className='bg-gray-700 flex flex-col h-full'>
 
             <div className="flex flex-col flex-grow items-center p-4 bg-pink-400">
+                <BackButton navPage="/"/>
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <form onSubmit={handleSubmit} className='flex flex-col flex-grow p-4'>
 
