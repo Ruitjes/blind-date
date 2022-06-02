@@ -53,6 +53,13 @@ spec:
                 name: secret
                 key: AUTH0_AUDIENCE
                 optional: false
+         
+          - name: env.RabbitMQ_URI
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: RabbitMQ_URI
+                optional: false
 
 ---
 apiVersion: v1

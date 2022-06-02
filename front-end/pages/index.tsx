@@ -57,8 +57,15 @@ const Home: NextPage = () => {
         </div>
       </div>
 
+      <div className="flex absolute left-0 bottom-0 p-4">
+        <div className="flex flex-col cursor-pointer" onClick={navigateToProfile}>
+          <FontAwesomeIcon color='white' size='2x' icon={['fas', 'user-alt']} />
+          <p className="text-white font-medium">{t("My Profile")}</p>
+        </div>
+      </div>
+      
       <div className="flex absolute right-0 bottom-0 p-4">
-        <div className="flex flex-col" onClick={navigateToMyQuestions}>
+        <div className="flex flex-col cursor-pointer" onClick={navigateToMyQuestions}>
           <FontAwesomeIcon color='white' size='2x' icon={['fas', 'book-open']} />
           <p className="text-white font-medium">{t("My Questions")}</p>
         </div>

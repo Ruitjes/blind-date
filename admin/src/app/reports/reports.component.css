@@ -1,14 +1,18 @@
 table {
-  width: 96%;
-  margin: 5% 2%;
-}
-
-td , th {
-  white-space: normal;
-  word-wrap: break-word;
-  max-width: 300px;
+  width: 98%;
+  margin: 4% 1%;
+  word-break: normal;
 }
 
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   padding: 10px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+#right-btn {
+  margin-left: 10px;
 }

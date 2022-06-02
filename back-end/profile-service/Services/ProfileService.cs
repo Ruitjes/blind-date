@@ -38,23 +38,24 @@ namespace profile_service.Services
             {
                 return existingProfile;
             }
-            profile.Id = ObjectId.GenerateNewId();
+            profile.Id = ObjectId.GenerateNewId().ToString();
+
             await _profiles.InsertOneAsync(profile);
             return profile;
         }
 
-        public async Task<Profile> UpdateAsync(ObjectId? id, Profile profile)
+        public async Task<Profile> UpdateAsync(string? id, Profile profile)
         {
             await _profiles.UpdateOneAsync(x => x.Id == id,
             Builders<Profile>.Update.Set(p => p.Interests, profile.Interests)
-                                    .Set(p => p.Age, profile.Age)
+                                    .Set(p => p.Birthdate, profile.Birthdate)
                                     .Set(p => p.Gender, profile.Gender)
                                     .Set(p => p.Name, profile.Name)
                                     .Set(p => p.Language, profile.Language));
             return profile;
         }
 
-        public async Task<string> DeleteAsync(ObjectId? id)
+        public async Task<string> DeleteAsync(string? id)
         {
             await _profiles.DeleteOneAsync(s => s.Id == id);
             return "Profile deleted!";

@@ -16,16 +16,16 @@ namespace: blinddate
 images:
 - name: answer-service
   newName: seethrough2022/answer-service
-  newTag: 9587aec1e6d7c0161436b00e5ada0c29cdc0ecdc
+  newTag: 7b21adc43af717c6744e148720fbb0e917eb1f82
 - name: profile-service
   newName: seethrough2022/profile-service
   newTag: d2476b3843e0b02ec656bbc701d63d587c19a958
 - name: question-service
   newName: seethrough2022/question-service
-  newTag: 936e1e8022bc1da24e8abf192ef368e2a49b15c5
+  newTag: a1fcd59b55282e4ad357142eb75426d6f2ce6fe7
 - name: report-service
   newName: seethrough2022/report-service
-  newTag: 4c577ff2b44a37a35268cc589240e941c0285e09
+  newTag: 453041a9e08c4db0c59ecd59296733a0324e8289
 - name: search-service
   newName: seethrough2022/search-service
   newTag: f6d2a15941ac3bd126a130f452ef67f1476949e6

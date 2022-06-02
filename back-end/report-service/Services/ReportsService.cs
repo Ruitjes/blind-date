@@ -38,6 +38,20 @@ namespace report_service.Services
 			await _reportsCollection.InsertOneAsync(report);
 		}
 
+		/// <summary>
+		/// Handle report by changing the status
+		/// </summary>
+		/// <param name="report"></param>
+		/// <param name="newStatus"></param>
+		/// <returns></returns>
+		public async Task HandleAsync(Report report, Status newStatus)
+		{
+			var updatedReport = Builders<Report>.Update
+				.Set(r => r.Status, newStatus);
+
+			await _reportsCollection.FindOneAndUpdateAsync(x => x.Id == report.Id, updatedReport);
+		}
+
 		public string GetUserByJWTToken()
 		{
 			var userFromJWT = _httpContext.HttpContext.User;
