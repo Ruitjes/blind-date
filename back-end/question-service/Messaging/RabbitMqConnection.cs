@@ -1,42 +1,39 @@
-﻿using RabbitMQ.Client;
-using System;
+﻿using question_service.Configurations;
+using RabbitMQ.Client;
 
 namespace question_service.Messaging
 {
     public class RabbitMqConnection : IDisposable
     {
-        public string ConnectionString { get; set; } = null!;
-
-        public RabbitMqConnection(string? connectionString)
+        private readonly IConnectionFactory _factory;
+        private IConnection? _connection;
+        
+        public RabbitMqConnection(IRabbitMqSettings settings)
         {
-            if (connectionString == null)
+            if (settings.ConnectionString == null)
             {
                 throw new Exception("RabbitMQ connection URL not set");
             }
-            else
+
+            _factory = new ConnectionFactory
             {
-                ConnectionString = connectionString;
-            }
+                Uri = new Uri(settings.ConnectionString),
+                AutomaticRecoveryEnabled = true // When the connection is lost, this will automatically reconnect us when it can get back up
+            };
+
         }
 
-        private IConnection? _connection;
+
         public IModel CreateChannel()
         {
-            var connection = GetConnection();
-            return connection.CreateModel();
+            return GetConnection().CreateModel();
         }
 
         private IConnection GetConnection()
         {
-            if(_connection == null)
+            if (_connection == null)
             {
-               
-                var factory = new ConnectionFactory
-                {
-                    Uri = new Uri(ConnectionString),
-                    AutomaticRecoveryEnabled = true // When the connection is lost, this will automatically reconnect us when it can get back up
-                };
-                _connection = factory.CreateConnection();
+                _connection = _factory.CreateConnection();
             }
 
             return _connection;
@@ -44,7 +41,15 @@ namespace question_service.Messaging
 
         public void Dispose()
         {
-            _connection?.Dispose();
+            if (_connection != null)
+            {
+                if (_connection.IsOpen)
+                {
+                    _connection.Dispose();
+                }
+
+                _connection = null;
+            }
         }
     }
 }
