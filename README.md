@@ -78,8 +78,14 @@ npm run dev
 -   http://localhost:3000 -> React front-end
 
 9. Start Angular app
+- Development
 ```bash
 npm run start OR ng serve
+```
+
+- Production
+```bash
+ng serve --configuration production
 ```
 
 10. When the React app is running

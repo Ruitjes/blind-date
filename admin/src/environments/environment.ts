@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // Docker compose
+  apiUrlReports: "https://localhost:7000/report-service/reports",
+  apiUrlUsers: "https://localhost:7000/profile-service",
+  apiUrlQuestions: "https://localhost:7000/question-service/question",
+  apiUrlAnswers: "https://localhost:7000/answer-service/answers"
 };
 
 /*

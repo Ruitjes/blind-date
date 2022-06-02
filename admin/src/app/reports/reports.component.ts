@@ -24,14 +24,14 @@ export class ReportsComponent implements OnInit {
   }
 
   getAllReports() {
-    this.reportsService.getAll().subscribe(data => {
+    this.reportsService.getAllReports().subscribe(data => {
       this.reports = <Report[]>data;
     })
   }
 
   // Delete user
   deleteUser(report: Report, id: string) {
-    this.usersService.delete(id)
+    this.usersService.blockUser(id)
       .subscribe(() => {
         this.handleReport(report, Status.Resolved);
       })
@@ -39,14 +39,14 @@ export class ReportsComponent implements OnInit {
 
   // Delete content (question or answer)
   deleteQuestion(report: Report, id: string) {
-    this.questionsService.delete(id)
+    this.questionsService.deleteQuestion(id)
       .subscribe(() => {
         this.handleReport(report, Status.Resolved);
       })
   }
 
   // Update status
-  // called when a user is deleted or a question is deleted or when the admin changes the status manaually
+  // called when a user is deleted, a question is deleted or when the admin changes the status manaually
   handleReport(report: Report, newStatus: Status) {
     this.reportsService.handleReport(report.id, newStatus)
       .subscribe(() => {
