@@ -21,6 +21,8 @@ namespace question_service.Models
 
         public List<string> Interests { get; set; } = new List<string>();
 
+        public string Language { get; set; } = "en-US";
+
         public Profile(string id, string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests, string language)
         {
             Id = id;
