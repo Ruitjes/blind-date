@@ -4,6 +4,6 @@ namespace question_service.Events
 {
     public class CreateAnswerEvent
     {
-        public ObjectId Id { get; set; }
+        public string? QuestionId { get; set; }
     }
 }

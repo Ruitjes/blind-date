@@ -85,7 +85,7 @@ namespace question_service.Services
         {
             await _questions.UpdateOneAsync(
                 Builders<Question>.Filter.Eq(s => s.Id, id),
-                Builders<Question>.Update.Inc(s => s.NumberOfAnswers, - 1)
+                Builders<Question>.Update.Inc(s => s.NumberOfAnswers, -1)
             );
         }
 
