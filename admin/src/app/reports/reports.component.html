@@ -36,12 +36,37 @@
 
   <ng-container matColumnDef="Created at">
     <th mat-header-cell *matHeaderCellDef> Created at </th>
-    <td mat-cell *matCellDef="let report"> {{report.createdAt}} </td>
+    <td mat-cell *matCellDef="let report"> {{report.createdAt | date:'MMMM d, y' }} </td>
   </ng-container>
 
   <ng-container matColumnDef="Status">
     <th mat-header-cell *matHeaderCellDef> Status </th>
     <td mat-cell *matCellDef="let report"> {{report.status}} </td>
+  </ng-container>
+
+  <!-- Status dropdown menu -->
+  <ng-container matColumnDef="New Status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let report">
+      <mat-form-field appearance="fill">
+        <mat-label>New Status</mat-label>
+        <mat-select (selectionChange)="handleReport(report, $event.value)">
+          <mat-option *ngFor="let status of statusArray" [value]="status">
+            {{status}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let report">
+      <div class="example-button-row">
+        <button mat-raised-button color="accent" *ngIf="report.status != 'Ignored'" (click)="deleteQuestion(report, report.question?.id)">Delete Content</button>
+        <button mat-raised-button color="warn" id="right-btn" *ngIf="report.status != 'Ignored'" (click)="deleteUser(report, report.reported?.id)">Delete User</button>
+      </div>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

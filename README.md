@@ -79,7 +79,7 @@ npm run dev
 
 9. Start Angular app
 ```bash
-ng start OR ng serve
+npm run start OR ng serve
 ```
 
 10. When the React app is running
