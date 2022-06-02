@@ -8,7 +8,8 @@ export default async function createProfile(
 ) {
 	try {
 		const { accessToken } = await getAccessToken(req, res);
-
+		console.log(req.body);
+		
 		await http
 			.httptoken(accessToken)
 			.post('profile-service/Profile/CreateProfile', req.body)
@@ -16,11 +17,9 @@ export default async function createProfile(
 				res.status(200).json(api_res.data);
 			})
 			.catch((err) => {
-				console.log(err);
 				res.status(err?.status || 404).end(err.message);
 			});
 	} catch (error: any) {
-		console.error(error);
 		res.status(error.status || 500).end(error.message);
 	}
 }
