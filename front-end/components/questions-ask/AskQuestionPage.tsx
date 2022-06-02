@@ -9,12 +9,14 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from "next/router";
 import Loading from "../Loading";
 import { useTranslation } from "react-i18next";
+import { Route } from "next/dist/server/router";
 
 const AskQuestionPage = () => {
     const { user } = useUser();
     const router = useRouter();
 
     const [loading, setLoading] = useState<boolean>();
+    const [preferredLanguage, setPreferredLanguage] = useState<any>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
@@ -30,7 +32,19 @@ const AskQuestionPage = () => {
 
     useEffect(() => {
       document.title = "Ask a question page"
+      getPreferredLanguage();
     }, [])
+
+    const getPreferredLanguage = () => {
+        axios.get('api/profileService/getProfile/').then((response: any) => {
+            if(response.data == '' || response.data == null) {
+                    router.push('/profile')
+            }
+
+            setPreferredLanguage(response.data.language);
+
+            }).catch((err) => { console.log(err); });
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -38,9 +52,7 @@ const AskQuestionPage = () => {
         setLoading(true);
 
         axios.get('api/getAccessToken').then(async ({ data: access_token }) => {
-
             try {
-
                 if (file) {
                     const formData = new FormData();
                     formData.append("file", file);
@@ -48,8 +60,8 @@ const AskQuestionPage = () => {
 
                     await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
-
-                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name }
+                
+                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: preferredLanguage }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
 
                 router.push('/');

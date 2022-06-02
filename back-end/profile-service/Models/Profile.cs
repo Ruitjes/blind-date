@@ -23,7 +23,7 @@ namespace profile_service.Models
 
         public string Language { get; set; } = "en-US";
 
-        public Profile(string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests, string language)
+        public Profile(string id, string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests, string language)
         {
             Id = id;
             OAuthIdentifier = oAuthIdentifier;

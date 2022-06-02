@@ -7,7 +7,7 @@ public class Question
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public ObjectId? Id { get; set; }
+    public ObjectId Id { get; set; }
 
     public string? Content { get; set; }
 
@@ -21,4 +21,6 @@ public class Question
     // Offcourse you would rather have an ID of a linked interest here so you don't need to string match.
     // You would also want Interests to be managed by the admin of the platfrom so that no weird or uncanny interests get added.
     public string LinkedInterest { get; set; } = "";
+
+    public string? Language { get; set; }
 }

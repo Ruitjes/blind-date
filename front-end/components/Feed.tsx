@@ -101,9 +101,7 @@ const Feed = () => {
 				content: CurrentQuestion.content
 			}
 		};
-
-		console.log(data);
-
+		
 		axios
 			.post('/api/reportQuestion', data)
 			.then((res: any) => {
