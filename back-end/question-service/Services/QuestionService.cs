@@ -73,6 +73,22 @@ namespace question_service.Services
             await _questions.ReplaceOneAsync(s => s.Id == id, question);
         }
 
+        public async Task IncrementNumberOfQuestionsAsync(ObjectId id)
+        {
+            await _questions.UpdateOneAsync(
+                Builders<Question>.Filter.Eq(s => s.Id, id),
+                Builders<Question>.Update.Inc(s => s.NumberOfAnswers, 1)
+            );
+        }
+
+        public async Task DecrementNumberOfQuestionsAsync(ObjectId id)
+        {
+            await _questions.UpdateOneAsync(
+                Builders<Question>.Filter.Eq(s => s.Id, id),
+                Builders<Question>.Update.Inc(s => s.NumberOfAnswers, - 1)
+            );
+        }
+
         public async Task<Question> DeleteAsync(ObjectId questionId)
         {
             var update = Builders<Question>.Update
