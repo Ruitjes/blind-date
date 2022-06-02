@@ -50,7 +50,6 @@ const AskQuestionPage = () => {
 
         e.preventDefault();
         setLoading(true);
-        console.log('df: ',user!.sub);
 
         axios.get('api/getAccessToken').then(async ({ data: access_token }) => {
             try {
@@ -62,7 +61,6 @@ const AskQuestionPage = () => {
                     await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
                 
-                console.log(prefferedLanguage)
                 const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: prefferedLanguage }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
 
