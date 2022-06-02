@@ -6,6 +6,7 @@ import axios from 'axios';
 import Banner from './Banner';
 import Loading from './Loading';
 import { useTranslation } from 'react-i18next';
+import BackButton from './BackButton';
 
 const Feed = () => {
 	const { user } = useUser();
@@ -122,6 +123,7 @@ const Feed = () => {
 	return (
 		<div className="bg-gray-700 flex flex-col h-full">
 			<div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
+				<BackButton navPage='/' />
 				<div className="flex flex-col flex-grow w-full max-w-sm">
 					<div className="flex flex-col mt-4 mb-6">
 						<div className="flex flex-col flex-grow p-4">

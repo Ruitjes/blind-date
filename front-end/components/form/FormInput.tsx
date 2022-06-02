@@ -20,7 +20,7 @@ export default function FormInput({label, defaultValue, value, type, onChange, l
                 {loading ? 
                 <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
                 :
-                <input className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={type} value={value} defaultValue={defaultValue} onChange={onChange} />
+                <input aria-label={label} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={type} value={value} defaultValue={defaultValue} onChange={onChange} />
                 }
             </div>
         </div>

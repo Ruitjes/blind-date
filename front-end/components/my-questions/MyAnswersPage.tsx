@@ -6,6 +6,7 @@ import Loading from "../Loading";
 import MyAnswer from "./MyAnswer";
 import Question from '../Question';
 import { useTranslation } from "react-i18next";
+import BackButton from "../BackButton";
 
 type Props = {
     question: {
@@ -42,6 +43,7 @@ const MyAnswersPage = (props: Props) => {
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
+                <BackButton navPage="/myQuestions" />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
 
                     <div className="flex flex-col mt-4 mb-6">

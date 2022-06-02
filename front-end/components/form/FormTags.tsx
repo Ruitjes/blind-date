@@ -1,5 +1,6 @@
 import React from "react";
 import { PropsWithChildren } from "react";
+import { useTranslation } from 'react-i18next';
 
 type Props = PropsWithChildren<{
     loading?: boolean,
@@ -12,6 +13,8 @@ type Props = PropsWithChildren<{
 }>;
 
 export default function FormTags({ tagList, value, label, onChange, childOnClickEvent, onClick, loading }: Props) {
+    const { t } = useTranslation();
+    
     return (<>
         <div>
             <label className="block text-gray-700 text-xs font-bold mb-2">
@@ -22,9 +25,9 @@ export default function FormTags({ tagList, value, label, onChange, childOnClick
                     <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
                     :
                     <div className="flex flex-wrap items-stretch w-full relative">
-                        <input type="text" className="flex-shrink flex-grow flex-auto leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" placeholder="New interest" value={value} onChange={onChange} />
+                        <input aria-label={label} type="text" className="flex-shrink flex-grow flex-auto leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" placeholder="New interest" value={value} onChange={onChange} />
                         <div className="flex -mr-px">
-                            <button className="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm" onClick={onClick}>+</button>
+                            <button aria-label={t("Add interest")} className="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm" onClick={onClick}>+</button>
                         </div>
                     </div>
                 }

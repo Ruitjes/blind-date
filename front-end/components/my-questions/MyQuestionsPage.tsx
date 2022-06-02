@@ -6,6 +6,7 @@ import MyQuestion from "./MyQuestion";
 import Loading from "../Loading";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import BackButton from "../BackButton";
 
 const MyQuestionsPage = () => {
 
@@ -32,6 +33,7 @@ const MyQuestionsPage = () => {
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
+                <BackButton navPage="/" />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
 
                     <div className="flex flex-col py-1">
