@@ -17,17 +17,17 @@ namespace question_service.Models
 
         public int Age { get; set; }
 
+        public DateTime Birthdate { get; set; }
+
         public List<string> Interests { get; set; } = new List<string>();
 
-        public string Language { get; set; }
-
-        public Profile(string id, string oAuthIdentifier, string name, string gender, int age, List<string> interests, string language)
+        public Profile(string id, string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests, string language)
         {
             Id = id;
             OAuthIdentifier = oAuthIdentifier;
             Name = name;
             Gender = gender;
-            Age = age;
+            Birthdate = birthdate;
             Interests = interests;
             Language = language;
         }

@@ -1,122 +1,119 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from "axios";
+import BackButton from "./BackButton";
+import { useTranslation } from 'react-i18next';
+import FormSelect from "./form/FormSelect";
+import FormInput from "./form/FormInput";
+import FormTags from "./form/FormTags";
+import FormWrapper from "./form/FormWrapper";
 
 export class Profile {
     oAuthIdentifier: string | null = null;
     name: string = "";
     gender: string = "";
-    age: number = 0;
+    birthdate: string = "";
     language: string = "";
     interests: string[] = [];
 }
 
 const ProfileComponent = () => {
-    const { user } = useUser(); 
+    const { t } = useTranslation();
+    const { user } = useUser();
     const [profile, SetProfile] = useState<Profile>(new Profile());
     const [newInterest, setNewInterest] = useState<string>("");
     const [HasProfile, SetHasProfile] = useState<boolean>();
+    const [Loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         document.title = "Configure profile"
-       getProfileOfUser();
+        getProfileOfUser();
     }, [user]);
 
     const getProfileOfUser = () => {
-        if(user != null)
-       {
+        if (user != null) {
+            setLoading(true);
             axios.get<Profile>('api/profileService/getProfile/').then((response: any) => {
-                if (response.data == "" || response.data == null) { 
-                     SetHasProfile(false);    
-                } 
-                else {  
-                    SetProfile(response.data); 
+                if (response.data == "" || response.data == null) {
+                    SetHasProfile(false);
+                    setLoading(false);
+                }
+                else {
+                    SetProfile(response.data);
                     SetHasProfile(true);
-                }   
-                }).catch((err) => { console.log(err); });
+                    setLoading(false);
+                }
+            }).catch((err) => { console.log(err); });
         }
     };
 
     const CreateProfileOfUser = () => {
         const data = {
-              "oAuthIdentifier": user!.sub?.toString(),
-              "name":profile.name,
-              "gender": profile.gender,
-              "age": profile.age,
-              "interests": profile.interests,
-              "language": profile.language
+            "oAuthIdentifier": user!.sub?.toString(),
+            "name": profile.name,
+            "gender": profile.gender,
+            "birthdate": new Date(profile.birthdate),
+            "interests": profile.interests,
+            "language": profile.language
         };
         axios.post('api/profileService/createProfile', data).then((res: any) => {
+            SetProfile(new Profile);
             SetProfile(res.data);
-            window.location.reload();
         }).catch((err) => { console.log(err); });
     };
 
     const UpdateProfileOfUser = () => {
         const data = {
-              "oAuthIdentifier": user!.sub?.toString(),
-              "name":profile.name,
-              "gender": profile.gender,
-              "age": profile.age,
-              "interests": profile.interests,
-              "language": profile.language
+            "oAuthIdentifier": user!.sub?.toString(),
+            "name": profile.name,
+            "gender": profile.gender,
+            "birthdate": new Date(profile.birthdate),
+            "interests": profile.interests,
+            "language": profile.language
         };
         axios.put('api/profileService/updateProfile', data).then((res: any) => {
+            SetProfile(new Profile);
             SetProfile(res.data);
-            window.location.reload();
         }).catch((err) => { console.log(err); });
     };
-    
-    return (
-        <div className='bg-blue-200 flex flex-col h-full'>
-   <div className="container rounded bg-blue-100 mt-10">
-    <div className="row">
-        <div className="mt-5 text-center">
-           Hi {profile.name}!
-            <div className="p-3 py-5">
-            {HasProfile ? 
-                (   <h1>Edit your profile</h1>) : 
-                (   <h1>Add your profile information</h1>)}
-                 
-                <div className="row mt-2">
-                    <div className="col-md-6"><b><p>Name</p> </b>
-                    </div>
-                    <input id="nameinput" placeholder="Name" aria-required="true" value={profile.name} onChange={(e) => {SetProfile({...profile, name: e.target.value}) }} />
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12"><b><p>Gender</p></b>
-                    </div>
-                    <input id="genderinput" placeholder="Gender" aria-required="true" value={profile.gender} onChange={(e) => {SetProfile({...profile, gender: e.target.value}) }}/> 
-                    <div className="col-md-12"><b><p>Age</p></b></div>
-                    <input id="ageinput" type="number" placeholder="Age" aria-required="true" value={profile.age} onChange={(e) => {SetProfile({...profile, age: Number(e.target.value)}) }}/> 
-                    <div className="col-md-12"><b><p>Language</p></b></div>
-                    <select name="language" id="language"  value={profile.language} onChange={(e) => {SetProfile({...profile, language: e.target.value}) }}>
-                    <option value="">None</option>
-                    <option value="english">English</option>
-                    <option value="dutch">Dutch</option>
-                    </select>            
-                </div>
-                <div className="col-md-12"><b><p>Interests</p> </b> </div>
-                <ul>
-                    {profile.interests.map((interest,id) => {
-                        return <li key={id} id={interest}>{interest}</li>
-                    })}
-                </ul>
-                <input id="interestsinput" placeholder="Add interest" value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }}/>
-                <div className="mt-5 text-center"><button className="btn btn-primary" type="button" onClick={() => SetProfile({...profile, interests: [...profile.interests, newInterest]})}>Add interest</button></div>
 
-                <div className="mt-5 text-center">
-                {HasProfile ? 
-                (<button className="btn btn-primary" type="button" onClick={UpdateProfileOfUser}>Save Profile</button>) : 
-                (<button className="btn btn-primary" type="button" onClick={CreateProfileOfUser}>Save Profile</button>)}
+    const addNewInterest = () => {
+        const newInt = [...profile.interests, newInterest];
+        SetProfile({ ...profile, interests: newInt });
+        setNewInterest("");
+    };
+
+    const removeInterest = (deleteThisInterest: string) => {
+        const newInt = [...profile.interests].filter(x => x != deleteThisInterest);
+        SetProfile({ ...profile, interests: newInt });
+    };
+
+    return (<>
+        <div className="bg-gray-700 flex flex-col h-full">
+            <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
+                <BackButton navPage="/" />
+                <div className="flex flex-col flex-grow w-full max-w-sm">
+                    <div className="flex flex-col mt-4 mb-6">
+                        <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} buttonText={"Save"}>
+                            <FormInput loading={Loading} label={t("Display name")} type="text" value={profile.name} onChange={(e) => { SetProfile({ ...profile, name: e.target.value }) }} />
+
+                            <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
+
+                            <FormInput loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }} />
+
+                            <FormSelect loading={Loading} label={t("Language")} value={profile.language} onChange={(e) => { SetProfile({ ...profile, language: e.target.value }) }}>
+                                <option value="en-US">{t("English")} 🇬🇧</option>
+                                <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
+                            </FormSelect>
+
+                            <FormTags loading={Loading} label={t("Interests")} childOnClickEvent={removeInterest} tagList={profile?.interests} onClick={addNewInterest} value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }} />
+                        </FormWrapper>
+
                     </div>
+                </div>
             </div>
         </div>
-    
-    </div>
-</div>
-</div>
-    );
- };
+    </>);
+};
 
 export default ProfileComponent;

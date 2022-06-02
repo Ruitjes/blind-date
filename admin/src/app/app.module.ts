@@ -8,12 +8,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
 
 import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
 import { UsersComponent } from './users/users.component';
 import { AuthButtonComponent } from './auth0/login.component';
 import { UserProfileComponent } from './auth0/user.component';
 import { UserMetadataComponent } from './auth0/metadata.component';
+import { CustomHttpInterceptor } from './interceptors/custom.http.interceptor';
 // Import the module from the SDK
 import { AuthModule } from '@auth0/auth0-angular';
 
@@ -43,6 +45,7 @@ import { ReportsComponent } from './reports/reports.component';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
+    MatSelectModule,
     AuthModule.forRoot({
       // The domain and clientId were configured in the previous chapter
       domain: 'blind-date.eu.auth0.com',
@@ -75,6 +78,7 @@ import { ReportsComponent } from './reports/reports.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
