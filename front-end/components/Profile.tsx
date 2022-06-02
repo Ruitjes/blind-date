@@ -49,6 +49,7 @@ const ProfileComponent = () => {
 
     const CreateProfileOfUser = () => {
         const data = {
+            "id": "",
             "oAuthIdentifier": user!.sub?.toString(),
             "name": profile.name,
             "gender": profile.gender,
@@ -64,6 +65,7 @@ const ProfileComponent = () => {
 
     const UpdateProfileOfUser = () => {
         const data = {
+            "id": "",
             "oAuthIdentifier": user!.sub?.toString(),
             "name": profile.name,
             "gender": profile.gender,
