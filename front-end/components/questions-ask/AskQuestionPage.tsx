@@ -16,7 +16,7 @@ const AskQuestionPage = () => {
     const router = useRouter();
 
     const [loading, setLoading] = useState<boolean>();
-    const [prefferedLanguage, setPrefferedLanguage] = useState<any>();
+    const [preferredLanguage, setPreferredLanguage] = useState<any>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
@@ -32,16 +32,16 @@ const AskQuestionPage = () => {
 
     useEffect(() => {
       document.title = "Ask a question page"
-      getPrefferedLanguage();
+      getPreferredLanguage();
     }, [])
 
-    const getPrefferedLanguage = () => {
+    const getPreferredLanguage = () => {
         axios.get('api/profileService/getProfile/').then((response: any) => {
             if(response.data == '' || response.data == null) {
                     router.push('/profile')
             }
 
-            setPrefferedLanguage(response.data.language);
+            setPreferredLanguage(response.data.language);
 
             }).catch((err) => { console.log(err); });
     }
