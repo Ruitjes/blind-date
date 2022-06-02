@@ -61,7 +61,7 @@ const AskQuestionPage = () => {
                     await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
                 
-                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: prefferedLanguage }
+                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: preferredLanguage }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
 
                 router.push('/');
