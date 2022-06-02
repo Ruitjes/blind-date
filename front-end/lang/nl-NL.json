@@ -32,6 +32,9 @@
         "Language" : "Taal",
         "English" : "Engels",
         "Dutch" : "Nederlands",
-        "Interests": "Interesses"
+        "Interests": "Interesses",
+        "Back to start": "Terug naar start",
+        "Save": "Opslaan",
+        "Add interest": "Voeg interesse toe"
     }
 }

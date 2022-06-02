@@ -32,6 +32,9 @@
         "Language" : "Language",
         "English" : "English",
         "Dutch" : "Dutch",
-        "Interests": "Interests"
+        "Interests": "Interests",
+        "Back to start": "Back to start",
+        "Save": "Save",
+        "Add interest": "Add interest"
     }
 }

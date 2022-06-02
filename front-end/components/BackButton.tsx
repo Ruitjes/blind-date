@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 
 interface BackButtonProps {
     navPage: string;
 }
 
 export default function BackButton({navPage}:BackButtonProps) {
+    const { t } = useTranslation();
     const router = useRouter();
 
     return (<>
                 <button
+                    aria-label={t("Back to start")}
                     onClick={() => {router.push(navPage)}}
                     type="button"
                     data-mdb-ripple="true"
