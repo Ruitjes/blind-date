@@ -17,7 +17,7 @@ export default function BackButton({navPage}:BackButtonProps) {
                     type="button"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    className="z-50 inline-block p-3 bg-white text-black font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-slate-100 hover:shadow-lg focus:bg-slate-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-200 active:shadow-lg top-5 left-5 fixed"
+                    className="z-50 inline-block p-3 bg-white text-black font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-slate-100 hover:shadow-lg focus:bg-slate-100 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-slate-200 active:shadow-lg top-0 left-0 m-1 fixed"
                     id="btn-back-to-top"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
