@@ -40,6 +40,10 @@
         "What would you like to ask?": "What would you like to ask?",
         "Write something...": "Write something...",
         "You": "You",
-        "Your questions": "Your questions"
+        "Your questions": "Your questions",
+        "Visual Handicap Level": "Visual Impairment",
+        "None": "None",
+        "Half": "Half",
+        "Blind": "Blind"
     }
 }

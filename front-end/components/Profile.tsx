@@ -15,6 +15,7 @@ export class Profile {
     birthdate: string = "";
     language: string = "";
     interests: string[] = [];
+    visualHandicapLevel: string = "";
 }
 
 const ProfileComponent = () => {
@@ -55,7 +56,8 @@ const ProfileComponent = () => {
             "gender": profile.gender,
             "birthdate": new Date(profile.birthdate),
             "interests": profile.interests,
-            "language": profile.language
+            "language": profile.language,
+            "visualHandicapLevel": profile.visualHandicapLevel
         };
         axios.post('api/profileService/createProfile', data).then((res: any) => {
             SetProfile(new Profile);
@@ -71,7 +73,8 @@ const ProfileComponent = () => {
             "gender": profile.gender,
             "birthdate": new Date(profile.birthdate),
             "interests": profile.interests,
-            "language": profile.language
+            "language": profile.language,
+            "visualHandicapLevel": profile.visualHandicapLevel
         };
         axios.put('api/profileService/updateProfile', data).then((res: any) => {
             SetProfile(new Profile);
@@ -113,6 +116,12 @@ const ProfileComponent = () => {
                             <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
 
                             <FormInput loading={Loading} label={t("Gender")} value={profile.gender} onChange={(e) => { SetProfile({ ...profile, gender: e.target.value }) }} />
+
+                            <FormSelect loading={Loading} label={t("Visual Handicap Level")} value={profile.visualHandicapLevel} onChange={(e) => { SetLanguage(e.target.value); SetProfile({ ...profile, visualHandicapLevel: e.target.value }) }}>
+                                <option value="None">{t("None")}</option>
+                                <option value="Half">{t("Half")}</option>
+                                <option value="Blind">{t("Blind")}</option>
+                            </FormSelect>
 
                             <FormSelect loading={Loading} label={t("Language")} value={profile.language} onChange={(e) => { SetLanguage(e.target.value); SetProfile({ ...profile, language: e.target.value }) }}>
                                 <option value="en-US">{t("English")} 🇬🇧</option>
