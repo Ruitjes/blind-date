@@ -32,6 +32,7 @@ namespace question_service.Services
         {
             Profile? userProfile = await _externalServices.GetProfileWithUserIdentifierAsync(userIdentifier);
             List<string?> interests = userProfile?.Interests as List<string?> ?? new List<string?>();
+            interests.Add(string.Empty);
             interests.Add(null);
 
             string lang = userProfile?.Language ?? "en-US";
