@@ -58,6 +58,7 @@ const ProfileComponent = () => {
             "language": profile.language
         };
         axios.post('api/profileService/createProfile', data).then((res: any) => {
+            SetHasProfile(true);
             SetProfile(new Profile);
             SetProfile(res.data);
         }).catch((err) => { console.log(err); });
