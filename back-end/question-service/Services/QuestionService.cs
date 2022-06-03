@@ -32,7 +32,8 @@ namespace question_service.Services
         {
             Profile? userProfile = await _externalServices.GetProfileWithUserIdentifierAsync(userIdentifier);
             List<string?> interests = userProfile?.Interests as List<string?> ?? new List<string?>();
-            interests.Add(null); // Allow for questions with no linked interest to still show in people's feed.
+            interests.Add(string.Empty); // Allow for questions with no linked interest to still show in people's feed.
+            interests.Add(null);
 
             //Could make a shorthand operator inside the find to shorten the amount of lines. but that would make it unreadable.
             if (bookmark == null)
