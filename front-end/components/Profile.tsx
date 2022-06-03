@@ -7,6 +7,7 @@ import FormSelect from "./form/FormSelect";
 import FormInput from "./form/FormInput";
 import FormTags from "./form/FormTags";
 import FormWrapper from "./form/FormWrapper";
+import Modal from "./modal/Modal";
 
 export class Profile {
     oAuthIdentifier: string | null = null;
@@ -120,8 +121,8 @@ const ProfileComponent = () => {
                             </FormSelect>
 
                             <FormTags loading={Loading} label={t("Interests")} childOnClickEvent={removeInterest} tagList={profile?.interests} onClick={addNewInterest} value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }} />
+                            <Modal status={0} title={"hello"} text={"world"}/>
                         </FormWrapper>
-
                     </div>
                 </div>
             </div>
