@@ -13,6 +13,9 @@ services:
             - Auth0Settings__Audience=${AUTH0_AUDIENCE}
             - RabbitMqSettings__ConnectionString=${RabbitMQ_URI}
             - RabbitMQ_URI=${RabbitMQ_URI}
+        restart: on-failure
+        depends_on:
+            - rabbitmq
 
     answer-service:
         image: answerservice
