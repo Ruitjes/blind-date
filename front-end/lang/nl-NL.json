@@ -40,6 +40,10 @@
         "What would you like to ask?": "Wat zou je willen vragen?",
         "Write something...": "Schrijf iets...",
         "You": "Jij",
-        "Your questions": "Jouw vragen"
+        "Your questions": "Jouw vragen",
+        "Visual Handicap Level": "Visuele beperking",
+        "None": "Geen",
+        "Half": "Half",
+        "Blind": "Blind"
     }
 }
