@@ -53,7 +53,7 @@ spec:
                   key: AUTH0_AUDIENCE
                   optional: false
 
-            - name: RabbitMQ_URI
+            - name: RabbitMqSettings__ConnectionString
               valueFrom:
                 secretKeyRef:
                   name: secret
