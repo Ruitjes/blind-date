@@ -12,11 +12,13 @@ namespace question_service.Controllers;
 public class QuestionController : Controller
 {
     private readonly IQuestionService _questionService;
+    private readonly IQuestionSaveService _questionSaveService;
     private readonly IMessageBusPublisher _messageBusPublisher;
 
-    public QuestionController(IQuestionService questionService, IMessageBusPublisher messageBusPublisher)
+    public QuestionController(IQuestionService questionService, IQuestionSaveService questionSaveService, IMessageBusPublisher messageBusPublisher)
     {
         _questionService = questionService;
+        _questionSaveService = questionSaveService;
         _messageBusPublisher = messageBusPublisher;
     }
 
@@ -54,4 +56,23 @@ public class QuestionController : Controller
 
         return await _questionService.DeleteAsync(new ObjectId(id));
     }
+
+    [HttpGet("GetAllSavedQuestionsForUser")]
+    public async Task<IEnumerable<SavedQuestion>> GetAllSavedQuestionsForUser(string userId)
+    {
+        return await _questionSaveService.GetAllQuestionsSavedByUserAsync(userId);
+    }
+
+    [HttpPost("SaveQuestionForLater")]
+    public async Task<SavedQuestion> SaveQuestionForLater(SavedQuestion saveQuestion)
+    {
+        return await _questionSaveService.SaveQuestion(saveQuestion);
+    }
+
+    [HttpDelete("DeleteSavedQuestion")]
+    public async Task<string> DeleteSavedQuestion(string savedQuestionId)
+    {
+        return await _questionSaveService.RemoveQuestion(new ObjectId(savedQuestionId));
+    }
+
 }

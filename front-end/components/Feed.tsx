@@ -16,7 +16,7 @@ const Feed = () => {
 	const [showFullImage, setShowFullImage] = useState<boolean>();
 	const [OutOfQuestions, SetOutOfQuestions] = useState<boolean>();
 	const [CurrentQuestion, SetCurrentQuestion] = useState<any>(null);
-	const [AnswerText, SetAnswerText] = useState('');
+	const [AnswerText, SetAnswerText] = useState("");
 
 	// Report result
 	const [reportResultMessage, setReportResultMessage] = useState('');
@@ -34,7 +34,7 @@ const Feed = () => {
 		axios
 			.get(`api/progressUserBookmark/${user!.sub}`)
 			.then((res: any) => {
-				SetAnswerText('');
+				SetAnswerText("");
 				getQuestion();
 			})
 			.catch((err) => {
@@ -53,6 +53,29 @@ const Feed = () => {
             .finally(() => setLoading(false));
 	};
 
+	const saveQuestionForLater = () => {
+		const saveQuestion = { 
+			questionId: CurrentQuestion.id?.toString(), 
+			savedBy: user!.sub?.toString(), 
+			content: CurrentQuestion?.content, 
+			addedOn: CurrentQuestion?.addedOn,
+			userIdentifier: CurrentQuestion?.userIdentifier,
+			fileName: CurrentQuestion?.fileName,
+			linkedInterest: CurrentQuestion?.linkedInterest,
+			language: CurrentQuestion?.language
+		  }
+
+		axios
+			.post('/api/saveQuestionForLater', saveQuestion)
+			.then((res: any) => {
+				SetAnswerText("");
+				ProgressBookmark();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	const answerQuestion = () => {
 		const data = {
 			userProfile: {
@@ -68,7 +91,7 @@ const Feed = () => {
 		axios
 			.post('/api/answerQuestion', data)
 			.then((res: any) => {
-				SetAnswerText('');
+				SetAnswerText("");
 				ProgressBookmark();
 			})
 			.catch((err) => {
@@ -81,7 +104,7 @@ const Feed = () => {
 	};
 
 	const handleAnswerTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		SetAnswerText(e.target.value);
+		SetAnswerText(e.target.value.trim());
 	};
 
 	// Report question
@@ -148,7 +171,7 @@ const Feed = () => {
 
 							<textarea
 								value={AnswerText}
-                                disabled={loading ? true : false}
+                                disabled={loading ? true : OutOfQuestions ? true : false}
 								onChange={handleAnswerTextChanged}
 								className="flex flex-grow resize-none rounded-lg text-2xl outline-none p-4"
 								placeholder={t("Write something...")}
@@ -163,17 +186,20 @@ const Feed = () => {
 								ariaLabel={t("Skip the question")}
 								icon="xmark"
 								color="lightcoral"
-								onClick={
-									!OutOfQuestions
-										? ProgressBookmark
-										: () => { }
-								} />
+								disabled={loading ? true : OutOfQuestions ? true : false}
+								onClick={ProgressBookmark} />
+							<Button
+								ariaLabel={t("Bookmark Question")}
+								icon="bookmark"
+								color="darkgoldenrod"
+                                disabled={loading ? true : OutOfQuestions ? true : false}
+								onClick={saveQuestionForLater } />
 							<Button
 								ariaLabel={t("Reply to the question")}
-								icon="reply"
-								color="lightsteelblue"
-                                disabled={loading ? true : false}
-								onClick={!OutOfQuestions ? answerQuestion : () => { }} />
+								icon="share"
+								color="slategrey"
+                                disabled={loading ? true : OutOfQuestions ? true : AnswerText?.length < 1 ? true : false}
+								onClick={answerQuestion} />
 						</div>
 					</div>
 				</div>
