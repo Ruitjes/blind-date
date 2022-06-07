@@ -7,9 +7,11 @@ import Banner from './Banner';
 import Loading from './Loading';
 import { useTranslation } from 'react-i18next';
 import BackButton from './BackButton';
+import { useRouter } from 'next/router';
 
 const Feed = () => {
-	const { user } = useUser();
+	const router = useRouter();
+	const { user,checkSession } = useUser();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState(true);
 
@@ -25,8 +27,21 @@ const Feed = () => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		// Fetch questions and set state
 		document.title = 'Answer the question';
+
+		// Do some user stuff
+		checkSession();
+		if(user != undefined)
+		{
+			const profileCreated = user["http://profileCreated"];
+			if(profileCreated == false)
+			{
+				// Stans modal here
+				// router.push('/profile');
+			}
+		}
+		
+		// Fetch questions and set state
 		getQuestion();
 	}, []);
 

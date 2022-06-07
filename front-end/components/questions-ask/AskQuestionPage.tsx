@@ -12,8 +12,8 @@ import { useTranslation } from "react-i18next";
 import BackButton from "../BackButton";
 
 const AskQuestionPage = () => {
-    const { user } = useUser();
-    const router = useRouter();
+	const router = useRouter();
+	const { user,checkSession } = useUser();
 
     const [loading, setLoading] = useState<boolean>();
     const [preferredLanguage, setPreferredLanguage] = useState<any>();
@@ -31,7 +31,20 @@ const AskQuestionPage = () => {
     }
 
     useEffect(() => {
-      document.title = "Ask a question page"
+      document.title = "Ask a question page";
+
+      	// Do some user stuff
+		checkSession();
+		if(user != undefined)
+		{
+			const profileCreated = user["http://profileCreated"];
+			if(profileCreated == false)
+			{
+				// Stans modal here
+				// router.push('/profile');
+			}
+		}
+
       getPreferredLanguage();
     }, [])
 
