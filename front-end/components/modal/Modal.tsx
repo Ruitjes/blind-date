@@ -1,27 +1,26 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon, BadgeCheckIcon } from '@heroicons/react/outline'
-
+import {PropsWithChildren} from 'react'
 
 enum ModalStatus {
   Success = 0,
   Error = 1,
 }
-
-interface ModalProps {
+type Props = PropsWithChildren<{
   status: ModalStatus;
   title: string
   text: string
-}
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  ModalOpen: boolean
+}>;
 
-export default function Modal(props : ModalProps) {
-  const [open, setOpen] = useState<boolean>(true)
-
+export default function Modal({status, title, text, setModalOpen, ModalOpen} : Props) {
   const cancelButtonRef = useRef(null)
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+    <Transition.Root show={ModalOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setModalOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -48,7 +47,7 @@ export default function Modal(props : ModalProps) {
               <Dialog.Panel className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    {props.status == 0 ?
+                    {status == 0 ?
                       <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
                         <BadgeCheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
                       </div>           
@@ -58,12 +57,12 @@ export default function Modal(props : ModalProps) {
                       </div>
                    }
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                      <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        {props.title}
+                      <Dialog.Title aria-label={title} as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                        {title}
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          {props.text}
+                        <p aria-label={text} className="text-sm text-gray-500">
+                          {text}
                         </p>
                       </div>
                     </div>
@@ -71,9 +70,10 @@ export default function Modal(props : ModalProps) {
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
+                    aria-label='Ok'
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setOpen(false)}
+                    onClick={() => setModalOpen(false)}
                     ref={cancelButtonRef}
                   >
                     Ok

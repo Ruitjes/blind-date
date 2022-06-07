@@ -40,6 +40,14 @@
         "What would you like to ask?": "Wat zou je willen vragen?",
         "Write something...": "Schrijf iets...",
         "You": "Jij",
-        "Your questions": "Jouw vragen"
+        "Your questions": "Jouw vragen",
+        "Error message": "Foutmelding bericht",
+        "Success message": "Succesvol bericht",
+        "Your profile has been created successfully.": "Je profiel is succesvol aangemaakt.",
+        "Something went wrong while creating your profile.": "Er is iets fout gegaan bij het aanmaken van je profiel.",
+        "Your profile has been updated successfully.": "Je profiel is succesvol aangepast.",
+        "Something went wrong while updating your profile.": "Er is iets fout gegaan bij het aanpassen van je profiel.",
+        "You have successfully asked a new question.": "Je hebt succesvol een nieuwe vraag gesteld.",
+        "Something went wrong when creating your question.": "Er is iets fout gegaan bij het aanmaken van je vraag."
     }
 }

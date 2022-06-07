@@ -10,6 +10,8 @@ import { useRouter } from "next/router";
 import Loading from "../Loading";
 import { useTranslation } from "react-i18next";
 import BackButton from "../BackButton";
+import Modal from "../modal/Modal";
+import { ModalStatus } from '../../global/types';
 
 const AskQuestionPage = () => {
     const { user } = useUser();
@@ -19,6 +21,10 @@ const AskQuestionPage = () => {
     const [preferredLanguage, setPreferredLanguage] = useState<any>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
+
+    const [ModalStatus, setModalStatus] = useState<ModalStatus>();
+    const [ModalOpen, setModalOpen] = useState<boolean>(false)
+    const [ModalText, setModalText] = useState<string>("")
 
     const { t } = useTranslation();
 
@@ -63,9 +69,16 @@ const AskQuestionPage = () => {
                 
                 const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: preferredLanguage }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
+                
+                setModalOpen(true);
+                setModalStatus(0);
+                setModalText(t("You have successfully asked a new question."));
 
-                router.push('/');
+            } catch(err) {
 
+                setModalOpen(true);
+                setModalStatus(1);
+                setModalText(t("Something went wrong when creating your question."));
             } finally {
                 setLoading(false);
             }
@@ -152,7 +165,7 @@ const AskQuestionPage = () => {
                     <Loading />
                 </div>
             )}
-
+            <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
         </div>
     );
 }

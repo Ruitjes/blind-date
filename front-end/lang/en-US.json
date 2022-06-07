@@ -40,6 +40,15 @@
         "What would you like to ask?": "What would you like to ask?",
         "Write something...": "Write something...",
         "You": "You",
-        "Your questions": "Your questions"
+        "Your questions": "Your questions",
+        "Error message": "Error message",
+        "Success message": "Success message",
+        "Your profile has been created successfully.": "Your profile has been created successfully.",
+        "Something went wrong while creating your profile.": "Something went wrong while creating your profile.",
+        "Your profile has been updated successfully.": "Your profile has been updated successfully.",
+        "Something went wrong while updating your profile.": "Something went wrong while updating your profile.",
+
+        "You have successfully asked a new question.": "You have successfully asked a new question.",
+        "Something went wrong when creating your question.": "Something went wrong when creating your question."
     }
 }
