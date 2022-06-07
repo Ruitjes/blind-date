@@ -26,7 +26,7 @@ const Question = (props: Props) => {
                             </h1>
                         )}
 
-						{props.onReportClick && (
+						{props.onReportClick && props.loading == false && (
 							<div className="self-end">
 								<ReportButton
 									ariaLabel={t("Report the question")}
