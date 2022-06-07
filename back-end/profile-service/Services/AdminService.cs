@@ -59,7 +59,7 @@ namespace profile_service.Services
                 //User user = await mgmtClient.Users.GetAsync(userIdentifier);
 
                 // Set user blocked boolean to blockStatus.
-                User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest { UserMetadata = new { profileCreated = profileCreatedStatus } });
+                User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest {NickName = profileCreatedStatus.ToString(), UserMetadata = new { profileCreated = profileCreatedStatus } });
 
                 return new ObjectResult($"{user.FullName} now has profileCreated: {profileCreatedStatus}") { StatusCode = 200 };
             }

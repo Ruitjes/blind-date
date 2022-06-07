@@ -19,12 +19,12 @@ const MyQuestionsPage = () => {
 
     useEffect(() => {
 
-        // Do some user stuff
+		// Do some user stuff
 		checkSession();
 		if(user != undefined)
 		{
-			const profileCreated = user["http://profileCreated"];
-			if(profileCreated == false)
+			const profileCreated = user.nickname;
+			if(profileCreated != "True")
 			{
 				// Stans modal here
 				// router.push('/profile');
