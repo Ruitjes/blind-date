@@ -48,6 +48,10 @@
         "Your profile has been updated successfully.": "Je profiel is succesvol aangepast.",
         "Something went wrong while updating your profile.": "Er is iets fout gegaan bij het aanpassen van je profiel.",
         "You have successfully asked a new question.": "Je hebt succesvol een nieuwe vraag gesteld.",
-        "Something went wrong when creating your question.": "Er is iets fout gegaan bij het aanmaken van je vraag."
+        "Something went wrong when creating your question.": "Er is iets fout gegaan bij het aanmaken van je vraag.",
+        "You have successfully answered the question.": "Je hebt succesvol de vraag beantwoord.",
+        "Something went wrong in answering this question.": "Er is iets fout gegegaan bij het beantwoorden van deze vraag.",
+        "You have successfully reported the question.": "Je hebt succesvol de vraag gerapporteerd.",
+        "Something went wrong in reporting this question.": "Er is iets fout gegaan bij het rapporteren van deze vraag."
     }
 }

@@ -47,8 +47,11 @@
         "Something went wrong while creating your profile.": "Something went wrong while creating your profile.",
         "Your profile has been updated successfully.": "Your profile has been updated successfully.",
         "Something went wrong while updating your profile.": "Something went wrong while updating your profile.",
-
         "You have successfully asked a new question.": "You have successfully asked a new question.",
-        "Something went wrong when creating your question.": "Something went wrong when creating your question."
+        "Something went wrong when creating your question.": "Something went wrong when creating your question.",
+        "You have successfully answered the question.": "You have successfully answered the question.",
+        "Something went wrong in answering this question.": "Something went wrong in answering this question.",
+        "You have successfully reported the question.": "You have successfully reported the question.",
+        "Something went wrong in reporting this question.": "Something went wrong in reporting this question."
     }
 }

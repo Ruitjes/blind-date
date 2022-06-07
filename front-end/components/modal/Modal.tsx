@@ -2,6 +2,8 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon, BadgeCheckIcon } from '@heroicons/react/outline'
 import {PropsWithChildren} from 'react'
+import { useRouter } from "next/router";
+import { Url } from 'url';
 
 enum ModalStatus {
   Success = 0,
@@ -13,10 +15,19 @@ type Props = PropsWithChildren<{
   text: string
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   ModalOpen: boolean
+  routerPath?: string
 }>;
 
-export default function Modal({status, title, text, setModalOpen, ModalOpen} : Props) {
+export default function Modal({status, title, text, setModalOpen, ModalOpen, routerPath} : Props) {
   const cancelButtonRef = useRef(null)
+  const router = useRouter();
+
+  function idk(){
+    setModalOpen(false);
+    if(routerPath) {
+      router.push(routerPath ?? "/");
+    }
+  }
 
   return (
     <Transition.Root show={ModalOpen} as={Fragment}>
@@ -73,7 +84,7 @@ export default function Modal({status, title, text, setModalOpen, ModalOpen} : P
                     aria-label='Ok'
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setModalOpen(false)}
+                    onClick={() => idk()}
                     ref={cancelButtonRef}
                   >
                     Ok

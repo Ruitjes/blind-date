@@ -44,7 +44,7 @@ const AskQuestionPage = () => {
     const getPreferredLanguage = () => {
         axios.get('api/profileService/getProfile/').then((response: any) => {
             if(response.data == '' || response.data == null) {
-                    router.push('/profile')
+                router.push('/profile')
             }
 
             setPreferredLanguage(response.data.language);
@@ -165,7 +165,8 @@ const AskQuestionPage = () => {
                     <Loading />
                 </div>
             )}
-            <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
+
+            <Modal routerPath={"/"} ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
         </div>
     );
 }
