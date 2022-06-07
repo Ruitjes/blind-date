@@ -7,6 +7,7 @@ namespace question_service.Interfaces
     public interface IQuestionSaveService
     {
         public Task<List<SavedQuestion>> GetAllQuestionsSavedByUserAsync(string userIdentifier);
+        public Task<SavedQuestion> GetSavedQuestionById(ObjectId savedQuestionId);
         public Task<SavedQuestion> SaveQuestion(SavedQuestion question);
         public Task<string> RemoveQuestion(ObjectId savedQuestionId);
     }

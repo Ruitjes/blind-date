@@ -57,10 +57,16 @@ public class QuestionController : Controller
         return await _questionService.DeleteAsync(new ObjectId(id));
     }
 
-    [HttpGet("GetAllSavedQuestionsForUser")]
+    [HttpGet("GetAllSavedQuestionsForUser/{userId}")]
     public async Task<IEnumerable<SavedQuestion>> GetAllSavedQuestionsForUser(string userId)
     {
         return await _questionSaveService.GetAllQuestionsSavedByUserAsync(userId);
+    }
+
+    [HttpGet("GetSavedQuestionById/{savedQuestionId}")]
+    public async Task<SavedQuestion> GetSavedQuestionById(string savedQuestionId)
+    {
+        return await _questionSaveService.GetSavedQuestionById(new ObjectId(savedQuestionId));
     }
 
     [HttpPost("SaveQuestionForLater")]
@@ -69,7 +75,7 @@ public class QuestionController : Controller
         return await _questionSaveService.SaveQuestion(saveQuestion);
     }
 
-    [HttpDelete("DeleteSavedQuestion")]
+    [HttpDelete("DeleteSavedQuestion/{savedQuestionId}")]
     public async Task<string> DeleteSavedQuestion(string savedQuestionId)
     {
         return await _questionSaveService.RemoveQuestion(new ObjectId(savedQuestionId));

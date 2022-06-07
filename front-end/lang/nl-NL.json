@@ -40,6 +40,9 @@
         "What would you like to ask?": "Wat zou je willen vragen?",
         "Write something...": "Schrijf iets...",
         "You": "Jij",
-        "Your questions": "Jouw vragen"
+        "Your questions": "Jouw vragen",
+        "Your bookmarks": "Jouw opgeslagen vragen",
+        "Bookmark Question": "Sla vraag op voor later",
+        "Answer saved question": "Beantwoord opgeslagen vraag"
     }
 }

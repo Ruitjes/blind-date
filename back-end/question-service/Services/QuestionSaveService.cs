@@ -33,6 +33,12 @@ namespace question_service.Services
             await _questions.DeleteOneAsync(q => q.Id == savedQuestionId);
             return "Saved Question deleted";
         }
+
+        public async Task<SavedQuestion> GetSavedQuestionById(ObjectId savedQuestionId)
+        {
+            return await _questions.Find(q => q.Id == savedQuestionId).FirstOrDefaultAsync();
+
+        }
     }
 }
 
