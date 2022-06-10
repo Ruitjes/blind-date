@@ -19,8 +19,8 @@ const MyAnswer = (props: Props) => {
                     <p className="text-xl leading-6">{props.answer.content}</p>
                 </div>
 
-                <div className="flex flex-col p-2">
-                {/* Report */}
+                <div className="flex flex-col p-2 justify-center">
+                    {/* Report */}
                     {props.onReportAnswer && (
                         <div className="self-end">
                             <ReportButton

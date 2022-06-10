@@ -22,8 +22,8 @@ const Feed = () => {
 	const [AnswerText, SetAnswerText] = useState("");
 
 	// Report result
-	// const [reportResultMessage, setReportResultMessage] = useState('');
-	// const [reportResultInfo, setReportResultInfo] = useState('');
+	const [reportResultMessage, setReportResultMessage] = useState('');
+	const [reportResultInfo, setReportResultInfo] = useState('');
 
 	const [ModalStatus, setModalStatus] = useState<ModalStatus>();
     const [ModalOpen, setModalOpen] = useState<boolean>(false)
@@ -160,8 +160,8 @@ const Feed = () => {
 		axios
 			.post('/api/reportService/reportContent', data)
 			.then((res: any) => {
-				// setReportResultMessage('Report');
-				// setReportResultInfo('Question was successfully reported');
+				setReportResultMessage('Report');
+				setReportResultInfo('Question was successfully reported');
 
 				// Skip question when reported by user.
 				ProgressBookmark();
@@ -171,8 +171,8 @@ const Feed = () => {
                 setModalText(t("You have successfully reported the question."));
 			})
 			.catch((err) => {
-				// setReportResultMessage('Report');
-				// setReportResultInfo(err.message);
+				setReportResultMessage('Report');
+				setReportResultInfo(err.message);
 
 				setModalOpen(true);
                 setModalStatus(1);
@@ -250,14 +250,14 @@ const Feed = () => {
 			</div>
 
 			{/* Report result */}
-// 			{reportResultMessage && (
-// 				<div className="absolute flex justify-center items-center inset-0 bg-black/50">
-// 					<Banner
-// 						message={reportResultMessage}
-// 						additionalInfo={reportResultInfo}
-// 						onCloseClick={onBannerClose} />
-// 				</div>
-// 			)}
+			{reportResultMessage && (
+				<div className="absolute flex justify-center items-center inset-0 bg-black/50">
+					<Banner
+						message={reportResultMessage}
+						additionalInfo={reportResultInfo}
+						onCloseClick={onBannerClose} />
+				</div>
+			)}
 
 			{CurrentQuestion?.fileName && showFullImage && (
 				<div
