@@ -8,7 +8,6 @@ export default async function createProfile(
 ) {
 	try {
 		const { accessToken } = await getAccessToken(req, res);
-		console.log(req.body);
 		
 		await http
 			.httptoken(accessToken)

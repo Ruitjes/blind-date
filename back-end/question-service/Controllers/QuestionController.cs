@@ -12,11 +12,13 @@ namespace question_service.Controllers;
 public class QuestionController : Controller
 {
     private readonly IQuestionService _questionService;
+    private readonly IQuestionSaveService _questionSaveService;
     private readonly IMessageBusPublisher _messageBusPublisher;
 
-    public QuestionController(IQuestionService questionService, IMessageBusPublisher messageBusPublisher)
+    public QuestionController(IQuestionService questionService, IQuestionSaveService questionSaveService, IMessageBusPublisher messageBusPublisher)
     {
         _questionService = questionService;
+        _questionSaveService = questionSaveService;
         _messageBusPublisher = messageBusPublisher;
     }
 
@@ -54,4 +56,29 @@ public class QuestionController : Controller
 
         return await _questionService.DeleteAsync(new ObjectId(id));
     }
+
+    [HttpGet("GetAllSavedQuestionsForUser/{userId}")]
+    public async Task<IEnumerable<SavedQuestion>> GetAllSavedQuestionsForUser(string userId)
+    {
+        return await _questionSaveService.GetAllQuestionsSavedByUserAsync(userId);
+    }
+
+    [HttpGet("GetSavedQuestionById/{savedQuestionId}")]
+    public async Task<SavedQuestion> GetSavedQuestionById(string savedQuestionId)
+    {
+        return await _questionSaveService.GetSavedQuestionById(new ObjectId(savedQuestionId));
+    }
+
+    [HttpPost("SaveQuestionForLater")]
+    public async Task<SavedQuestion> SaveQuestionForLater(SavedQuestion saveQuestion)
+    {
+        return await _questionSaveService.SaveQuestion(saveQuestion);
+    }
+
+    [HttpDelete("DeleteSavedQuestion/{savedQuestionId}")]
+    public async Task<string> DeleteSavedQuestion(string savedQuestionId)
+    {
+        return await _questionSaveService.RemoveQuestion(new ObjectId(savedQuestionId));
+    }
+
 }
