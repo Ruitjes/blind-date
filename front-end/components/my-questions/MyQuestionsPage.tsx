@@ -11,13 +11,25 @@ import BackButton from "../BackButton";
 const MyQuestionsPage = () => {
 
     const router = useRouter();
-    const { user } = useUser();
+    const { user, checkSession } = useUser();
     const [data, setData] = useState<any>();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
 
     useEffect(() => {
+
+		// Do some user stuff
+		checkSession();
+		if(user != undefined)
+		{
+			const profileCreated = user.nickname;
+			if(profileCreated != "True")
+			{
+				// Stans modal here
+				// router.push('/profile');
+			}
+		}
 
         const fetchQuestionsByUser = () => {
 

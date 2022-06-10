@@ -23,7 +23,7 @@ export class Profile {
 
 const ProfileComponent = () => {
     const { t, i18n } = useTranslation();
-    const { user } = useUser();
+    const { user, checkSession } = useUser();
     const [profile, SetProfile] = useState<Profile>(new Profile());
     const [newInterest, setNewInterest] = useState<string>("");
     const [HasProfile, SetHasProfile] = useState<boolean>();
@@ -34,9 +34,10 @@ const ProfileComponent = () => {
     const [ModalText, setModalText] = useState<string>("")
 
     useEffect(() => {
-        document.title = "Configure profile"
+        document.title = "Configure profile";
+        checkSession();
         getProfileOfUser();
-    }, [user]);
+    }, []);
 
     const getProfileOfUser = () => {
         if (user != null) {
@@ -70,7 +71,7 @@ const ProfileComponent = () => {
             SetHasProfile(true);
             SetProfile(new Profile);
             SetProfile(res.data);
-
+            checkSession(); 
             setModalOpen(true);
             setModalStatus(0);
             setModalText(t("Your profile has been created successfully."));
@@ -96,7 +97,7 @@ const ProfileComponent = () => {
         axios.put('api/profileService/updateProfile', data).then((res: any) => {
             SetProfile(new Profile);
             SetProfile(res.data);
-
+            checkSession();
             setModalOpen(true);
             setModalStatus(0);
             setModalText(t("Your profile has been updated successfully."));

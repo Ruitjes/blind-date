@@ -14,8 +14,8 @@ import Modal from "../modal/Modal";
 import { ModalStatus } from '../../global/types';
 
 const AskQuestionPage = () => {
-    const { user } = useUser();
-    const router = useRouter();
+	const router = useRouter();
+	const { user,checkSession } = useUser();
 
     const [loading, setLoading] = useState<boolean>();
     const [preferredLanguage, setPreferredLanguage] = useState<any>();
@@ -37,7 +37,20 @@ const AskQuestionPage = () => {
     }
 
     useEffect(() => {
-      document.title = "Ask a question page"
+      document.title = "Ask a question page";
+
+		// Do some user stuff
+		checkSession();
+		if(user != undefined)
+		{
+			const profileCreated = user.nickname;
+			if(profileCreated != "True")
+			{
+				// Stans modal here
+				// router.push('/profile');
+			}
+		}
+
       getPreferredLanguage();
     }, [])
 
