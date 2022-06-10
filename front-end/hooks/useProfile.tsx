@@ -7,6 +7,10 @@ type Profile = {
     id: string;
     gender: string;
     language: string;
+    birthdate : string;
+    interests: string[];
+    visualHandicapLevel: string;
+    oAuthIdentifier: string;
 }
 
 export const useProfile = () => {
