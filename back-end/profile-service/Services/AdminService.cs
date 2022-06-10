@@ -48,6 +48,33 @@ namespace profile_service.Services
             }
         }
 
+        public async Task<ActionResult<string>> SetUserProfileCreatedStatus(string userIdentifier, bool profileCreatedStatus)
+        {
+            try
+            {
+                string mgmtToken = await GetManagementTokenAsync();
+
+                using var mgmtClient = new ManagementApiClient(mgmtToken, new Uri("https://blind-date.eu.auth0.com/api/v2"));
+                // Could retrieve user and check if already blocked or update model and then send it again to management api.
+                //User user = await mgmtClient.Users.GetAsync(userIdentifier);
+
+                // Set user blocked boolean to blockStatus.
+                User user = await mgmtClient.Users.UpdateAsync(userIdentifier, new UserUpdateRequest {NickName = profileCreatedStatus.ToString(), UserMetadata = new { profileCreated = profileCreatedStatus } });
+
+                return new ObjectResult($"{user.FullName} now has profileCreated: {profileCreatedStatus}") { StatusCode = 200 };
+            }
+            catch (ErrorApiException apiError)
+            {
+                _logger.LogError(apiError, "Probably invalid Auth0 ID given, but logging for analysis");
+                return new ObjectResult("Invalid Auth0 ID given") { StatusCode = 400 };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Something went wrong at SetUserProfileCreatedStatus in the AdminService");
+                return new ObjectResult("Something went wrong trying to change profileCreated status  with the management API") { StatusCode = 500 };
+            }
+        }
+
         private async Task<string> GetManagementTokenAsync()
         {
             using var client = new HttpClient();

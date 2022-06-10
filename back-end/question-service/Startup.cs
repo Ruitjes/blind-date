@@ -41,6 +41,7 @@ namespace question_service
 
             services.AddSingleton<IExternalServices, ExternalServices>();
             services.AddSingleton<IQuestionService, QuestionService>();
+            services.AddSingleton<IQuestionSaveService, QuestionSaveService>();
             services.AddSingleton<IBookmarkService, BookmarkService>();
 
             var rabbitMqSection = Configuration.GetSection(nameof(RabbitMqSettings));

@@ -17,7 +17,7 @@ export default async function getProfile(
 			})
 			.catch((err) => {
 				console.log(err);
-				res.status(err?.status || 404).end(err.message);
+				res.status(err?.response?.status || 404).end(err.message);
 			});
 	} catch (error: any) {
 		console.error(error);

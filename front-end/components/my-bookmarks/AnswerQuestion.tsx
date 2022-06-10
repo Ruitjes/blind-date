@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
-import Question from './Question';
-import Button from './Button';
+import Question from '../Question';
+import Button from '../Button';
 import axios from 'axios';
-import Banner from './Banner';
+import Banner from '../Banner';
+import Loading from '../Loading';
 import { useTranslation } from 'react-i18next';
-import BackButton from './BackButton';
-import { useRouter } from 'next/router';
-import Modal from './modal/Modal';
-import { ModalStatus } from '../global/types';
+import BackButton from '../BackButton';
+import Router, { useRouter } from 'next/router';
 
-const Feed = () => {
+type Props = {
+    question: {
+        id: string
+    }
+}
+
+const AnswerQuestion = (props: Props) => {
+	const { user } = useUser();
 	const router = useRouter();
-	const { user,checkSession } = useUser();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState(true);
 
@@ -22,49 +27,20 @@ const Feed = () => {
 	const [AnswerText, SetAnswerText] = useState("");
 
 	// Report result
-	// const [reportResultMessage, setReportResultMessage] = useState('');
-	// const [reportResultInfo, setReportResultInfo] = useState('');
-
-	const [ModalStatus, setModalStatus] = useState<ModalStatus>();
-    const [ModalOpen, setModalOpen] = useState<boolean>(false)
-    const [ModalText, setModalText] = useState<string>("")
+	const [reportResultMessage, setReportResultMessage] = useState('');
+	const [reportResultInfo, setReportResultInfo] = useState('');
 
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		document.title = 'Answer the question';
-
-		// Do some user stuff
-		checkSession();
-		if(user != undefined)
-		{
-			const profileCreated = user.nickname;
-			if(profileCreated != "True")
-			{
-				// Stans modal here
-				// router.push('/profile');
-			}
-		}
-		
 		// Fetch questions and set state
+		document.title = 'Answer the question';
 		getQuestion();
 	}, []);
 
-	const ProgressBookmark = () => {
-		axios
-			.get(`api/progressUserBookmark/${user!.sub}`)
-			.then((res: any) => {
-				SetAnswerText("");
-				getQuestion();
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-
 	const getQuestion = () => {
 		axios
-			.get(`api/getQuestionForUser/${user!.sub}`)
+			.get(`/api/getSavedQuestionById/${props.question.id}`)
 			.then((res: any) => {
 				SetCurrentQuestion(res.data);
 				SetOutOfQuestions(!res.data.content)
@@ -72,30 +48,6 @@ const Feed = () => {
 			.catch((error) => setError(error))
             .finally(() => setLoading(false));
 	};
-
-	const saveQuestionForLater = () => {
-		const saveQuestion = { 
-			questionId: CurrentQuestion.id?.toString(), 
-			savedBy: user!.sub?.toString(), 
-			content: CurrentQuestion?.content, 
-			addedOn: CurrentQuestion?.addedOn,
-			userIdentifier: CurrentQuestion?.userIdentifier,
-			fileName: CurrentQuestion?.fileName,
-			linkedInterest: CurrentQuestion?.linkedInterest,
-			language: CurrentQuestion?.language
-		  }
-
-		axios
-			.post('/api/saveQuestionForLater', saveQuestion)
-			.then((res: any) => {
-				SetAnswerText("");
-				ProgressBookmark();
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-
 	const answerQuestion = () => {
 		const data = {
 			userProfile: {
@@ -105,25 +57,33 @@ const Feed = () => {
 				age: '99',
 			},
 			content: AnswerText,
-			questionId: CurrentQuestion.id?.toString(),
+			questionId: CurrentQuestion.questionId?.toString(),
 		};
 
 		axios
 			.post('/api/answerQuestion', data)
 			.then((res: any) => {
 				SetAnswerText("");
-				ProgressBookmark();
-
-				setModalOpen(true);
-                setModalStatus(0);
-                setModalText(t("You have successfully answered the question."));
+				removeSavedQuestion();
+				// Stan modal here.
+				router.push('/myBookmarks');
 			})
 			.catch((err) => {
-				setModalOpen(true);
-                setModalStatus(1);
-                setModalText(t("Something went wrong in answering this question."));
 				console.log(err);
 			});
+	};
+
+	const removeSavedQuestion = () => {
+		axios
+		.delete(`/api/removeSavedQuestionById/${props.question.id}`)
+		.then((res: any) => {
+			SetAnswerText("");
+			// Stan modal here.
+			router.push('/myBookmarks');
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 	};
 
 	const handleImageToggle = () => {
@@ -134,7 +94,6 @@ const Feed = () => {
 		SetAnswerText(e.target.value.trim());
 	};
 
-	
 	// Report question
 	const reportQuestion = () => {
 		const data = {
@@ -147,50 +106,34 @@ const Feed = () => {
 				// TODO: send reported user name
 				name: ""
 			},
-			reportedContent: {
-				id: CurrentQuestion.id?.toString(),
-				content: CurrentQuestion.content
-			},
+			reportedContent: CurrentQuestion.content,
 			question: {
-				id: CurrentQuestion.id?.toString(),
+				id: CurrentQuestion.questionId?.toString(),
 				content: CurrentQuestion.content
 			}
 		};
 		
 		axios
-			.post('/api/reportService/reportContent', data)
+			.post('/api/reportQuestion', data)
 			.then((res: any) => {
-				// setReportResultMessage('Report');
-				// setReportResultInfo('Question was successfully reported');
-
-				// Skip question when reported by user.
-				ProgressBookmark();
-
-				setModalOpen(true);
-                setModalStatus(0);
-                setModalText(t("You have successfully reported the question."));
+				setReportResultMessage('Report');
+				setReportResultInfo('Question was successfully reported');
 			})
 			.catch((err) => {
-				// setReportResultMessage('Report');
-				// setReportResultInfo(err.message);
-
-				setModalOpen(true);
-                setModalStatus(1);
-                setModalText(t("Something went wrong in reporting this question."));
+				setReportResultMessage('Report');
+				setReportResultInfo(err.message);
 			});
 	};
-
 
 	const onBannerClose = () => {
 		setReportResultMessage('');
 		setReportResultInfo('');
 	};
 
-
 	return (
 		<div className="bg-gray-700 flex flex-col h-full">
 			<div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
-				<BackButton navPage='/' />
+				<BackButton navPage='/myBookmarks' />
 				<div className="flex flex-col flex-grow w-full max-w-sm">
 					<div className="flex flex-col mt-4 mb-6">
 						<div className="flex flex-col flex-grow p-4">
@@ -231,13 +174,7 @@ const Feed = () => {
 								icon="xmark"
 								color="lightcoral"
 								disabled={loading ? true : OutOfQuestions ? true : false}
-								onClick={ProgressBookmark} />
-							<Button
-								ariaLabel={t("Bookmark Question")}
-								icon="bookmark"
-								color="darkgoldenrod"
-                                disabled={loading ? true : OutOfQuestions ? true : false}
-								onClick={saveQuestionForLater } />
+								onClick={(removeSavedQuestion)} />
 							<Button
 								ariaLabel={t("Reply to the question")}
 								icon="share"
@@ -247,17 +184,15 @@ const Feed = () => {
 						</div>
 					</div>
 				</div>
-			</div>
 
-			{/* Report result */}
-// 			{reportResultMessage && (
-// 				<div className="absolute flex justify-center items-center inset-0 bg-black/50">
-// 					<Banner
-// 						message={reportResultMessage}
-// 						additionalInfo={reportResultInfo}
-// 						onCloseClick={onBannerClose} />
-// 				</div>
-// 			)}
+				{/* Report result */}
+				{reportResultMessage && (
+					<Banner
+						message={reportResultMessage}
+						additionalInfo={reportResultInfo}
+						onCloseClick={onBannerClose} />
+				)}
+			</div>
 
 			{CurrentQuestion?.fileName && showFullImage && (
 				<div
@@ -270,9 +205,8 @@ const Feed = () => {
 						src={`https://seetrough.s3.eu-central-1.amazonaws.com/${CurrentQuestion.fileName}`} />
 				</div>
 			)}
-			<Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
 		</div>
 	);
 };
 
-export default Feed;
+export default AnswerQuestion;
