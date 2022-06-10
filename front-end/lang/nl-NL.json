@@ -43,6 +43,11 @@
         "Your questions": "Jouw vragen",
         "Your bookmarks": "Jouw opgeslagen vragen",
         "Bookmark Question": "Sla vraag op voor later",
-        "Answer saved question": "Beantwoord opgeslagen vraag"
+        "Answer saved question": "Beantwoord opgeslagen vraag",
+        "Visual Handicap Level": "Visuele beperking",
+        "None": "Geen",
+        "Half": "Half",
+        "Blind": "Blind",
+        "Logout": "Uitloggen"
     }
 }

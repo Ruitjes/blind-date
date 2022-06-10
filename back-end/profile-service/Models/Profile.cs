@@ -23,7 +23,9 @@ namespace profile_service.Models
 
         public string Language { get; set; } = "en-US";
 
-        public Profile(string id, string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests, string language)
+        public string VisualHandicapLevel {get; set;}
+
+        public Profile(string id, string oAuthIdentifier, string name, string gender, DateTime birthdate, List<string> interests, string language, string visualHandicapLevel )
         {
             Id = id;
             OAuthIdentifier = oAuthIdentifier;
@@ -32,6 +34,7 @@ namespace profile_service.Models
             Birthdate = birthdate;
             Interests = interests;
             Language = language;
+            VisualHandicapLevel = visualHandicapLevel;
         }
     }
 }

@@ -43,6 +43,11 @@
         "Your questions": "Your questions",
         "Your bookmarks": "Your bookmarks",
         "Bookmark Question": "Bookmark Question",
-        "Answer saved question": "Answer saved question"
+        "Answer saved question": "Answer saved question",
+        "Visual Handicap Level": "Visual Impairment",
+        "None": "None",
+        "Half": "Half",
+        "Blind": "Blind",
+        "Logout": "Logout"
     }
 }
