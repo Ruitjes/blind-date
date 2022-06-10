@@ -6,11 +6,13 @@ import axios from 'axios';
 import Banner from './Banner';
 import { useTranslation } from 'react-i18next';
 import BackButton from './BackButton';
+import { useRouter } from 'next/router';
 import Modal from './modal/Modal';
 import { ModalStatus } from '../global/types';
 
 const Feed = () => {
-	const { user } = useUser();
+	const router = useRouter();
+	const { user,checkSession } = useUser();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState(true);
 
@@ -30,8 +32,21 @@ const Feed = () => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		// Fetch questions and set state
 		document.title = 'Answer the question';
+
+		// Do some user stuff
+		checkSession();
+		if(user != undefined)
+		{
+			const profileCreated = user.nickname;
+			if(profileCreated != "True")
+			{
+				// Stans modal here
+				// router.push('/profile');
+			}
+		}
+		
+		// Fetch questions and set state
 		getQuestion();
 	}, []);
 
