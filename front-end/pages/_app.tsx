@@ -10,17 +10,14 @@ library.add(far, fas);
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import { useProfile } from '../hooks/useProfile';
 import React from 'react';
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
-
-  const { profile } = useProfile();
-
+  
   return (
     <UserProvider>
-      <Component {...pageProps} profile={profile} />
+      <Component {...pageProps} />
     </UserProvider>
   );
 }
