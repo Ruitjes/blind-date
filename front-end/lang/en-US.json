@@ -41,6 +41,10 @@
         "Write something...": "Write something...",
         "You": "You",
         "Your questions": "Your questions",
+        "Visual Handicap Level": "Visual Impairment",
+        "None": "None",
+        "Half": "Half",
+        "Blind": "Blind",
         "Logout": "Logout"
     }
 }
