@@ -8,6 +8,8 @@ import FormSelect from "./form/FormSelect";
 import FormInput from "./form/FormInput";
 import FormTags from "./form/FormTags";
 import FormWrapper from "./form/FormWrapper";
+import Modal from "./modal/Modal";
+import { ModalStatus } from '../global/types';
 
 export class Profile {
     oAuthIdentifier: string | null = null;
@@ -26,6 +28,10 @@ const ProfileComponent = () => {
     const [newInterest, setNewInterest] = useState<string>("");
     const [HasProfile, SetHasProfile] = useState<boolean>();
     const [Loading, setLoading] = useState<boolean>(false);
+
+    const [ModalStatus, setModalStatus] = useState<ModalStatus>();
+    const [ModalOpen, setModalOpen] = useState<boolean>(false)
+    const [ModalText, setModalText] = useState<string>("")
 
     useEffect(() => {
         document.title = "Configure profile"
@@ -64,7 +70,16 @@ const ProfileComponent = () => {
             SetHasProfile(true);
             SetProfile(new Profile);
             SetProfile(res.data);
-        }).catch((err) => { console.log(err); });
+
+            setModalOpen(true);
+            setModalStatus(0);
+            setModalText(t("Your profile has been created successfully."));
+        }).catch((err) => { 
+            setModalOpen(true);
+            setModalStatus(1);
+            setModalText(t("Something went wrong while creating your profile."));
+            console.log(err); 
+        });
     };
 
     const UpdateProfileOfUser = () => {
@@ -81,7 +96,16 @@ const ProfileComponent = () => {
         axios.put('api/profileService/updateProfile', data).then((res: any) => {
             SetProfile(new Profile);
             SetProfile(res.data);
-        }).catch((err) => { console.log(err); });
+
+            setModalOpen(true);
+            setModalStatus(0);
+            setModalText(t("Your profile has been updated successfully."));
+        }).catch((err) => { 
+            setModalOpen(true);
+            setModalStatus(1);
+            setModalText(t("Something went wrong while updating your profile."));
+            console.log(err); 
+        });
     };
 
     const SetLanguage = (language: string) => {
@@ -132,12 +156,13 @@ const ProfileComponent = () => {
                             </FormSelect>
 
                             <FormTags loading={Loading} label={t("Interests")} childOnClickEvent={removeInterest} tagList={profile?.interests} onClick={addNewInterest} value={newInterest} onChange={(e) => { setNewInterest(e.target.value) }} />
+                                                                                     
                         </FormWrapper>
-
                     </div>
                 </div>
             </div>
         </div>
+        <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
     </>);
 };
 
