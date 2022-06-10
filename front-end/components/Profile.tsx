@@ -125,6 +125,10 @@ const ProfileComponent = () => {
         setNewInterest("");
     };
 
+    const deleteProfile = () => {
+      console.log("hello");
+    };
+
     const removeInterest = (deleteThisInterest: string) => {
         const newInt = [...profile.interests].filter(x => x != deleteThisInterest);
         SetProfile({ ...profile, interests: newInt });
@@ -137,7 +141,7 @@ const ProfileComponent = () => {
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} buttonText={t("Save")}>
+                        <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} deleteClick={deleteProfile} buttonText={t("Save")} deleteText={t("Delete Profile")}>
                             <FormInput loading={Loading} label={t("Display name")} type="text" value={profile.name} onChange={(e) => { SetProfile({ ...profile, name: e.target.value }) }} />
 
                             <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
