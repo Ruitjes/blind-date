@@ -28,7 +28,7 @@ const MyQuestionsPage = () => {
         }
 
         fetchQuestionsByUser();
-    }, [user]);
+    }, []);
 
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
