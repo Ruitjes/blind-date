@@ -28,6 +28,10 @@ const Home: NextPage = () => {
     router.push('/myQuestions')
   }
 
+  const navigateToMyBookmakrs = () => {
+    router.push('/myBookmarks')
+  }
+
   return (
     <div className='bg-gray-700 flex flex-col h-full overflow-hidden'>
 
@@ -61,6 +65,13 @@ const Home: NextPage = () => {
         <div className="flex flex-col cursor-pointer" onClick={navigateToProfile}>
           <FontAwesomeIcon color='white' size='2x' icon={['fas', 'user-alt']} />
           <p className="text-white font-medium">{t("My Profile")}</p>
+        </div>
+      </div>
+
+      <div className="flex absolute center right-28 bottom-0 p-4">
+        <div className="flex flex-col cursor-pointer" onClick={navigateToMyBookmakrs}>
+          <FontAwesomeIcon color='white' size='2x' icon={['fas', 'bookmark']} />
+          <p className="text-white font-medium">{t("My Bookmarks")}</p>
         </div>
       </div>
       

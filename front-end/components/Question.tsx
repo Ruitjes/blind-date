@@ -25,12 +25,12 @@ const Question = (props: Props) => {
                                 {props.text}
                             </h1>
                         )}
-
-						{props.onReportClick && (
+            
+						{props.onReportClick && !props.loading && (
 							<div className="self-end">
 								<ReportButton
 									ariaLabel={t("Report the question")}
-									icon="circle-exclamation"
+									icon="flag"
 									color="indianred"
 									className="report-button"
 									onClick={props.onReportClick}

@@ -40,6 +40,26 @@
         "What would you like to ask?": "Wat zou je willen vragen?",
         "Write something...": "Schrijf iets...",
         "You": "Jij",
-        "Your questions": "Jouw vragen"
+        "Your questions": "Jouw vragen",
+        "Error message": "Foutmelding bericht",
+        "Success message": "Succesvol bericht",
+        "Your profile has been created successfully.": "Je profiel is succesvol aangemaakt.",
+        "Something went wrong while creating your profile.": "Er is iets fout gegaan bij het aanmaken van je profiel.",
+        "Your profile has been updated successfully.": "Je profiel is succesvol aangepast.",
+        "Something went wrong while updating your profile.": "Er is iets fout gegaan bij het aanpassen van je profiel.",
+        "You have successfully asked a new question.": "Je hebt succesvol een nieuwe vraag gesteld.",
+        "Something went wrong when creating your question.": "Er is iets fout gegaan bij het aanmaken van je vraag.",
+        "You have successfully answered the question.": "Je hebt succesvol de vraag beantwoord.",
+        "Something went wrong in answering this question.": "Er is iets fout gegegaan bij het beantwoorden van deze vraag.",
+        "You have successfully reported the question.": "Je hebt succesvol de vraag gerapporteerd.",
+        "Something went wrong in reporting this question.": "Er is iets fout gegaan bij het rapporteren van deze vraag.",
+        "Your bookmarks": "Jouw opgeslagen vragen",
+        "Bookmark Question": "Sla vraag op voor later",
+        "Answer saved question": "Beantwoord opgeslagen vraag",
+        "Visual Handicap Level": "Visuele beperking",
+        "None": "Geen",
+        "Half": "Half",
+        "Blind": "Blind",
+        "Logout": "Uitloggen"
     }
 }

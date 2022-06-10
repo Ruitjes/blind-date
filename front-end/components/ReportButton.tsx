@@ -17,7 +17,7 @@ const ReportButton = (props: Props) => {
 			aria-label={props.ariaLabel}>
 			<FontAwesomeIcon
 				fixedWidth
-				size="2x"
+				size="1x"
 				color={props.color}
 				icon={['fas', props.icon]} />
 		</button>
