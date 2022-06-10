@@ -16,9 +16,9 @@ export class Profile {
     name: string = "";
     gender: string = "";
     birthdate: string = "";
-    language: string = "";
+    language: string = "en-US";
     interests: string[] = [];
-    visualHandicapLevel: string = "";
+    visualHandicapLevel: string = "None";
 }
 
 const ProfileComponent = () => {
