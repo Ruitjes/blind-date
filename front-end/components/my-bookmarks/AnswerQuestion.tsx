@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
-import Question from './Question';
-import Button from './Button';
+import Question from '../Question';
+import Button from '../Button';
 import axios from 'axios';
-import Banner from './Banner';
-import Loading from './Loading';
+import Banner from '../Banner';
+import Loading from '../Loading';
 import { useTranslation } from 'react-i18next';
-import BackButton from './BackButton';
+import BackButton from '../BackButton';
+import Router, { useRouter } from 'next/router';
 
-const Feed = () => {
+type Props = {
+    question: {
+        id: string
+    }
+}
+
+const AnswerQuestion = (props: Props) => {
 	const { user } = useUser();
+	const router = useRouter();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState(true);
 
@@ -30,21 +38,9 @@ const Feed = () => {
 		getQuestion();
 	}, []);
 
-	const ProgressBookmark = () => {
-		axios
-			.get(`api/progressUserBookmark/${user!.sub}`)
-			.then((res: any) => {
-				SetAnswerText("");
-				getQuestion();
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-
 	const getQuestion = () => {
 		axios
-			.get(`api/getQuestionForUser/${user!.sub}`)
+			.get(`/api/getSavedQuestionById/${props.question.id}`)
 			.then((res: any) => {
 				SetCurrentQuestion(res.data);
 				SetOutOfQuestions(!res.data.content)
@@ -52,30 +48,6 @@ const Feed = () => {
 			.catch((error) => setError(error))
             .finally(() => setLoading(false));
 	};
-
-	const saveQuestionForLater = () => {
-		const saveQuestion = { 
-			questionId: CurrentQuestion.id?.toString(), 
-			savedBy: user!.sub?.toString(), 
-			content: CurrentQuestion?.content, 
-			addedOn: CurrentQuestion?.addedOn,
-			userIdentifier: CurrentQuestion?.userIdentifier,
-			fileName: CurrentQuestion?.fileName,
-			linkedInterest: CurrentQuestion?.linkedInterest,
-			language: CurrentQuestion?.language
-		  }
-
-		axios
-			.post('/api/saveQuestionForLater', saveQuestion)
-			.then((res: any) => {
-				SetAnswerText("");
-				ProgressBookmark();
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-
 	const answerQuestion = () => {
 		const data = {
 			userProfile: {
@@ -85,18 +57,33 @@ const Feed = () => {
 				age: '99',
 			},
 			content: AnswerText,
-			questionId: CurrentQuestion.id?.toString(),
+			questionId: CurrentQuestion.questionId?.toString(),
 		};
 
 		axios
 			.post('/api/answerQuestion', data)
 			.then((res: any) => {
 				SetAnswerText("");
-				ProgressBookmark();
+				removeSavedQuestion();
+				// Stan modal here.
+				router.push('/myBookmarks');
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+
+	const removeSavedQuestion = () => {
+		axios
+		.delete(`/api/removeSavedQuestionById/${props.question.id}`)
+		.then((res: any) => {
+			SetAnswerText("");
+			// Stan modal here.
+			router.push('/myBookmarks');
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 	};
 
 	const handleImageToggle = () => {
@@ -121,7 +108,7 @@ const Feed = () => {
 			},
 			reportedContent: CurrentQuestion.content,
 			question: {
-				id: CurrentQuestion.id?.toString(),
+				id: CurrentQuestion.questionId?.toString(),
 				content: CurrentQuestion.content
 			}
 		};
@@ -146,7 +133,7 @@ const Feed = () => {
 	return (
 		<div className="bg-gray-700 flex flex-col h-full">
 			<div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
-				<BackButton navPage='/' />
+				<BackButton navPage='/myBookmarks' />
 				<div className="flex flex-col flex-grow w-full max-w-sm">
 					<div className="flex flex-col mt-4 mb-6">
 						<div className="flex flex-col flex-grow p-4">
@@ -187,13 +174,7 @@ const Feed = () => {
 								icon="xmark"
 								color="lightcoral"
 								disabled={loading ? true : OutOfQuestions ? true : false}
-								onClick={ProgressBookmark} />
-							<Button
-								ariaLabel={t("Bookmark Question")}
-								icon="bookmark"
-								color="darkgoldenrod"
-                                disabled={loading ? true : OutOfQuestions ? true : false}
-								onClick={saveQuestionForLater } />
+								onClick={(removeSavedQuestion)} />
 							<Button
 								ariaLabel={t("Reply to the question")}
 								icon="share"
@@ -228,4 +209,4 @@ const Feed = () => {
 	);
 };
 
-export default Feed;
+export default AnswerQuestion;
