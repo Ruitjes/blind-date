@@ -84,6 +84,7 @@ const Feed = () => {
 		SetAnswerText(e.target.value);
 	};
 
+	
 	// Report question
 	const reportQuestion = () => {
 		const data = {
@@ -96,7 +97,10 @@ const Feed = () => {
 				// TODO: send reported user name
 				name: ""
 			},
-			reportedContent: CurrentQuestion.content,
+			reportedContent: {
+				id: CurrentQuestion.id?.toString(),
+				content: CurrentQuestion.content
+			},
 			question: {
 				id: CurrentQuestion.id?.toString(),
 				content: CurrentQuestion.content
@@ -104,7 +108,7 @@ const Feed = () => {
 		};
 		
 		axios
-			.post('/api/reportQuestion', data)
+			.post('/api/reportService/reportContent', data)
 			.then((res: any) => {
 				setReportResultMessage('Report');
 				setReportResultInfo('Question was successfully reported');
@@ -115,10 +119,12 @@ const Feed = () => {
 			});
 	};
 
+
 	const onBannerClose = () => {
 		setReportResultMessage('');
 		setReportResultInfo('');
 	};
+
 
 	return (
 		<div className="bg-gray-700 flex flex-col h-full">
@@ -177,15 +183,17 @@ const Feed = () => {
 						</div>
 					</div>
 				</div>
+			</div>
 
-				{/* Report result */}
-				{reportResultMessage && (
+			{/* Report result */}
+			{reportResultMessage && (
+				<div className="absolute flex justify-center items-center inset-0 bg-black/50">
 					<Banner
 						message={reportResultMessage}
 						additionalInfo={reportResultInfo}
 						onCloseClick={onBannerClose} />
-				)}
-			</div>
+				</div>
+			)}
 
 			{CurrentQuestion?.fileName && showFullImage && (
 				<div

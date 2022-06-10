@@ -42,6 +42,18 @@ namespace report_service.Controllers
 
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
+			Console.WriteLine(reporterId);
+			Console.WriteLine(reportModel.Reporter.Id);
+
+
+			if(reportModel.Reporter.Id != reporterId) {
+				return Unauthorized();
+			}
+
+			if(await _service.ReportExists(reportModel)) {
+				return Conflict("Content was already reported");
+			}
+
 			// create report
 			await _service.CreateAsync(reportModel);
 

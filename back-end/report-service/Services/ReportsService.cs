@@ -58,5 +58,14 @@ namespace report_service.Services
 			var userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
 			return userIdentifier;
 		}
+
+		public async Task<bool> ReportExists(Report report) {
+			return await _reportsCollection
+				.Find(r => 
+					r.Reporter.Id == report.Reporter.Id && r.Reported.Id == report.Reported.Id && 
+					r.ReportedContent == report.ReportedContent && r.Question.Id == report.Question.Id
+				)
+				.FirstOrDefaultAsync() != null;
+		}
 	}
 }

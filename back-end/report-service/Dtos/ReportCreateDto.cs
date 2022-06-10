@@ -11,9 +11,11 @@ namespace report_service.Dtos
 		[Required]
 		public UserDto Reported { get; set; }
 
+		// this property will store the content that was reported (either the question id and content or the answer id and content)
 		[Required]
-		public string ReportedContent { get; set; }
+		public ReportedContentDto ReportedContent { get; set; }
 
+		// this property will store the question id and content
 		[Required]
 		public QuestionDto Question { get; set; }
 	}
