@@ -44,6 +44,7 @@
         "Visual Handicap Level": "Visual Impairment",
         "None": "None",
         "Half": "Half",
-        "Blind": "Blind"
+        "Blind": "Blind",
+        "Logout": "Logout"
     }
 }

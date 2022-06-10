@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from "axios";
 import BackButton from "./BackButton";
+import LogoutButton from "./LogoutButton";
 import { useTranslation } from 'react-i18next';
 import FormSelect from "./form/FormSelect";
 import FormInput from "./form/FormInput";
@@ -109,6 +110,7 @@ const ProfileComponent = () => {
         <div className="bg-gray-700 flex flex-col h-full">
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
                 <BackButton navPage="/" />
+                <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
                         <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} buttonText={t("Save")}>
