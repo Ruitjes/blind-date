@@ -37,7 +37,7 @@ spec:
                 optional: false
 
           - name: MongoDbSettings__DatabaseName
-            value: QuestionDB
+            value: ProfileDB
 
           - name: Auth0Settings__Authority
             valueFrom:
