@@ -59,13 +59,23 @@ public class ProfileController : Controller
   }
 
   [HttpDelete("DeleteProfile")]
-  public async Task<string> DeleteProfile()
+  public async Task<ActionResult<string>> DeleteProfile()
   {
-    string userIdentifier = _profileService.GetUserByJWTToken();
-    Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
-    _messageBusPublisher.PublishMessage("DeletedUser", profile);
+        string userIdentifier = _profileService.GetUserByJWTToken();
+        Profile profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+        if (profile is not null)
+        {
+            try
+            {
+                _messageBusPublisher.PublishMessage("DeletedUser", profile);
+            }
+            catch (Exception)
+            {
+                return new ObjectResult("Something went wrong trying to send a message with rabbitmq") { StatusCode = 500 };
+            }
+        }
 
-    return await _profileService.DeleteAsync(profile.Id);
+        return await _profileService.DeleteAsync(profile.OAuthIdentifier);
   }
 
   [HttpPost("CreateProfile")]

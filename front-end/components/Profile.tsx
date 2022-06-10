@@ -10,6 +10,7 @@ import FormTags from "./form/FormTags";
 import FormWrapper from "./form/FormWrapper";
 import Modal from "./modal/Modal";
 import { ModalStatus } from '../global/types';
+import { useRouter } from "next/router";
 
 export class Profile {
     oAuthIdentifier: string | null = null;
@@ -28,7 +29,7 @@ const ProfileComponent = () => {
     const [newInterest, setNewInterest] = useState<string>("");
     const [HasProfile, SetHasProfile] = useState<boolean>();
     const [Loading, setLoading] = useState<boolean>(false);
-
+    const router = useRouter();
     const [ModalStatus, setModalStatus] = useState<ModalStatus>();
     const [ModalOpen, setModalOpen] = useState<boolean>(false)
     const [ModalText, setModalText] = useState<string>("")
@@ -126,7 +127,17 @@ const ProfileComponent = () => {
     };
 
     const deleteProfile = () => {
-      console.log("hello");
+      axios.delete("api/profileService/deleteProfile").then((res: any) => {
+        setModalOpen(true);
+        setModalStatus(0);
+        setModalText(t("Your profile has been deleted successfully."));
+        router.push("/api/auth/logout");
+    }).catch((err) => { 
+        setModalOpen(true);
+        setModalStatus(1);
+        setModalText(t("Something went wrong while deleting your profile."));
+        console.log(err); 
+    });
     };
 
     const removeInterest = (deleteThisInterest: string) => {
