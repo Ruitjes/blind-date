@@ -13,7 +13,7 @@ type Props = {
     question: {
         id: string
     },
-	onReportAnswer: (answerId: number, answerContent: string, reportedId: string, reportedName: string) => void;
+	onReportAnswer?: (answerId: number, answerContent: string, reportedId: string, reportedName: string) => void;
 }
 
 const MyAnswersPage = (props: Props) => {
