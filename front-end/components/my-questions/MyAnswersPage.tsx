@@ -7,7 +7,8 @@ import MyAnswer from "./MyAnswer";
 import Question from '../Question';
 import { useTranslation } from "react-i18next";
 import BackButton from "../BackButton";
-import Banner from "../Banner";
+import Modal from '../modal/Modal';
+import { ModalStatus } from '../../global/types';
 
 type Props = {
     question: {
@@ -27,10 +28,10 @@ const MyAnswersPage = (props: Props) => {
     const [answersLoading, setAnswersLoading] = useState<boolean>(true);
 
     const { t } = useTranslation();
-
-    // Report result
-	const [reportResultMessage, setReportResultMessage] = useState('');
-	const [reportResultInfo, setReportResultInfo] = useState('');
+    
+    const [ModalStatus, setModalStatus] = useState<ModalStatus>();
+    const [ModalOpen, setModalOpen] = useState<boolean>(false)
+    const [ModalText, setModalText] = useState<string>("")
 
     useEffect(() => {
 
@@ -71,20 +72,16 @@ const MyAnswersPage = (props: Props) => {
 		axios
 			.post('/api/reportService/reportContent', data)
 			.then((res: any) => {
-				setReportResultMessage('Report');
-				setReportResultInfo('Answer was successfully reported');
+                setModalOpen(true);
+                setModalStatus(0);
+                setModalText(t("You have successfully reported the answer."));
 			})
 			.catch((err) => {
-				setReportResultMessage('Report');
-				setReportResultInfo(err.message);
+				setModalOpen(true);
+                setModalStatus(1);
+                setModalText(t("Something went wrong in reporting this answer."));
 			});
     };
-
-    
-    const onBannerClose = () => {
-		setReportResultMessage('');
-		setReportResultInfo('');
-	};
 
 
     return (
@@ -132,15 +129,7 @@ const MyAnswersPage = (props: Props) => {
                 </div>
             )}
 
-            {/* Report result */}
-            {reportResultMessage && (
-                <div className="absolute flex justify-center items-center inset-0 bg-black/50">
-                    <Banner
-                        message={reportResultMessage}
-                        additionalInfo={reportResultInfo}
-                        onCloseClick={onBannerClose} />
-                </div>
-            )}
+            <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
 
         </div>
     )
