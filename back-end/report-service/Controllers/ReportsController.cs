@@ -42,10 +42,6 @@ namespace report_service.Controllers
 
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
-			Console.WriteLine(reporterId);
-			Console.WriteLine(reportModel.Reporter.Id);
-
-
 			if(reportModel.Reporter.Id != reporterId) {
 				return Unauthorized();
 			}
