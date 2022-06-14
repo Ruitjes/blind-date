@@ -19,7 +19,7 @@ export const useProfile = () => {
     const { i18n } = useTranslation();
     const [error, setError] = useState<AxiosError>();
     const [loading, setLoading] = useState<boolean>();
-    const [profile, setProfile] = useState<Profile>();
+    const [profile, setProfile] = useState<Profile>({ } as Profile);
 
     useEffect(() => { 
         setLoading(true);
