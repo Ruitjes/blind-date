@@ -6,10 +6,9 @@ import UpdateProfile from "../components/profile/UpdateProfile";
 
 const CreateProfilePage: NextPage = () => {
 
-    const { loading, error } = useProfile();
-    if (loading) {
-        return <h1>Loading...</h1>
-    } else if (error) {
+    const { error } = useProfile();
+    
+    if (error) {
         if (error.response?.status === 404) {
             return <CreateProfile />
         } else {

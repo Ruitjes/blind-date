@@ -19,7 +19,7 @@ const UpdateProfile = () => {
     const { user } = useUser();
     const { t } = useTranslation();
     const changeLanguage = useLanguage();
-    const { profile, setProfile } = useProfile();
+    const { loading, profile, setProfile } = useProfile();
 
     const [modalText, setModalText] = useState<string>("");
     const [modalStatus, setModalStatus] = useState<ModalStatus>();
@@ -112,25 +112,29 @@ const UpdateProfile = () => {
 
                             <FormInput
                                 value={name}
-                                label={t("Display name")}
+                                loading={loading}
+                                label={t(loading ? "" : "Display name")}
                                 onChange={(e) => { setName(e.target.value) }} />
 
                             <FormInput
                                 type="date"
+                                loading={loading}
+                                label={t(loading ? "" : "Date of birth")}
                                 value={birthdate.split("T")[0]}
-                                label={t("Date of birth")}
                                 onChange={(e) => { setBirthdate(e.target.value) }}
                             />
 
                             <FormInput
                                 value={gender}
-                                label={t("Gender")}
+                                loading={loading}
+                                label={t(loading ? "" : "Gender")}
                                 onChange={(e) => { setGender(e.target.value) }}
                             />
 
                             <FormSelect
                                 value={visualHandicapLevel}
-                                label={t("Visual Handicap Level")}
+                                label={t(loading ? "" : "Visual Handicap Level")}
+                                loading={loading}
                                 onChange={(e) => { setVisualHandicapLevel(e.target.value) }}>
                                 <option value="None">{t("None")}</option>
                                 <option value="Half">{t("Half")}</option>
@@ -139,7 +143,8 @@ const UpdateProfile = () => {
 
                             <FormSelect
                                 value={language}
-                                label={t("Language")}
+                                loading={loading}
+                                label={t(loading ? "" : "Language")}
                                 onChange={(e) => { setLanguage(e.target.value) }}>
                                 <option value="en-US">{t("English")} 🇬🇧</option>
                                 <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
@@ -147,8 +152,9 @@ const UpdateProfile = () => {
 
                             <FormTags
                                 value={interest}
+                                loading={loading}
                                 tagList={interests}
-                                label={t("Interests")}
+                                label={t(loading ? "" : "Interests")}
                                 onClick={addNewInterest}
                                 childOnClickEvent={removeInterest}
                                 onChange={(e) => { setInterest(e.target.value) }}
