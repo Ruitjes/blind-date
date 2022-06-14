@@ -19,11 +19,12 @@ const UpdateProfile = () => {
     const { user } = useUser();
     const { t } = useTranslation();
     const changeLanguage = useLanguage();
-    const { loading, profile, setProfile } = useProfile();
+    const { profile, setProfile } = useProfile();
 
     const [modalText, setModalText] = useState<string>("");
     const [modalStatus, setModalStatus] = useState<ModalStatus>();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [modalRouterPath, setModalRouterPath] = useState<string>();
 
     const [name, setName] = useState<string>("");
     const [gender, setGender] = useState<string>("");
@@ -50,11 +51,29 @@ const UpdateProfile = () => {
                 setModalVisible(true);
                 setModalStatus(ModalStatus.Success);
                 setModalText(t("Your profile has been updated successfully."));
+                setModalRouterPath("/");
                 setProfile(response.data);
             }).catch(() => {
                 setModalVisible(true);
+                setModalRouterPath(undefined);
                 setModalStatus(ModalStatus.Error);
                 setModalText(t("Something went wrong while updating your profile."));
+            })
+    }
+
+    const deleteProfile = () => {
+        axios.delete('/api/profileService/deleteProfile')
+            .then((response: any) => {
+                setModalVisible(true);
+                setModalStatus(ModalStatus.Success);
+                setModalText(t("Your profile has been deleted successfully."));
+                setModalRouterPath("/api/auth/logout");
+                setProfile(undefined);
+            }).catch(() => {
+                setModalVisible(true)
+                setModalRouterPath(undefined);
+                setModalStatus(ModalStatus.Error);
+                setModalText(t("Something went wrong while deleting your profile."));
             })
     }
 
@@ -85,11 +104,11 @@ const UpdateProfile = () => {
     return (<>
         <div className="bg-gray-700 flex flex-col h-full">
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
-                <BackButton navPage="/"/>
+                <BackButton navPage="/" />
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onClick={updateProfile} buttonText={t("Save")}>
+                        <FormWrapper onSave={updateProfile} onDelete={deleteProfile}>
 
                             <FormInput
                                 value={name}
@@ -145,8 +164,8 @@ const UpdateProfile = () => {
             setModalOpen={setModalVisible}
             status={modalStatus ?? ModalStatus.Error}
             title={modalStatus == ModalStatus.Success ? t("Success message") : t("Error message")}
+            routerPath={modalRouterPath}
             text={modalText}
-            routerPath={modalStatus === ModalStatus.Success ? "/" : undefined}
         />
     </>);
 
