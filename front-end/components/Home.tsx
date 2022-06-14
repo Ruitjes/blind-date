@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Home = () => {
 
   const { t } = useTranslation();
-
   const router = useRouter();
   
   const navigateToFeed = () => {
@@ -16,7 +15,7 @@ const Home = () => {
   }
 
   const navigateToProfile = () => {
-    router.push('/profile');
+    router.push('/profile/update');
   }
 
   const navigateToMyQuestions = () => {
