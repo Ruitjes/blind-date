@@ -132,7 +132,6 @@ const ProfileComponent = () => {
         setModalOpen(true);
         setModalStatus(0);
         setModalText(t("Your profile has been deleted successfully."));
-        router.push("/api/auth/logout");
     }).catch((err) => { 
         setModalOpen(true);
         setModalStatus(1);
@@ -178,7 +177,7 @@ const ProfileComponent = () => {
                 </div>
             </div>
         </div>
-        <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
+        <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} routerPath="/" />
     </>);
 };
 
