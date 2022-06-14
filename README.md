@@ -122,10 +122,6 @@ mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,host
 1. Create a snyk account at https://app.snyk.io/login?cta=sign-up&loc=nav&page=homepage
 2. Add the repo in the snyk dashboard
 
-```bash
-mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
-```
-
 ## Setting up a K6 test
 
 1. Follow the K6 docs for instructions at https://k6.io/docs/
