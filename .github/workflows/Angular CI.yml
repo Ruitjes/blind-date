@@ -1,9 +1,11 @@
-name: Angular CI
+name: Front-end Angular CI
 
 on:
   push:
     branches: 
       - main
+    paths:
+      - admin/**
   pull_request:     
     branches: 
       - main
