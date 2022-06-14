@@ -31,7 +31,7 @@ export const useProfile = () => {
                 }
                 setError(error);
             })
-            .finally(() => { console.log('test'); setLoading(false)});
+            .finally(() => setLoading(false));
     }, []);
 
     useEffect(() => {
