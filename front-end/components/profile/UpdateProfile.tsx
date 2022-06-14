@@ -1,7 +1,7 @@
 import { useProfile } from "../../hooks/useProfile";
 
 const UpdateProfile = () => {
-    const { profile } = useProfile();
+    const { profile, error, loading } = useProfile();
     return <h1>Update Profile</h1>
 }
 

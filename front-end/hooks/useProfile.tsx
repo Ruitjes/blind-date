@@ -27,7 +27,7 @@ export const useProfile = () => {
             .then((response: AxiosResponse) => setProfile(response.data))
             .catch(async (error: AxiosError) => {
                 if (error.response?.status === 404) {
-                    await router.push("/profile/create");
+                    await router.push("/profile");
                 }
                 setError(error);
             })

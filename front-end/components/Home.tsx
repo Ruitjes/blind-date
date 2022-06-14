@@ -15,7 +15,7 @@ const Home = () => {
   }
 
   const navigateToProfile = () => {
-    router.push('/profile/update');
+    router.push('/profile');
   }
 
   const navigateToMyQuestions = () => {
