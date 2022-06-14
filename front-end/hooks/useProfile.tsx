@@ -28,12 +28,11 @@ export const useProfile = () => {
             .catch(async (error: AxiosError) => {
                 if (error.response?.status === 404) {
                     await router.push("/profile/create");
-                } else {
-                    setError(error);
                 }
+                setError(error);
             })
-            .finally(() => setLoading(false));
-    }, [router.pathname]);
+            .finally(() => { console.log('test'); setLoading(false)});
+    }, []);
 
     useEffect(() => {
         if (profile) {
@@ -50,5 +49,5 @@ export const useProfile = () => {
     }, [profile])
 
 
-    return { error, loading, profile };
+    return { error, loading, profile, setProfile };
 }

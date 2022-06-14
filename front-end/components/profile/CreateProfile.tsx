@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "../../hooks/useLanguage";
+import { useProfile } from "../../hooks/useProfile";
 import { useUser } from "@auth0/nextjs-auth0";
 import { ModalStatus } from "../../global/types";
 import axios from "axios";
@@ -16,6 +17,7 @@ const CreateProfile = () => {
 
     const { user } = useUser();
     const { t } = useTranslation();
+    const { setProfile } = useProfile();
     const changeLanguage = useLanguage();
 
     const [modalText, setModalText] = useState<string>("");
@@ -47,6 +49,7 @@ const CreateProfile = () => {
                 setModalVisible(true);
                 setModalStatus(ModalStatus.Success);
                 setModalText(t("Your profile has been created successfully."));
+                setProfile(response.data);
             }).catch(() => {
                 setModalVisible(true);
                 setModalStatus(ModalStatus.Error);
