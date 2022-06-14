@@ -117,6 +117,15 @@ AUTH0_AUDIENCE='seethrough'
 mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
 ```
 
+## Setting up Snyk
+
+1. Create a snyk account at https://app.snyk.io/login?cta=sign-up&loc=nav&page=homepage
+2. Add the repo in the snyk dashboard
+
+```bash
+mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+```
+
 ### Tech
 
 SeeThrough uses a number of open source projects and technologies to work properly:
