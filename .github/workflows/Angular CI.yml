@@ -29,5 +29,5 @@ jobs:
       run: npm install
       working-directory: admin
     - name: Build
-      run: npm run build
+      run: npm run build-dev
       working-directory: admin
