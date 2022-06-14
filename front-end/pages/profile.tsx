@@ -4,7 +4,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import CreateProfile from "../components/profile/CreateProfile";
 import UpdateProfile from "../components/profile/UpdateProfile";
 
-const CreateProfilePage: NextPage = () => {
+const ProfilePage: NextPage = () => {
 
     const { error } = useProfile();
     
@@ -19,4 +19,4 @@ const CreateProfilePage: NextPage = () => {
     }
 }
 
-export default withPageAuthRequired(CreateProfilePage);
+export default withPageAuthRequired(ProfilePage);
