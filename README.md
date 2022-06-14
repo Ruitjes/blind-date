@@ -85,7 +85,7 @@ npm run start OR ng serve
 ng serve --configuration production
 ```
 
-9. When the React app is running
+9. When the Angular app is running
 
 -   http://localhost:4200 -> Angular front-end
 
