@@ -33,7 +33,7 @@ export const useProfile = () => {
                 }
             })
             .finally(() => setLoading(false));
-    }, []);
+    }, [router.pathname]);
 
     useEffect(() => {
         if (profile) {
