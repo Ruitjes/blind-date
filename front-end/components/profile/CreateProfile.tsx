@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useUser } from "@auth0/nextjs-auth0";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "../../hooks/useLanguage";
+import { useUser } from "@auth0/nextjs-auth0";
 import { ModalStatus } from "../../global/types";
 import axios from "axios";
 
@@ -15,6 +16,7 @@ const CreateProfile = () => {
 
     const { user } = useUser();
     const { t } = useTranslation();
+    const changeLanguage = useLanguage();
 
     const [modalText, setModalText] = useState<string>("");
     const [modalStatus, setModalStatus] = useState<ModalStatus>();
@@ -41,7 +43,7 @@ const CreateProfile = () => {
         }
 
         axios.post('/api/profileService/createProfile', createDto)
-            .then(() => {
+            .then((response: any) => {
                 setModalVisible(true);
                 setModalStatus(ModalStatus.Success);
                 setModalText(t("Your profile has been created successfully."));
@@ -62,6 +64,8 @@ const CreateProfile = () => {
         const newInterests = [...interests].filter(x => x != interest);
         setInterests(newInterests);
     }
+
+    useEffect(() => { changeLanguage(language); }, [language])
 
     return (<>
         <div className="bg-gray-700 flex flex-col h-full">
