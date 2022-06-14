@@ -13,6 +13,10 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   width: 490px;
 }
 
+.example-button-row > button {
+  padding: 4px 10px;
+}
+
 #right-btn {
   margin-left: 10px;
 }
