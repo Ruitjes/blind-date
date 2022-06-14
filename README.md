@@ -33,51 +33,48 @@ dotnet dev-certs https -ep aspnetapp.pfx -p yourcertificatepasswordhere
 ```bash
 CERTIFICATE_PASSWORD=XXX
 
-QUESTION_SERVICE_CONNECTION_STRING=XXX
-PROFILE_SERVICE_CONNECTION_STRING=XXX
+DB_URL_ANSWER=XXX
+DB_URL_PROFILE=XXX
+DB_URL_QUESTION=XXX
+DB_URL_REPORT=XXX
 
-Auth0Domain=XXX
-Auth0Audience=XXX
+AUTH0_AUTHORITY=XXX
+AUTH0_AUDIENCE=XXX
+
+AUTH0_MANAGEMENT_SECRET=XXX
+AUTH0_MANAGEMENT_CLIENT_ID=XXX
+AUTH0_MANAGEMENT_AUDIENCE=XXX
+
+RabbitMQ_URI=XXX
 
 ACCESS_KEY=XXX
 SECRET_ACCESS_KEY=XXX
 BUCKET_NAME=XXX
+
 ```
 
-4. Write the following in the usersecret.
-
-```bash
-{
-  "AmazonS3Settings":{
-    "AccessKey": "AKIA6L6USLIWFSHUW4M3",
-    "SecretKey": "2w72sh9JNiIfJH1P4okJuphY2NNJhh1ddbomDsZ",
-    "BucketName": "seetrough"
-  }
-}
-```
-
-5. Run the docker compose file from root
+4. Run the docker compose file from root
 
 ```bash
 docker-compose build
 docker-compose up -d
 ```
 
-6. When the docker-compose is up.
+5. When the docker-compose is up.
 
 -   http://localhost:3000 -> React front-end
 -   https://localhost:7000 -> .NET Gateway Ocelot
 
-7. Start React app
+6. Start React app
 ```bash
 npm run dev
 ```
 
-8. When the React app is running
+7. When the React app is running
 
 -   http://localhost:3000 -> React front-end
 
-9. Start Angular app
+8. Start Angular app
 - Development
 ```bash
 npm run start OR ng serve
@@ -88,11 +85,11 @@ npm run start OR ng serve
 ng serve --configuration production
 ```
 
-10. When the React app is running
+9. When the React app is running
 
 -   http://localhost:4200 -> Angular front-end
 
-11. To get Auth0 working add a .env file to the front-end folder with the following:
+10. To get Auth0 working add a .env file to the front-end folder with the following:
 
 ```bash
 # url for the back-end endpoints
