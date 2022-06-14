@@ -45,7 +45,7 @@ AUTH0_MANAGEMENT_SECRET=XXX
 AUTH0_MANAGEMENT_CLIENT_ID=XXX
 AUTH0_MANAGEMENT_AUDIENCE=XXX
 
-RabbitMQ_URI=XXX
+RabbitMQ_URI=amqp://guest:guest@rabbitmq:5672/
 
 ACCESS_KEY=XXX
 SECRET_ACCESS_KEY=XXX
@@ -106,4 +106,13 @@ AUTH0_CLIENT_ID='ourclientid'
 AUTH0_CLIENT_SECRET='ourclientsecret'
 # Audience for ASP back-end
 AUTH0_AUDIENCE='seethrough'
+```
+
+## Setting up the mongoDB / importing the dataset
+
+1. Create a Mongo Atlas DB at https://www.mongodb.com/cloud/atlas/register
+2. Import our base dataset located in the "dataset" folder via the mongo cli. read more at [https://www.mongodb.com/docs/database-tools/mongoexport/ ](https://www.mongodb.com/docs/database-tools/mongoimport/)
+
+```bash
+mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
 ```
