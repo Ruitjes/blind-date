@@ -126,6 +126,10 @@ mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,host
 mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
 ```
 
+## Setting up a production environment
+
+Read our documentation on [deployment instructions](https://github.com/Ruitjes/blind-date/blob/main/assets/Deployment_Instructions.pdf) 
+
 ### Tech
 
 SeeThrough uses a number of open source projects and technologies to work properly:
