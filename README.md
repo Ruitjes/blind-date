@@ -126,6 +126,16 @@ mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,host
 mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
 ```
 
+## Setting up a K6 test
+
+1. Follow the K6 docs for instructions at https://k6.io/docs/
+2. for endpoints start the development environment and goto https://localhost:7000 here you will find the swagger api docs with all the endpoints.
+3. Keep in mind that k6 testing is best done on a production or staging kubernetes cluster, to run a cluster see the next chapter in this readme.
+
+```bash
+mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+```
+
 ## Setting up a production environment
 
 Read our documentation on [deployment instructions](https://github.com/Ruitjes/blind-date/blob/main/assets/Deployment_Instructions.pdf) 
