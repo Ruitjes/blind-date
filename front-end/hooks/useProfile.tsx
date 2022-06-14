@@ -5,6 +5,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 type Profile = {
     id: string;
+    name: string;
     gender: string;
     language: string;
     birthdate : string;
@@ -18,11 +19,10 @@ export const useProfile = () => {
     const router = useRouter();
     const { i18n } = useTranslation();
     const [error, setError] = useState<AxiosError>();
-    const [loading, setLoading] = useState<boolean>();
-    const [profile, setProfile] = useState<Profile>({ } as Profile);
+    const [profile, setProfile] = useState<Profile>();
+    const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => { 
-        setLoading(true);
+    useEffect(() => {
         axios.get<Profile>("/api/profileService/getProfile/")
             .then((response: AxiosResponse) => setProfile(response.data))
             .catch(async (error: AxiosError) => {
