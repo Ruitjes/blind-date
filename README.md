@@ -116,3 +116,41 @@ AUTH0_AUDIENCE='seethrough'
 ```bash
 mongoimport mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
 ```
+
+### Tech
+
+SeeThrough uses a number of open source projects and technologies to work properly:
+
+* [ReactJS] - A JavaScript library for building user interfaces!
+* [NextJS] - The react framework for production
+* [Tailwindcss] - Rapidly build modern websites without ever leaving your HTML.
+* [Ocelot] - A modern fast, scalable API gateway built on [ASP.NET Core] (dev only)
+* [ASP.NET Core] - Free. Cross-platform. Open source. A framework for building web apps and services with .NET and C#.
+
+### packages used in the web-app
+
+The react-web-app uses the following *npm* / *yarn* packages
+
+| Package | README |
+| ------ | ------ |
+| NextJS | [NextJS getting started][NextJSDoc] |
+| Axios | [Axios docs][AxiosDoc]|
+| i18next | [i18next docs][I18Doc]|
+| moment | [moment docs][MomentDoc]|
+| FontAwesome | [FontAwesome docs][FontawesomeDoc]|
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+   [ASP.NET Core]: <https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1>
+   [ReactJS]: <https://reactjs.org/>
+   [NextJS]: <https://nextjs.org/>
+   [React-Bootstrap]: <https://react-bootstrap.github.io/>
+   [Ocelot]: <https://threemammals.com/ocelot>
+   [localhost]: <http://localhost:3000>
+   [Tailwindcss]: <https://tailwindcss.com/>
+
+   [NextJSDoc]: <https://nextjs.org/docs/getting-started>
+   [AxiosDoc]: <https://github.com/axios/axios/blob/master/README.md>
+   [I18Doc]: <https://www.i18next.com/>
+   [MomentDoc]: <https://momentjs.com/>
+   [FontawesomeDoc]: <https://fontawesome.com/>
