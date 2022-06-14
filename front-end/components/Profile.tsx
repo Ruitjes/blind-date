@@ -10,6 +10,7 @@ import FormTags from "./form/FormTags";
 import FormWrapper from "./form/FormWrapper";
 import Modal from "./modal/Modal";
 import { ModalStatus } from '../global/types';
+import { useRouter } from "next/router";
 
 export class Profile {
     oAuthIdentifier: string | null = null;
@@ -28,7 +29,7 @@ const ProfileComponent = () => {
     const [newInterest, setNewInterest] = useState<string>("");
     const [HasProfile, SetHasProfile] = useState<boolean>();
     const [Loading, setLoading] = useState<boolean>(false);
-
+    const router = useRouter();
     const [ModalStatus, setModalStatus] = useState<ModalStatus>();
     const [ModalOpen, setModalOpen] = useState<boolean>(false)
     const [ModalText, setModalText] = useState<string>("")
@@ -126,6 +127,19 @@ const ProfileComponent = () => {
         setNewInterest("");
     };
 
+    const deleteProfile = () => {
+      axios.delete("api/profileService/deleteProfile").then((res: any) => {
+        setModalOpen(true);
+        setModalStatus(0);
+        setModalText(t("Your profile has been deleted successfully."));
+    }).catch((err) => { 
+        setModalOpen(true);
+        setModalStatus(1);
+        setModalText(t("Something went wrong while deleting your profile."));
+        console.log(err); 
+    });
+    };
+
     const removeInterest = (deleteThisInterest: string) => {
         const newInt = [...profile.interests].filter(x => x != deleteThisInterest);
         SetProfile({ ...profile, interests: newInt });
@@ -138,7 +152,7 @@ const ProfileComponent = () => {
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} buttonText={t("Save")}>
+                        <FormWrapper onClick={HasProfile ? UpdateProfileOfUser : CreateProfileOfUser} deleteClick={deleteProfile} buttonText={t("Save")} deleteText={t("Delete Profile")}>
                             <FormInput loading={Loading} label={t("Display name")} type="text" value={profile.name} onChange={(e) => { SetProfile({ ...profile, name: e.target.value }) }} />
 
                             <FormInput loading={Loading} label={t("Date of birth")} type="date" defaultValue={profile.birthdate.split('T')[0]} onChange={(e) => { SetProfile({ ...profile, birthdate: e.target.value }) }} />
@@ -163,7 +177,7 @@ const ProfileComponent = () => {
                 </div>
             </div>
         </div>
-        <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
+        <Modal ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} routerPath="/" />
     </>);
 };
 
