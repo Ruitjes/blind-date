@@ -1,9 +1,9 @@
-// pages/api/reports
+// pages/api/reportService/reportContent
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getAccessToken } from '@auth0/nextjs-auth0';
-import http from '../../utils/common_api';
+import http from '../../../utils/common_api';
 
-export default async function reportQuestion(
+export default async function reportContent(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {

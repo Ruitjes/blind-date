@@ -10,7 +10,7 @@ namespace report_service.Dtos
 
 		public UserDto Reported { get; set; }
 
-		public string ReportedContent { get; set; }
+		public ReportedContentDto ReportedContent { get; set; }
 
 		public QuestionDto Question { get; set; }
 

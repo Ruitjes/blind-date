@@ -4,6 +4,8 @@ import { ReportsService } from '../services/reports.service';
 import { Status } from '../models/Status';
 import { UsersService } from '../services/users.service';
 import { QuestionsService } from '../services/questions.service';
+import { AnswersService } from '../services/answers.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reports',
@@ -11,18 +13,21 @@ import { QuestionsService } from '../services/questions.service';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
-  displayedColumns: string[] = ['Id', 'Question', 'Content', 'Reporter id', 'Reporter name', 'Reported id', 'Reported name', 'Created at', 'Status', 'New Status', 'Delete'];
+  displayedColumns: string[] = ['Id', 'Question', 'Content', 'Reporter', 'Reported', 'Created at', 'Status', 'New Status', 'Delete'];
   reports: Report[] = [];
   statusArray = Object.values(Status);
 
   constructor(private reportsService: ReportsService,
     private usersService: UsersService,
-    private questionsService: QuestionsService) { }
+    private questionsService: QuestionsService,
+    private answersService: AnswersService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllReports();
   }
 
+  // Get reports
   getAllReports() {
     this.reportsService.getAllReports().subscribe(data => {
       this.reports = <Report[]>data;
@@ -34,14 +39,38 @@ export class ReportsComponent implements OnInit {
     this.usersService.blockUser(id)
       .subscribe(() => {
         this.handleReport(report, Status.Resolved);
+
+        this.openSnackBar('User was deleted successfully', 'Ok');
       })
   }
 
-  // Delete content (question or answer)
-  deleteQuestion(report: Report, id: string) {
-    this.questionsService.deleteQuestion(id)
+  // Delete content
+  deleteContent(report: Report) {
+    if (report.question.id == report.reportedContent.id) {
+      this.deleteQuestion(report);
+    }
+    else {
+      this.deleteAnswer(report);
+    }
+  }
+
+  // Delete question
+  deleteQuestion(report: Report) {
+    this.questionsService.deleteQuestion(report.reportedContent.id)
       .subscribe(() => {
         this.handleReport(report, Status.Resolved);
+
+        this.openSnackBar('Question was deleted successfully', 'Ok');
+      })
+  }
+
+  // Delete answer
+  deleteAnswer(report: Report) {
+    this.answersService.deleteAnswer(report.reportedContent.id)
+      .subscribe(() => {
+        this.handleReport(report, Status.Resolved);
+
+        this.openSnackBar('Answer was deleted successfully', 'Ok');
       })
   }
 
@@ -55,5 +84,9 @@ export class ReportsComponent implements OnInit {
         report.status = newStatus;
         this.reports.splice(index, 1, report);
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 }

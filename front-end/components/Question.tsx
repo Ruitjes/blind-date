@@ -30,7 +30,7 @@ const Question = (props: Props) => {
 							<div className="self-end">
 								<ReportButton
 									ariaLabel={t("Report the question")}
-									icon="flag"
+									icon="circle-exclamation"
 									color="indianred"
 									className="report-button"
 									onClick={props.onReportClick}

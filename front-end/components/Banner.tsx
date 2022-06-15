@@ -8,7 +8,7 @@ type Props = {
 const Banner = (props: Props) => {
 	return (
 		<div
-			className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 w-6/12 rounded relative"
+			className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-2 w-4/12 rounded relative"
 			role="alert">
 			<h2>
 				<strong className="font-bold">{props.message}</strong>

@@ -11,27 +11,17 @@
 
   <ng-container matColumnDef="Content">
     <th mat-header-cell *matHeaderCellDef> Content </th>
-    <td mat-cell *matCellDef="let report"> {{report.reportedContent}} </td>
+    <td mat-cell *matCellDef="let report"> {{report.reportedContent.content}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Reporter id">
-    <th mat-header-cell *matHeaderCellDef> Reporter id </th>
-    <td mat-cell *matCellDef="let report"> {{report.reporter?.id}} </td>
+  <ng-container matColumnDef="Reporter">
+    <th mat-header-cell *matHeaderCellDef> Reporter </th>
+    <td mat-cell *matCellDef="let report"> {{report.reporter?.name}} - {{report.reporter?.id}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="Reporter name">
-    <th mat-header-cell *matHeaderCellDef> Reporter name </th>
-    <td mat-cell *matCellDef="let report"> {{report.reporter?.name}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="Reported id">
-    <th mat-header-cell *matHeaderCellDef> Reported id </th>
-    <td mat-cell *matCellDef="let report"> {{report.reported?.id}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="Reported name">
-    <th mat-header-cell *matHeaderCellDef> Reported name </th>
-    <td mat-cell *matCellDef="let report"> {{report.reported?.name}} </td>
+  <ng-container matColumnDef="Reported">
+    <th mat-header-cell *matHeaderCellDef> Reported </th>
+    <td mat-cell *matCellDef="let report"> {{report.reported?.name? report.reported?.name + ' - ': ''}} {{report.reported?.id}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Created at">
@@ -63,7 +53,7 @@
     <th mat-header-cell *matHeaderCellDef> Delete </th>
     <td mat-cell *matCellDef="let report">
       <div class="example-button-row">
-        <button mat-raised-button color="accent" *ngIf="report.status != 'Ignored'" (click)="deleteQuestion(report, report.question?.id)">Delete Content</button>
+        <button mat-raised-button color="accent" *ngIf="report.status != 'Ignored'" (click)="deleteContent(report)"> {{ report.question.id == report.reportedContent.id ? 'Delete Question' : 'Delete Answer'}}</button>
         <button mat-raised-button color="warn" id="right-btn" *ngIf="report.status != 'Ignored'" (click)="deleteUser(report, report.reported?.id)">Delete User</button>
       </div>
     </td>

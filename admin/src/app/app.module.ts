@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
 import { UsersComponent } from './users/users.component';
@@ -46,6 +47,7 @@ import { ReportsComponent } from './reports/reports.component';
     MatIconModule,
     MatToolbarModule,
     MatSelectModule,
+    MatSnackBarModule,
     AuthModule.forRoot({
       // The domain and clientId were configured in the previous chapter
       domain: 'blind-date.eu.auth0.com',

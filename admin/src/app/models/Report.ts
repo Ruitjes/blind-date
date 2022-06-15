@@ -1,4 +1,5 @@
 import { Question } from "./Question";
+import { ReportedContent } from "./ReportedContent";
 import { UserReportDto } from "./UserReportDto";
 
 export class Report {
@@ -6,7 +7,7 @@ export class Report {
     public id: string,
     public reporter: UserReportDto,
     public reported: UserReportDto,
-    public reportedContent: string,
+    public reportedContent: ReportedContent,
     public question: Question,
     public createdAt: string,
     public status: string) {

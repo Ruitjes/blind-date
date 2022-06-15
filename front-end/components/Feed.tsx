@@ -3,7 +3,6 @@ import { useUser } from '@auth0/nextjs-auth0';
 import Question from './Question';
 import Button from './Button';
 import axios from 'axios';
-import Banner from './Banner';
 import { useTranslation } from 'react-i18next';
 import BackButton from './BackButton';
 import { useRouter } from 'next/router';
@@ -20,10 +19,6 @@ const Feed = () => {
 	const [OutOfQuestions, SetOutOfQuestions] = useState<boolean>();
 	const [CurrentQuestion, SetCurrentQuestion] = useState<any>(null);
 	const [AnswerText, SetAnswerText] = useState("");
-
-	// Report result
-	// const [reportResultMessage, setReportResultMessage] = useState('');
-	// const [reportResultInfo, setReportResultInfo] = useState('');
 
 	const [ModalStatus, setModalStatus] = useState<ModalStatus>();
     const [ModalOpen, setModalOpen] = useState<boolean>(false)
@@ -134,6 +129,7 @@ const Feed = () => {
 		SetAnswerText(e.target.value.trim());
 	};
 
+	
 	// Report question
 	const reportQuestion = () => {
 		const data = {
@@ -146,7 +142,10 @@ const Feed = () => {
 				// TODO: send reported user name
 				name: ""
 			},
-			reportedContent: CurrentQuestion.content,
+			reportedContent: {
+				id: CurrentQuestion.id?.toString(),
+				content: CurrentQuestion.content
+			},
 			question: {
 				id: CurrentQuestion.id?.toString(),
 				content: CurrentQuestion.content
@@ -154,11 +153,8 @@ const Feed = () => {
 		};
 		
 		axios
-			.post('/api/reportQuestion', data)
+			.post('/api/reportService/reportContent', data)
 			.then((res: any) => {
-				// setReportResultMessage('Report');
-				// setReportResultInfo('Question was successfully reported');
-
 				// Skip question when reported by user.
 				ProgressBookmark();
 
@@ -167,19 +163,12 @@ const Feed = () => {
                 setModalText(t("You have successfully reported the question."));
 			})
 			.catch((err) => {
-				// setReportResultMessage('Report');
-				// setReportResultInfo(err.message);
-
 				setModalOpen(true);
                 setModalStatus(1);
                 setModalText(t("Something went wrong in reporting this question."));
 			});
 	};
 
-	// const onBannerClose = () => {
-	// 	setReportResultMessage('');
-	// 	setReportResultInfo('');
-	// };
 
 	return (
 		<div className="bg-gray-700 flex flex-col h-full">
@@ -241,14 +230,6 @@ const Feed = () => {
 						</div>
 					</div>
 				</div>
-
-				{/* Report result */}
-				{/* {reportResultMessage && (
-					<Banner
-						message={reportResultMessage}
-						additionalInfo={reportResultInfo}
-						onCloseClick={onBannerClose} />
-				)} */}
 			</div>
 
 			{CurrentQuestion?.fileName && showFullImage && (
