@@ -53,14 +53,25 @@ builder.Services
         };
     });
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddDefaultPolicy(builder =>
+//    {
+//        builder
+//            .AllowAnyOrigin()
+//            .AllowAnyHeader()
+//            .AllowAnyMethod();
+//    });
+//});
+
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddPolicy("AllowedOrigin",
+    b =>
     {
-        builder
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        b.AllowAnyOrigin();
+        b.AllowAnyHeader();
+        b.AllowAnyMethod();  
     });
 });
 
@@ -68,7 +79,8 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-app.UseCors();
+//app.UseCors();
+app.UseCors("AllowedOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
