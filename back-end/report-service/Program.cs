@@ -20,6 +20,18 @@ string connectionString = Environment.GetEnvironmentVariable("DbConnectionString
 string databaseName = Environment.GetEnvironmentVariable("DbName");
 string reportsCollectionName = Environment.GetEnvironmentVariable("DbReportCollectionName");
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowedOrigin",
+    b =>
+    {
+        b.AllowAnyOrigin();
+        b.AllowAnyHeader();
+        b.AllowAnyMethod();  
+    });
+});
+
+
 // DB Settings
 builder.Services.AddSingleton(new ReportsDatabaseSettings(
 	connectionString, databaseName, reportsCollectionName
@@ -64,23 +76,11 @@ builder.Services
 //    });
 //});
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowedOrigin",
-    b =>
-    {
-        b.AllowAnyOrigin();
-        b.AllowAnyHeader();
-        b.AllowAnyMethod();  
-    });
-});
-
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
 //app.UseCors();
-app.UseCors("AllowedOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -90,6 +90,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors("AllowedOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
