@@ -22,12 +22,12 @@ string reportsCollectionName = Environment.GetEnvironmentVariable("DbReportColle
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowedOrigin",
-    b =>
+    options.AddDefaultPolicy(builder =>
     {
-        b.AllowAnyOrigin();
-        b.AllowAnyHeader();
-        b.AllowAnyMethod();  
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
@@ -80,18 +80,17 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-//app.UseCors();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+	app.UseHsts();
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors("AllowedOrigin");
+app.UseCors("");
 
 app.UseAuthentication();
 app.UseAuthorization();
