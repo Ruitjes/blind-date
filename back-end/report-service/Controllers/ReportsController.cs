@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace report_service.Controllers
 {
-	[Route("[controller]")]
 	[ApiController]
+	[Route("[controller]")]
 	public class ReportsController : ControllerBase
 	{
 		private readonly IReportsService _service;
@@ -64,11 +64,11 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
+		public async Task<IEnumerable<ReportReadDto>> GetReports()
 		{
 			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
 
-			return Ok(reports);
+			return reports;
 		}
 		
 		[HttpPatch("{id}")]
