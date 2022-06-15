@@ -43,6 +43,8 @@ const Feed = () => {
 		
 		// Fetch questions and set state
 		getQuestion();
+		
+		getReports();
 	}, []);
 
 	const ProgressBookmark = () => {
@@ -166,6 +168,18 @@ const Feed = () => {
 				setModalOpen(true);
                 setModalStatus(1);
                 setModalText(t("Something went wrong in reporting this question."));
+			});
+	};
+
+	// Get reports
+	const getReports = () => {
+		axios
+			.get('/api/reportService/getAll')
+			.then((res: any) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
 			});
 	};
 
