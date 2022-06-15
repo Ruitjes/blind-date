@@ -1,9 +1,9 @@
-﻿namespace profile_service.Configurations
+﻿namespace report_service.Configurations
 {
     public interface IAuth0Settings
     {
-        string? Audience { get; set; }
+        string Audience { get; set; }
 
-        string? Authority { get; set; }
+        string Authority { get; set; }
     }
 }
