@@ -45,9 +45,9 @@ namespace report_service.Controllers
 			//	return Unauthorized();
 			//}
 
-			if(await _service.ReportExists(reportModel)) {
-				return Conflict("Content was already reported");
-			}
+			//if(await _service.ReportExists(reportModel)) {
+			//	return Conflict("Content was already reported");
+			//}
 
 			// create report
 			var report = await _service.CreateAsync(reportModel);
