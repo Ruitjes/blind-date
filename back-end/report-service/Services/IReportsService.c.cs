@@ -6,7 +6,7 @@ namespace report_service.Services
 	{
 		public Task<Report> GetAsync(string id);
 
-		public Task CreateAsync(Report report);
+		public Task<Report> CreateAsync(Report report);
 
 		public string GetUserByJWTToken();
     
