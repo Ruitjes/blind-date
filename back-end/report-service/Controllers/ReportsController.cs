@@ -63,11 +63,11 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IEnumerable<ReportReadDto>> GetReports()
+		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
 		{
 			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
 
-			return reports;
+			return Ok(reports);
 		}
 		
 		[HttpPatch("{id}")]
