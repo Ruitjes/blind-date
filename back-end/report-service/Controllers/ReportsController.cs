@@ -37,7 +37,7 @@ namespace report_service.Controllers
 		[HttpPost]
 		public async Task<ActionResult<ReportReadDto>> CreateReport(ReportCreateDto reportCreateDto)
 		{
-			string reporterId = _service.GetUserByJWTToken();
+			//string reporterId = _service.GetUserByJWTToken();
 
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
