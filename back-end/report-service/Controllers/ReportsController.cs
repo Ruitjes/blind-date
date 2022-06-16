@@ -50,10 +50,10 @@ namespace report_service.Controllers
 			}
 
 			// create report
-			await _service.CreateAsync(reportModel);
+			var report = await _service.CreateAsync(reportModel);
 
 			// get report read dto and return it to user
-			var reportReadDto = _mapper.Map<ReportReadDto>(reportModel);
+			var reportReadDto = _mapper.Map<ReportReadDto>(report);
 
 			return CreatedAtRoute(
 				nameof(GetReportById),
