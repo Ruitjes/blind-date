@@ -1,6 +1,7 @@
 using report_service.Data;
 using report_service.Models;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace report_service.Services
 {
@@ -28,9 +29,13 @@ namespace report_service.Services
 			return await _reportsCollection.Find(s => true).ToListAsync();
 		}
 
-		public async Task CreateAsync(Report report)
+		public async Task<Report> CreateAsync(Report report)
 		{
+			report.Id = ObjectId.GenerateNewId().ToString();
+
 			await _reportsCollection.InsertOneAsync(report);
+
+			return report;
 		}
 
 		/// <summary>
