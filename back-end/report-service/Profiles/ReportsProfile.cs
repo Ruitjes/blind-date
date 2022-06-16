@@ -15,6 +15,8 @@ namespace report_service.Profiles
 			CreateMap<User, UserDto>();
 			CreateMap<QuestionDto, Question>();
 			CreateMap<Question, QuestionDto>();
+			CreateMap<ReportedContentDto, ReportedContent>();
+			CreateMap<ReportedContent, ReportedContentDto>();
 		}
 	}
 }

@@ -10,8 +10,10 @@ namespace report_service.Services
 
 		public string GetUserByJWTToken();
     
-		public Task<IEnumerable<Report>> GetAllAsync();
+		public Task<List<Report>> GetAllAsync();
 
 		public Task HandleAsync(Report report, Status newStatus);
+
+		public Task<bool> ReportExists(Report report);
 	}
 }

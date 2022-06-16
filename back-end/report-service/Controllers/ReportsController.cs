@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace report_service.Controllers
 {
-	[Route("[controller]")]
 	[ApiController]
+	[Route("[controller]")]
 	public class ReportsController : ControllerBase
 	{
 		private readonly IReportsService _service;
@@ -42,6 +42,14 @@ namespace report_service.Controllers
 
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
+			if(reportModel.Reporter.Id != reporterId) {
+				return Unauthorized();
+			}
+
+			if(await _service.ReportExists(reportModel)) {
+				return Conflict("Content was already reported");
+			}
+
 			// create report
 			await _service.CreateAsync(reportModel);
 
@@ -56,11 +64,11 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
+		public async Task<IEnumerable<ReportReadDto>> GetReports()
 		{
 			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
 
-			return Ok(reports);
+			return reports;
 		}
 		
 		[HttpPatch("{id}")]

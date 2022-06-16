@@ -18,17 +18,12 @@ namespace report_service.Services
 			_httpContext = httpContext;
 		}
 
-		public async Task<List<Report>> GetAsync()
-		{
-			return await _reportsCollection.Find(x => true).ToListAsync();
-		}
-
 		public async Task<Report> GetAsync(string id)
 		{
 			return await _reportsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 		}
 		
-		public async Task<IEnumerable<Report>> GetAllAsync()
+		public async Task<List<Report>> GetAllAsync()
 		{
 			return await _reportsCollection.Find(s => true).ToListAsync();
 		}
@@ -57,6 +52,15 @@ namespace report_service.Services
 			var userFromJWT = _httpContext.HttpContext.User;
 			var userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
 			return userIdentifier;
+		}
+
+		public async Task<bool> ReportExists(Report report) {
+			return await _reportsCollection
+				.Find(r => 
+					r.Reporter.Id == report.Reporter.Id && r.Reported.Id == report.Reported.Id && 
+					r.ReportedContent == report.ReportedContent && r.Question.Id == report.Question.Id
+				)
+				.FirstOrDefaultAsync() != null;
 		}
 	}
 }

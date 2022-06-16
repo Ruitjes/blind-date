@@ -6,15 +6,15 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionsService {
+export class AnswersService {
   url: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.apiUrlQuestions;
+    this.url = environment.apiUrlAnswers;
   }
 
-  deleteQuestion(id: string) {
-    return this.http.delete(this.url + '/DeleteQuestion?id=' + id)
+  deleteAnswer(id: string) {
+    return this.http.put(this.url + '/deleteAnswer/' + id, null)
     .pipe(
       map(
         response => response
