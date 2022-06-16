@@ -55,6 +55,12 @@ namespace report_service.Services
 		public string GetUserByJWTToken()
 		{
 			var userFromJWT = _httpContext.HttpContext.User;
+
+			// if there is no token
+			if(userFromJWT == null) {
+				return null;
+			}
+
 			var userIdentifier = userFromJWT.Claims.Where(claim => claim.Type.Contains("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")).FirstOrDefault().Value;
 			return userIdentifier;
 		}
