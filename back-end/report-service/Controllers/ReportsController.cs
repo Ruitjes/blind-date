@@ -37,17 +37,17 @@ namespace report_service.Controllers
 		[HttpPost]
 		public async Task<ActionResult<ReportReadDto>> CreateReport(ReportCreateDto reportCreateDto)
 		{
-			//string reporterId = _service.GetUserByJWTToken();
+			string reporterId = _service.GetUserByJWTToken();
 
 			var reportModel = _mapper.Map<Report>(reportCreateDto);
 
-			//if(reportModel.Reporter.Id != reporterId) {
-			//	return Unauthorized();
-			//}
+			if(reportModel.Reporter.Id != reporterId) {
+				return Unauthorized();
+			}
 
-			//if(await _service.ReportExists(reportModel)) {
-			//	return Conflict("Content was already reported");
-			//}
+			if(await _service.ReportExists(reportModel)) {
+				return Conflict("Content was already reported");
+			}
 
 			// create report
 			var report = await _service.CreateAsync(reportModel);
