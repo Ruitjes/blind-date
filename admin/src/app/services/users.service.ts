@@ -21,13 +21,4 @@ export class UsersService {
       )
     )
   }
-
-  getUsers() {
-    return this.http.get(this.url + '/profile/GetAllProfiles')
-    .pipe(
-      map(
-        response => response
-      )
-    )
-  }
 }

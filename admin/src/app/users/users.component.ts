@@ -17,13 +17,9 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'role', 'delete'];
   users = ELEMENT_DATA;
 
-  constructor(private usersService: UsersService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.usersService.getUsers()
-      .subscribe(data => {
-        console.log(data);
-      })
   }
 
 }
