@@ -18,17 +18,12 @@ namespace report_service.Services
 			_httpContext = httpContext;
 		}
 
-		public async Task<List<Report>> GetAsync()
-		{
-			return await _reportsCollection.Find(x => true).ToListAsync();
-		}
-
 		public async Task<Report> GetAsync(string id)
 		{
 			return await _reportsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 		}
 		
-		public async Task<IEnumerable<Report>> GetAllAsync()
+		public async Task<List<Report>> GetAllAsync()
 		{
 			return await _reportsCollection.Find(s => true).ToListAsync();
 		}
