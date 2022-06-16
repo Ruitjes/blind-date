@@ -21,7 +21,6 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet("{id:length(24)}", Name = "GetReportById")]
-		[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ReportReadDto>> GetReportById(string id)
 		{
 			var reportItem = await _service.GetAsync(id);

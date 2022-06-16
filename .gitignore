@@ -392,3 +392,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 back-end/.DS_Store
+
+
+/back-end/.dccache
