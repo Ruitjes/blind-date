@@ -38,10 +38,10 @@ const CreateProfile = () => {
             id: "",
             name: name,
             gender: gender,
-            language: language,
+            language: language?.length < 1 ? "en-US" : language,
             interests: interests,
             birthdate: new Date(birthdate),
-            visualHandicapLevel: visualHandicapLevel,
+            visualHandicapLevel: visualHandicapLevel?.length < 1 ? "None" : visualHandicapLevel,
             oAuthIdentifier: user?.sub?.toString(),
         }
 
