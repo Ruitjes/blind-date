@@ -80,12 +80,14 @@ const CreateProfile = () => {
 
                             <FormInput
                                 value={name}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Display name")}
                                 onChange={(e) => { setName(e.target.value) }} />
 
                             <FormInput
                                 type="date"
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Date of birth")}
                                 defaultValue={birthdate.split('T')[0]}
@@ -94,6 +96,7 @@ const CreateProfile = () => {
 
                             <FormInput
                                 value={gender}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Gender")}
                                 onChange={(e) => { setGender(e.target.value) }}
@@ -114,8 +117,8 @@ const CreateProfile = () => {
                                 loading={loading}
                                 label={t(loading ? "" : "Language")}
                                 onChange={(e) => { setLanguage(e.target.value) }}>
-                                <option value="en-US">{t("English")} 🇬🇧</option>
-                                <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
+                                <option aria-label={t("English")} value="en-US">{t("English")} 🇬🇧</option>
+                                <option aria-label={t("Dutch")} value="nl-NL">{t("Dutch")} 🇳🇱</option>
                             </FormSelect>
 
                             <FormTags

@@ -110,31 +110,34 @@ const UpdateProfile = () => {
                     <div className="flex flex-col mt-4 mb-6">
                         <FormWrapper onSave={updateProfile} onDelete={deleteProfile}>
 
-                            <FormInput
+                        <FormInput
                                 value={name}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Display name")}
                                 onChange={(e) => { setName(e.target.value) }} />
 
                             <FormInput
                                 type="date"
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Date of birth")}
-                                value={birthdate.split("T")[0]}
+                                defaultValue={birthdate.split('T')[0]}
                                 onChange={(e) => { setBirthdate(e.target.value) }}
                             />
 
                             <FormInput
                                 value={gender}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Gender")}
                                 onChange={(e) => { setGender(e.target.value) }}
                             />
 
                             <FormSelect
+                                loading={loading}
                                 value={visualHandicapLevel}
                                 label={t(loading ? "" : "Visual Handicap Level")}
-                                loading={loading}
                                 onChange={(e) => { setVisualHandicapLevel(e.target.value) }}>
                                 <option value="None">{t("None")}</option>
                                 <option value="Half">{t("Half")}</option>
@@ -146,8 +149,8 @@ const UpdateProfile = () => {
                                 loading={loading}
                                 label={t(loading ? "" : "Language")}
                                 onChange={(e) => { setLanguage(e.target.value) }}>
-                                <option value="en-US">{t("English")} 🇬🇧</option>
-                                <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
+                                <option aria-label={t("English")} value="en-US">{t("English")} 🇬🇧</option>
+                                <option aria-label={t("Dutch")} value="nl-NL">{t("Dutch")} 🇳🇱</option>
                             </FormSelect>
 
                             <FormTags
