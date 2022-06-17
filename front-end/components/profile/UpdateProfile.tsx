@@ -98,7 +98,6 @@ const UpdateProfile = () => {
     useEffect(() => { changeLanguage(language); }, [language]);
     useEffect(() => {
         if (profile) {
-            console.log(profile);
             setName(profile.name);
             setGender(profile.gender);
             setLanguage(profile.language);
