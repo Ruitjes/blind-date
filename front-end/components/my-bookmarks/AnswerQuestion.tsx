@@ -56,7 +56,7 @@ const AnswerQuestion = (props: Props) => {
 				gender: 'other',
 				age: '99',
 			},
-			content: AnswerText,
+			content: AnswerText?.trim(),
 			questionId: CurrentQuestion.questionId?.toString(),
 		};
 
@@ -91,7 +91,7 @@ const AnswerQuestion = (props: Props) => {
 	};
 
 	const handleAnswerTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		SetAnswerText(e.target.value.trim());
+		SetAnswerText(e.target.value);
 	};
 
 	// Report question
@@ -179,7 +179,7 @@ const AnswerQuestion = (props: Props) => {
 								ariaLabel={t("Reply to the question")}
 								icon="share"
 								color="slategrey"
-                                disabled={loading ? true : OutOfQuestions ? true : AnswerText?.length < 1 ? true : false}
+                                disabled={loading ? true : OutOfQuestions ? true : AnswerText?.trim()?.length < 1 ? true : false}
 								onClick={answerQuestion} />
 						</div>
 					</div>
