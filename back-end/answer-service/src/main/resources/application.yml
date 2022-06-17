@@ -6,7 +6,15 @@ spring:
     addresses: ${env.RabbitMQ_URI}
   main:
     allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${env.AUTH0_AUTHORITY}
 server:
   port: 9092
-
-
+auth0:
+  audience: ${env.AUTH0_AUDIENCE}
+.env:
+  directory: "../../"
+  filename: ".env"
