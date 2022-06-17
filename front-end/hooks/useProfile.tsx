@@ -17,8 +17,8 @@ type Profile = {
 type ProfileProviderValues = {
     error?: AxiosError;
     loading: boolean;
-    profile?: Profile;
-    setProfile: Dispatch<SetStateAction<Profile | undefined>>;
+    profile?: Profile | null;
+    setProfile: Dispatch<SetStateAction<Profile | null | undefined>>;
 }
 
 export const ProfileContext = createContext<ProfileProviderValues>({ loading: true, setProfile: () => { }});
@@ -32,8 +32,8 @@ export const ProfileProvider = ({ children }: any) => {
     const router = useRouter();
     const { i18n } = useTranslation();
     const [error, setError] = useState<AxiosError>();
-    const [profile, setProfile] = useState<Profile>();
     const [loading, setLoading] = useState<boolean>(true);
+    const [profile, setProfile] = useState<Profile | null>();
 
     useEffect(() => {
         axios.get<Profile>("/api/profileService/getProfile/")
@@ -41,8 +41,10 @@ export const ProfileProvider = ({ children }: any) => {
             .catch(async (error: AxiosError) => {
                 if (error.response?.status === 404) {
                     await router.push("/profile");
+                    setProfile(null);
+                } else {
+                    setError(error);
                 }
-                setError(error);
             })
             .finally(() => setLoading(false));
     }, []);
