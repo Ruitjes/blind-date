@@ -32,7 +32,8 @@ const CreateProfile = () => {
     const [interest, setInterest] = useState<string>("");
     const [visualHandicapLevel, setVisualHandicapLevel] = useState<string>("");
 
-    const createProfile = () => {
+    const createProfile = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         const createDto = {
             id: "",
             name: name,

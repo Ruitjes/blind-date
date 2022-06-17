@@ -34,7 +34,8 @@ const UpdateProfile = () => {
     const [interest, setInterest] = useState<string>("");
     const [visualHandicapLevel, setVisualHandicapLevel] = useState<string>("");
 
-    const updateProfile = () => {
+    const updateProfile = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         const updateDto = {
             id: "",
             name: name,
