@@ -159,7 +159,7 @@ const AskQuestionPage = () => {
                                     <FormSelect value={interest} onChange={(e) => {setInterest(e.target.value)}} labelStyle="text-gray-700 text-2xl leading-tight" label={t("Linked Interest")} >
                                         {profile?.interests != null && profile?.interests?.length > 0 ? 
                                         <>
-                                        <option value="">None</option>
+                                        <option value="">{t("None")}</option>
                                         {profile?.interests.map((interest: string, id: number) => { return (
                                             <option value={interest}>{interest}</option>
                                         )})}
