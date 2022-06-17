@@ -7,6 +7,7 @@ import Loading from "../Loading";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import BackButton from "../BackButton";
+import Suppress from "../Suppress";
 
 const MyQuestionsPage = () => {
 
@@ -19,17 +20,15 @@ const MyQuestionsPage = () => {
 
     useEffect(() => {
 
-		// Do some user stuff
-		checkSession();
-		if(user != undefined)
-		{
-			const profileCreated = user.nickname;
-			if(profileCreated != "True")
-			{
-				// Stans modal here
-				// router.push('/profile');
-			}
-		}
+        // Do some user stuff
+        checkSession();
+        if (user != undefined) {
+            const profileCreated = user.nickname;
+            if (profileCreated != "True") {
+                // Stans modal here
+                // router.push('/profile');
+            }
+        }
 
         const fetchQuestionsByUser = () => {
 
@@ -45,33 +44,35 @@ const MyQuestionsPage = () => {
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
-                <BackButton navPage="/" />
-                <div className="flex flex-col flex-grow w-full max-w-sm">
+                <Suppress cssOverride="bg-black/50">
+                    <BackButton navPage="/" />
+                    <div className="flex flex-col flex-grow w-full max-w-sm">
 
-                    <div className="flex flex-col py-1">
-                        <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
-                            <Header center text={t("Your questions")} />
+                        <div className="flex flex-col py-1">
+                            <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
+                                <Header center text={t("Your questions")} />
+                            </div>
                         </div>
-                    </div>
 
-                    {
-                        data && data.map((question: any, index: number) => {
+                        {
+                            data && data.map((question: any, index: number) => {
 
-                            const handleQuestionPressed = () => {
-                                router.push(`/myAnswers/${question.id}`)
-                            }
+                                const handleQuestionPressed = () => {
+                                    router.push(`/myAnswers/${question.id}`)
+                                }
 
-                            return (
-                                <div key={index} className="flex flex-col py-1">
-                                    <div className="flex flex-row info-card items-center drop-shadow-lg">
-                                        <MyQuestion question={question} onClick={handleQuestionPressed}/>
+                                return (
+                                    <div key={index} className="flex flex-col py-1">
+                                        <div className="flex flex-row info-card items-center drop-shadow-lg">
+                                            <MyQuestion question={question} onClick={handleQuestionPressed} />
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
 
-                </div>
+                    </div>
+                </Suppress>
             </div>
 
             {loading && (
@@ -80,7 +81,7 @@ const MyQuestionsPage = () => {
                 </div>
             )}
 
-            { error && (
+            {error && (
                 <div className="absolute flex justify-center items-center inset-0 bg-black/50">
                     <h1 className="text-white">{error.message}</h1>
                 </div>

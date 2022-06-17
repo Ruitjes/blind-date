@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import BackButton from "../BackButton";
 import Modal from '../modal/Modal';
 import { ModalStatus } from '../../global/types';
+import Suppress from "../Suppress";
 
 type Props = {
     question: {
@@ -87,31 +88,33 @@ const MyAnswersPage = (props: Props) => {
     return (
         <div className='bg-gray-700 flex flex-col h-full'>
             <div className="flex flex-col flex-grow items-center p-4 bg-blue-500">
-                <BackButton navPage="/myQuestions" />
-                <div className="flex flex-col flex-grow w-full max-w-sm">
+                <Suppress cssOverride="bg-black/50">
+                    <BackButton navPage="/myQuestions" />
+                    <div className="flex flex-col flex-grow w-full max-w-sm">
 
-                    <div className="flex flex-col mt-4 mb-6">
-                        <div className="flex flex-col flex-grow p-4">
-                            <Question text={question?.content} loading={questionLoading} />
+                        <div className="flex flex-col mt-4 mb-6">
+                            <div className="flex flex-col flex-grow p-4">
+                                <Question text={question?.content} loading={questionLoading} />
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="flex flex-col flex-grow p-6 -mx-4 -mb-6">
-                        {answers?.length === 0 && <h1>{t("No answers found")}</h1>}
-                        <div className="flex flex-col shadow-lg drop-shadow-lg bg-white rounded-lg">
-                            {
-                                answers && answers.map((answer: any, index: number) => (
-                                    <div key={index} className="flex flex-col py-1">
-                                        <div className="flex flex-row items-center">
-                                            <MyAnswer answer={answer} onReportAnswer={reportAnswer} />
+                        <div className="flex flex-col flex-grow p-6 -mx-4 -mb-6">
+                            {answers?.length === 0 && <h1>{t("No answers found")}</h1>}
+                            <div className="flex flex-col shadow-lg drop-shadow-lg bg-white rounded-lg">
+                                {
+                                    answers && answers.map((answer: any, index: number) => (
+                                        <div key={index} className="flex flex-col py-1">
+                                            <div className="flex flex-row items-center">
+                                                <MyAnswer answer={answer} onReportAnswer={reportAnswer} />
+                                            </div>
+                                            { index < answers.length - 1 && <hr/>}
                                         </div>
-                                        { index < answers.length - 1 && <hr/>}
-                                    </div>
-                                ))
-                            }
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Suppress>
             </div>
 
             {questionLoading || answersLoading && (
