@@ -39,11 +39,11 @@ namespace question_service.Services
             //Could make a shorthand operator inside the find to shorten the amount of lines. but that would make it unreadable.
             if (bookmark == null)
             {
-                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == lang).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == lang && s.Deleted != true).FirstOrDefaultAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == lang).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == lang && s.Deleted != true).SortBy(s => s.Id).Limit(1).FirstOrDefaultAsync();
             }
         }
 
@@ -51,16 +51,19 @@ namespace question_service.Services
         {
             Profile? userProfile = await _externalServices.GetProfileWithUserIdentifierAsync(userIdentifier);
             List<string?> interests = userProfile?.Interests as List<string?> ?? new List<string?>();
-            interests.Add(null); // Allow for questions with no linked interest to still show in people's feed.
+            // Allow for questions with no linked interest to still show in people's feed.
+            interests.Add(string.Empty);
+            interests.Add(null);
 
+            string lang = userProfile?.Language ?? "en-US";
 
             if (bookmark == null)
             {
-                return await _questions.Find(s => true && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == userProfile.Language).Limit(5).ToListAsync();
+                return await _questions.Find(s => true && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == lang && s.Deleted != true).Limit(5).ToListAsync();
             }
             else
             {
-                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == userProfile.Language).Limit(5).ToListAsync();
+                return await _questions.Find(s => s.Id > bookmark && s.UserIdentifier != userIdentifier && interests.Contains(s.LinkedInterest) && s.Language == lang && s.Deleted != true).Limit(5).ToListAsync();
             }
         }
 
