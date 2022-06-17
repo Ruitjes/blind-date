@@ -21,6 +21,7 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet("{id:length(24)}", Name = "GetReportById")]
+		[Authorize(Roles = "Admin")]
         public async Task<ActionResult<ReportReadDto>> GetReportById(string id)
 		{
 			var reportItem = await _service.GetAsync(id);
@@ -35,6 +36,7 @@ namespace report_service.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public async Task<ActionResult<ReportReadDto>> CreateReport(ReportCreateDto reportCreateDto)
 		{
 			string userIdentifier = _service.GetUserByJWTToken();
@@ -63,6 +65,7 @@ namespace report_service.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult<IEnumerable<ReportReadDto>>> GetReports()
 		{
 			var reports = _mapper.Map<IEnumerable<ReportReadDto>>(await _service.GetAllAsync());
@@ -71,6 +74,7 @@ namespace report_service.Controllers
 		}
 		
 		[HttpPatch("{id}")]
+		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult> HandleReport(string id, [FromBody] string newStatus)
 		{
 			var report = await _service.GetAsync(id);
