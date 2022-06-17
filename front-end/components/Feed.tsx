@@ -58,11 +58,13 @@ const Feed = () => {
 	};
 
 	const getQuestion = () => {
+		setLoading(true);
 		axios
 			.get(`api/getQuestionForUser/${user!.sub}`)
 			.then((res: any) => {
 				SetCurrentQuestion(res.data);
-				SetOutOfQuestions(!res.data.content)
+				SetOutOfQuestions(!res.data.content);
+				setLoading(false);
 			})
 			.catch((error) => setError(error))
             .finally(() => setLoading(false));
