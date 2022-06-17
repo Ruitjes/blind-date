@@ -102,8 +102,6 @@ const UpdateProfile = () => {
             setGender(profile.gender);
             setLanguage(profile.language);
             setInterests(profile.interests);
-            console.log(profile.birthdate.split("T")[0]);
-            console.log(profile);
             setBirthdate(profile.birthdate);
             setVisualHandicapLevel(profile.visualHandicapLevel);
         }

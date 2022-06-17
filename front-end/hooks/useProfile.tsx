@@ -34,18 +34,32 @@ export const ProfileProvider = ({ children }: any) => {
     const [error, setError] = useState<AxiosError>();
     const [profile, setProfile] = useState<Profile>();
     const [loading, setLoading] = useState<boolean>(true);
+    const [firstRunDone, setFirstRunDone] = useState<boolean>(false);
+
+    const getProfileFromApi = () => {
+        axios.get<Profile>("/api/profileService/getProfile/")
+        .then((response: AxiosResponse) => setProfile(response.data))
+        .catch(async (error: AxiosError) => {
+            if (error.response?.status === 404) {
+                await router.push("/profile");
+            }
+            setError(error);
+        })
+        .finally(() => setLoading(false));
+    };
 
     useEffect(() => {
-        axios.get<Profile>("/api/profileService/getProfile/")
-            .then((response: AxiosResponse) => setProfile(response.data))
-            .catch(async (error: AxiosError) => {
-                if (error.response?.status === 404) {
-                    await router.push("/profile");
-                }
-                setError(error);
-            })
-            .finally(() => setLoading(false));
-    }, []);
+        setError(undefined);
+
+        if(!firstRunDone)
+        {
+            getProfileFromApi();
+        }
+        else if(firstRunDone && router.pathname == "/")
+        {
+            getProfileFromApi();
+        }
+    }, [router.pathname]);
 
     useEffect(() => {
         if (profile) {
