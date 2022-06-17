@@ -26,6 +26,7 @@ import {
     ModalStatus
 } from '../../global/types';
 import Suppress from "../Suppress";
+import FormSelect from "../form/FormSelect";
 
 const AskQuestionPage = () => {
     const { user } = useUser();
@@ -33,6 +34,7 @@ const AskQuestionPage = () => {
 
     const [loading, setLoading] = useState<boolean>();
     const [text, setText] = useState<string>();
+    const [interest, setInterest] = useState<string>("");
     const [file, setFile] = useState<File>();
 
     const [ModalStatus, setModalStatus] = useState<ModalStatus>();
@@ -50,7 +52,7 @@ const AskQuestionPage = () => {
     }
 
     useEffect(() => {
-        document.title = "Ask a question page";
+        document.title = t("Ask a question page");
     }, []);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,7 +70,7 @@ const AskQuestionPage = () => {
                     await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
 
-                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: profile?.language }
+                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: profile?.language, linkedInterest: interest }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
 
                 setModalOpen(true);
@@ -149,6 +151,21 @@ const AskQuestionPage = () => {
                                         </div>
                                     </div>
                                     <input type='file' className="h-0" onChange={handleFileChanged} accept=".png, .jpg, .jpeg" />
+                                </label>
+                            </div>
+
+                            <div className="flex flex-col py-1">
+                                <label className="flex flex-col info-card p-4 drop-shadow-lg">
+                                    <FormSelect value={interest} onChange={(e) => {setInterest(e.target.value)}} labelStyle="text-gray-700 text-2xl leading-tight" label={t("Linked Interest")} >
+                                        {profile?.interests != null && profile?.interests?.length > 0 ? 
+                                        <>
+                                        <option value="">None</option>
+                                        {profile?.interests.map((interest: string, id: number) => { return (
+                                            <option value={interest}>{interest}</option>
+                                        )})}
+                                        </>
+                                          : <option value="">None</option>}   
+                                    </FormSelect>
                                 </label>
                             </div>
 
