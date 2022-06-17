@@ -45,7 +45,7 @@ const MyQuestionsPage = () => {
                         </div>
 
                         {
-                            data && data.map((question: any, index: number) => {
+                            data?.length > 0 ? data.map((question: any, index: number) => {
                                 return (
                                     <div key={index} className="flex flex-col py-1">
                                         <div className="flex flex-row info-card items-center drop-shadow-lg">
@@ -53,7 +53,10 @@ const MyQuestionsPage = () => {
                                         </div>
                                     </div>
                                 )
-                            })
+                            }) :                 
+                            <div className="absolute flex justify-center items-center inset-0">
+                            <h1 className="text-white">{t("You have no bookmarks")}</h1>
+                        </div>
                         }
 
                     </div>

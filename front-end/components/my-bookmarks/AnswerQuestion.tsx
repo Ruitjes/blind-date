@@ -8,6 +8,8 @@ import Loading from '../Loading';
 import { useTranslation } from 'react-i18next';
 import BackButton from '../BackButton';
 import Router, { useRouter } from 'next/router';
+import Modal from '../modal/Modal';
+import { ModalStatus } from '../../global/types';
 
 type Props = {
     question: {
@@ -26,6 +28,11 @@ const AnswerQuestion = (props: Props) => {
 	const [CurrentQuestion, SetCurrentQuestion] = useState<any>(null);
 	const [AnswerText, SetAnswerText] = useState("");
 
+	const [ModalStatus, setModalStatus] = useState<ModalStatus>();
+	const [ModalOpen, setModalOpen] = useState<boolean>(false);
+	const [ModalText, setModalText] = useState<string>("");
+	const [RouterPath, setRouterPath] = useState<string>();
+
 	// Report result
 	const [reportResultMessage, setReportResultMessage] = useState('');
 	const [reportResultInfo, setReportResultInfo] = useState('');
@@ -43,7 +50,8 @@ const AnswerQuestion = (props: Props) => {
 			.get(`/api/getSavedQuestionById/${props.question.id}`)
 			.then((res: any) => {
 				SetCurrentQuestion(res.data);
-				SetOutOfQuestions(!res.data.content)
+				SetOutOfQuestions(!res.data.content);
+				SetAnswerText(res?.data?.answerText);
 			})
 			.catch((error) => setError(error))
             .finally(() => setLoading(false));
@@ -65,10 +73,17 @@ const AnswerQuestion = (props: Props) => {
 			.then((res: any) => {
 				SetAnswerText("");
 				removeSavedQuestion();
-				// Stan modal here.
-				router.push('/myBookmarks');
+				// Open modal, so user get's feedback
+				setModalOpen(true);
+				setModalStatus(0);
+				setModalText(t("You have successfully answered the question."));
+				setRouterPath("/myBookmarks");
 			})
 			.catch((err) => {
+				setModalOpen(true);
+				setModalStatus(1);
+				setModalText(t("Something went wrong in answering this question."));
+				setRouterPath(undefined);		
 				console.log(err);
 			});
 	};
@@ -78,10 +93,17 @@ const AnswerQuestion = (props: Props) => {
 		.delete(`/api/removeSavedQuestionById/${props.question.id}`)
 		.then((res: any) => {
 			SetAnswerText("");
-			// Stan modal here.
-			router.push('/myBookmarks');
+
+			setModalOpen(true);
+			setModalStatus(0);
+			setModalText(t("You have successfully answered the question."));
+			setRouterPath("/myBookmarks");
 		})
 		.catch((err) => {
+			setModalOpen(true);
+			setModalStatus(1);
+			setModalText(t("Something went wrong in answering this question."));
+			setRouterPath(undefined);
 			console.log(err);
 		});
 	};
@@ -205,6 +227,7 @@ const AnswerQuestion = (props: Props) => {
 						src={`https://seetrough.s3.eu-central-1.amazonaws.com/${CurrentQuestion.fileName}`} />
 				</div>
 			)}
+			<Modal routerPath={RouterPath} ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
 		</div>
 	);
 };
