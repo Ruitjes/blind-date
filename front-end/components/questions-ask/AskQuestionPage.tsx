@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import common_api from "../../utils/common_api";
 import { useUser } from '@auth0/nextjs-auth0';
-import { useRouter } from "next/router";
+import { useProfile } from "../../hooks/useProfile";
 import Loading from "../Loading";
 import { useTranslation } from "react-i18next";
 import BackButton from "../BackButton";
@@ -14,11 +14,10 @@ import Modal from "../modal/Modal";
 import { ModalStatus } from '../../global/types';
 
 const AskQuestionPage = () => {
-	const router = useRouter();
-	const { user,checkSession } = useUser();
-
+	const { user } = useUser();
+    const { profile } = useProfile();
+    
     const [loading, setLoading] = useState<boolean>();
-    const [preferredLanguage, setPreferredLanguage] = useState<any>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
@@ -38,32 +37,7 @@ const AskQuestionPage = () => {
 
     useEffect(() => {
       document.title = "Ask a question page";
-
-		// Do some user stuff
-		checkSession();
-		if(user != undefined)
-		{
-			const profileCreated = user.nickname;
-			if(profileCreated != "True")
-			{
-				// Stans modal here
-				// router.push('/profile');
-			}
-		}
-
-      getPreferredLanguage();
-    }, [])
-
-    const getPreferredLanguage = () => {
-        axios.get('api/profileService/getProfile/').then((response: any) => {
-            if(response.data == '' || response.data == null) {
-                router.push('/profile')
-            }
-
-            setPreferredLanguage(response.data.language);
-
-            }).catch((err) => { console.log(err); });
-    }
+    }, []);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -80,7 +54,7 @@ const AskQuestionPage = () => {
                     await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
                 
-                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: preferredLanguage }
+                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: profile?.language }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
                 
                 setModalOpen(true);
