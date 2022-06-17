@@ -27,7 +27,7 @@ const Feed = () => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		document.title = 'Answer the question';
+		document.title = t('Answer questions page');
 
 		// Do some user stuff
 		checkSession();
@@ -58,11 +58,13 @@ const Feed = () => {
 	};
 
 	const getQuestion = () => {
+		setLoading(true);
 		axios
 			.get(`api/getQuestionForUser/${user!.sub}`)
 			.then((res: any) => {
 				SetCurrentQuestion(res.data);
-				SetOutOfQuestions(!res.data.content)
+				SetOutOfQuestions(!res.data.content);
+				setLoading(false);
 			})
 			.catch((error) => setError(error))
             .finally(() => setLoading(false));
@@ -99,7 +101,7 @@ const Feed = () => {
 				gender: 'other',
 				age: '99',
 			},
-			content: AnswerText,
+			content: AnswerText?.trim(),
 			questionId: CurrentQuestion.id?.toString(),
 		};
 
@@ -126,7 +128,7 @@ const Feed = () => {
 	};
 
 	const handleAnswerTextChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		SetAnswerText(e.target.value.trim());
+		SetAnswerText(e.target.value);
 	};
 
 	
@@ -225,7 +227,7 @@ const Feed = () => {
 								ariaLabel={t("Reply to the question")}
 								icon="share"
 								color="slategrey"
-                                disabled={loading ? true : OutOfQuestions ? true : AnswerText?.length < 1 ? true : false}
+                                disabled={loading ? true : OutOfQuestions ? true : AnswerText?.trim()?.length < 1 ? true : false}
 								onClick={answerQuestion} />
 						</div>
 					</div>

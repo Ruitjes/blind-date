@@ -19,10 +19,10 @@ images:
   newTag: 7c6daefb39f2cad296b04df07457783a096dc420
 - name: profile-service
   newName: seethrough2022/profile-service
-  newTag: 7404706e9b587eb7e44abb3aeaf296138aa6b58b
+  newTag: 4d9decb78d1280edfad32f0883968dbd0da2346c
 - name: question-service
   newName: seethrough2022/question-service
-  newTag: 771ecef6cd59d3000911b774fb9a384ebd1c9e19
+  newTag: 6c002d2c8ee45bbdfae79ce78909efe47918f6dc
 - name: report-service
   newName: seethrough2022/report-service
   newTag: f9824a4872af2c48744be6e42a0cf0779340f74a

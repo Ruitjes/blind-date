@@ -32,7 +32,8 @@ const CreateProfile = () => {
     const [interest, setInterest] = useState<string>("");
     const [visualHandicapLevel, setVisualHandicapLevel] = useState<string>("");
 
-    const createProfile = () => {
+    const createProfile = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const createDto = {
             id: "",
             name: name,
@@ -76,16 +77,18 @@ const CreateProfile = () => {
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onSave={createProfile}>
+                        <FormWrapper title="Create profile" onSave={createProfile}>
 
                             <FormInput
                                 value={name}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Display name")}
                                 onChange={(e) => { setName(e.target.value) }} />
 
                             <FormInput
                                 type="date"
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Date of birth")}
                                 defaultValue={birthdate.split('T')[0]}
@@ -94,6 +97,7 @@ const CreateProfile = () => {
 
                             <FormInput
                                 value={gender}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Gender")}
                                 onChange={(e) => { setGender(e.target.value) }}
@@ -114,8 +118,8 @@ const CreateProfile = () => {
                                 loading={loading}
                                 label={t(loading ? "" : "Language")}
                                 onChange={(e) => { setLanguage(e.target.value) }}>
-                                <option value="en-US">{t("English")} 🇬🇧</option>
-                                <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
+                                <option aria-label={t("English")} value="en-US">{t("English")} 🇬🇧</option>
+                                <option aria-label={t("Dutch")} value="nl-NL">{t("Dutch")} 🇳🇱</option>
                             </FormSelect>
 
                             <FormTags

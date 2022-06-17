@@ -13,6 +13,7 @@ import FormWrapper from "../form/FormWrapper";
 import LogoutButton from "../LogoutButton";
 import Modal from "../modal/Modal";
 import BackButton from "../BackButton";
+import OptionModal from "../modal/OptionModal";
 
 const UpdateProfile = () => {
 
@@ -26,6 +27,10 @@ const UpdateProfile = () => {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [modalRouterPath, setModalRouterPath] = useState<string>();
 
+    // OptionModal states
+    const [optionModalVisible, setOptionModalVisisble] = useState<boolean>(false);
+
+
     const [name, setName] = useState<string>("");
     const [gender, setGender] = useState<string>("");
     const [language, setLanguage] = useState<string>("");
@@ -34,7 +39,8 @@ const UpdateProfile = () => {
     const [interest, setInterest] = useState<string>("");
     const [visualHandicapLevel, setVisualHandicapLevel] = useState<string>("");
 
-    const updateProfile = () => {
+    const updateProfile = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const updateDto = {
             id: "",
             name: name,
@@ -108,33 +114,36 @@ const UpdateProfile = () => {
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onSave={updateProfile} onDelete={deleteProfile}>
+                        <FormWrapper title="Manage profile" onSave={updateProfile} onDelete={() => {setOptionModalVisisble(true);}}>
 
-                            <FormInput
+                        <FormInput
                                 value={name}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Display name")}
                                 onChange={(e) => { setName(e.target.value) }} />
 
                             <FormInput
                                 type="date"
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Date of birth")}
-                                value={birthdate.split("T")[0]}
+                                defaultValue={birthdate.split('T')[0]}
                                 onChange={(e) => { setBirthdate(e.target.value) }}
                             />
 
                             <FormInput
                                 value={gender}
+                                required={true}
                                 loading={loading}
                                 label={t(loading ? "" : "Gender")}
                                 onChange={(e) => { setGender(e.target.value) }}
                             />
 
                             <FormSelect
+                                loading={loading}
                                 value={visualHandicapLevel}
                                 label={t(loading ? "" : "Visual Handicap Level")}
-                                loading={loading}
                                 onChange={(e) => { setVisualHandicapLevel(e.target.value) }}>
                                 <option value="None">{t("None")}</option>
                                 <option value="Half">{t("Half")}</option>
@@ -146,8 +155,8 @@ const UpdateProfile = () => {
                                 loading={loading}
                                 label={t(loading ? "" : "Language")}
                                 onChange={(e) => { setLanguage(e.target.value) }}>
-                                <option value="en-US">{t("English")} 🇬🇧</option>
-                                <option value="nl-NL">{t("Dutch")} 🇳🇱</option>
+                                <option aria-label={t("English")} value="en-US">{t("English")} 🇬🇧</option>
+                                <option aria-label={t("Dutch")} value="nl-NL">{t("Dutch")} 🇳🇱</option>
                             </FormSelect>
 
                             <FormTags
@@ -172,6 +181,14 @@ const UpdateProfile = () => {
             title={modalStatus == ModalStatus.Success ? t("Success message") : t("Error message")}
             routerPath={modalRouterPath}
             text={modalText}
+        />
+        <OptionModal
+            ModalOpen={optionModalVisible}
+            setModalOpen={setOptionModalVisisble}
+            status={ModalStatus.Conformation}
+            ConfirmAction={deleteProfile}
+            title={"Delete profile"}
+            text={"Are you sure you want to delete your profile?"}
         />
     </>);
 

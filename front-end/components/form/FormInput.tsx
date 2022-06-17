@@ -8,9 +8,10 @@ type Props = PropsWithChildren<{
     value?: string | number | readonly string[],
     defaultValue?: string | number | readonly string[],
     onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined,
+    required?: boolean,
 }>;
 
-export default function FormInput({label, defaultValue, value, type, onChange, loading}:Props) {
+export default function FormInput({label, defaultValue, value, type, required, onChange, loading}:Props) {
     return (<>
         <div className="flex flex-wrap -mx-3">
             <div className="w-full px-3">
@@ -20,7 +21,7 @@ export default function FormInput({label, defaultValue, value, type, onChange, l
                 {loading ? 
                 <div className="appearance-none bg-gray-300 animate-pulse block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-12" />
                 :
-                <input aria-label={label} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={type} value={value} defaultValue={defaultValue} onChange={onChange} />
+                <input required={required} aria-label={label} className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type={type} value={value} defaultValue={defaultValue} onChange={onChange} />
                 }
             </div>
         </div>

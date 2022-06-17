@@ -7,6 +7,7 @@
         "Answer a question": "Beantwoord een vraag",
         "answered on": "beantwoordde op",
         "Ask a question": "Stel een vraag",
+        "Ask a question page": "Stel een vraag pagina",
         "asked on": "vroeg op",
         "Back": "Terug",
         "Create a question": "Maak een vraag",
@@ -20,6 +21,7 @@
         "Language": "Taal",
         "Male": "Man",
         "My Profile": "Mijn Profiel",
+        "My Bookmarks": "Opgeslagen vragen",
         "My Questions": "Mijn vragen",
         "No answers found": "Geen antwoorden gevonden",
         "No questions, come back at a later time.": "Geen vragen, probeer het later nog eens.",
@@ -62,6 +64,8 @@
         "None": "Geen",
         "Half": "Half",
         "Blind": "Blind",
-        "Logout": "Uitloggen"
+        "Logout": "Uitloggen",
+        "Answer questions page": "Beantwoord vragen pagina",
+        "Home Screen": "Startscherm"
     }
 }

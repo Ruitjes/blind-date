@@ -7,6 +7,7 @@
         "Answer a question": "Answer a question",
         "answered on": "answered on",
         "Ask a question": "Ask a question",
+        "Ask a question page": "Ask a question page",
         "asked on": "asked on",
         "Back": "Back",
         "Create a question": "Create a question",
@@ -21,6 +22,7 @@
         "Male": "Male",
         "My Profile": "My Profile",
         "My Questions": "My Questions",
+        "My Bookmarks": "My Bookmarks",
         "No answers found": "No answers found",
         "No questions, come back at a later time.": "No questions, come back at a later time.",
         "Or": "Or",
@@ -62,6 +64,8 @@
         "None": "None",
         "Half": "Half",
         "Blind": "Blind",
-        "Logout": "Logout"
+        "Logout": "Logout",
+        "Answer questions page": "Answer questions page",
+        "Home Screen": "Home Screen"
     }
 }
