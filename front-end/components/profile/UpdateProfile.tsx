@@ -13,6 +13,7 @@ import FormWrapper from "../form/FormWrapper";
 import LogoutButton from "../LogoutButton";
 import Modal from "../modal/Modal";
 import BackButton from "../BackButton";
+import OptionModal from "../modal/OptionModal";
 
 const UpdateProfile = () => {
 
@@ -25,6 +26,10 @@ const UpdateProfile = () => {
     const [modalStatus, setModalStatus] = useState<ModalStatus>();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [modalRouterPath, setModalRouterPath] = useState<string>();
+
+    // OptionModal states
+    const [optionModalVisible, setOptionModalVisisble] = useState<boolean>(false);
+
 
     const [name, setName] = useState<string>("");
     const [gender, setGender] = useState<string>("");
@@ -109,7 +114,7 @@ const UpdateProfile = () => {
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onSave={updateProfile} onDelete={deleteProfile}>
+                        <FormWrapper onSave={updateProfile} onDelete={() => {setOptionModalVisisble(true);}}>
 
                         <FormInput
                                 value={name}
@@ -176,6 +181,14 @@ const UpdateProfile = () => {
             title={modalStatus == ModalStatus.Success ? t("Success message") : t("Error message")}
             routerPath={modalRouterPath}
             text={modalText}
+        />
+        <OptionModal
+            ModalOpen={optionModalVisible}
+            setModalOpen={setOptionModalVisisble}
+            status={ModalStatus.Conformation}
+            ConfirmAction={deleteProfile}
+            title={"Delete profile"}
+            text={"Are you sure you want to delete your profile?"}
         />
     </>);
 
