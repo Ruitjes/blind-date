@@ -27,7 +27,7 @@ const Feed = () => {
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		document.title = 'Answer the question';
+		document.title = t('Answer questions page');
 
 		// Do some user stuff
 		checkSession();

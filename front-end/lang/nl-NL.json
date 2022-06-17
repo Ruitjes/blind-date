@@ -7,6 +7,7 @@
         "Answer a question": "Beantwoord een vraag",
         "answered on": "beantwoordde op",
         "Ask a question": "Stel een vraag",
+        "Ask a question page": "Stel een vraag pagina",
         "asked on": "vroeg op",
         "Back": "Terug",
         "Create a question": "Maak een vraag",
@@ -63,6 +64,7 @@
         "None": "Geen",
         "Half": "Half",
         "Blind": "Blind",
-        "Logout": "Uitloggen"
+        "Logout": "Uitloggen",
+        "Answer questions page": "Beantwoord vragen pagina"
     }
 }

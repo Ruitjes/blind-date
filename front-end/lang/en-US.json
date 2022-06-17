@@ -7,6 +7,7 @@
         "Answer a question": "Answer a question",
         "answered on": "answered on",
         "Ask a question": "Ask a question",
+        "Ask a question page": "Ask a question page",
         "asked on": "asked on",
         "Back": "Back",
         "Create a question": "Create a question",
@@ -63,6 +64,7 @@
         "None": "None",
         "Half": "Half",
         "Blind": "Blind",
-        "Logout": "Logout"
+        "Logout": "Logout",
+        "Answer questions page": "Answer questions page"
     }
 }

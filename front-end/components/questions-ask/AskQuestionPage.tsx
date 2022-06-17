@@ -37,7 +37,7 @@ const AskQuestionPage = () => {
     }
 
     useEffect(() => {
-      document.title = "Ask a question page";
+      document.title = t("Ask a question page");
 
 		// Do some user stuff
 		checkSession();
