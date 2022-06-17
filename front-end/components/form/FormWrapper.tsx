@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import { useTranslation } from 'react-i18next';
 
 type Props = PropsWithChildren<{
+    title?: string,
     onSave?: React.FormEventHandler<HTMLFormElement>,
     onDelete?: React.MouseEventHandler<HTMLButtonElement>,
     children?:
@@ -10,7 +11,7 @@ type Props = PropsWithChildren<{
     | React.ReactChild[];
 }>;
 
-export default function FormWrapper({ children, onSave, onDelete }: Props) {
+export default function FormWrapper({ children, onSave, onDelete, title }: Props) {
     const { t } = useTranslation();
     return (<>
         <div>
@@ -18,6 +19,9 @@ export default function FormWrapper({ children, onSave, onDelete }: Props) {
                 <div className="shadow sm:rounded-md sm:overflow-hidden">
                     <form onSubmit={onSave}>
                     <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+                    <div className="px-4 sm:px-0">
+                        <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
+                    </div>
                         {children}
                     </div>
                     <div className="px-4 py-3 bg-gray-50 flex flex-grow justify-end">

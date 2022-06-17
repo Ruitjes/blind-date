@@ -114,7 +114,7 @@ const UpdateProfile = () => {
                 <LogoutButton />
                 <div className="flex flex-col flex-grow w-full max-w-sm">
                     <div className="flex flex-col mt-4 mb-6">
-                        <FormWrapper onSave={updateProfile} onDelete={() => {setOptionModalVisisble(true);}}>
+                        <FormWrapper title="Manage profile" onSave={updateProfile} onDelete={() => {setOptionModalVisisble(true);}}>
 
                         <FormInput
                                 value={name}
