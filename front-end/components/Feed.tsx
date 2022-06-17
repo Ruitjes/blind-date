@@ -62,6 +62,7 @@ const Feed = () => {
 		const saveQuestion = {
 			questionId: CurrentQuestion.id?.toString(),
 			savedBy: user!.sub?.toString(),
+			answerText: AnswerText.trim(),
 			content: CurrentQuestion?.content,
 			addedOn: CurrentQuestion?.addedOn,
 			userIdentifier: CurrentQuestion?.userIdentifier,

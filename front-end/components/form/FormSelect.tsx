@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<{
     loading?: boolean,
+    labelStyle?: string,
     value?: string | number | readonly string[],
     label?: string,
     onChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined,
@@ -11,11 +12,11 @@ type Props = PropsWithChildren<{
     | React.ReactChild[];
 }>;
 
-export default function FormSelect({ children, value, label, onChange, loading }: Props) {
+export default function FormSelect({ children, value, label, onChange, loading, labelStyle }: Props) {
     return (<>
         <div className="flex flex-wrap -mx-3 px-3">
             <div className="w-full">
-                <label className="block text-gray-700 text-xs font-bold mb-2">
+                <label className={labelStyle ?? "block text-gray-700 text-xs font-bold mb-2"}>
                     {label}
                 </label>
             </div>

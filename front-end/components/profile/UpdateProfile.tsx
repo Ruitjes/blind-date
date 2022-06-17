@@ -32,13 +32,13 @@ const UpdateProfile = () => {
     const [optionModalVisible, setOptionModalVisisble] = useState<boolean>(false);
 
 
-    const [name, setName] = useState<string>("");
-    const [gender, setGender] = useState<string>("");
-    const [language, setLanguage] = useState<string>("");
-    const [birthdate, setBirthdate] = useState<string>("");
-    const [interests, setInterests] = useState<string[]>([]);
+    const [name, setName] = useState<string>(profile?.name ?? "");
+    const [gender, setGender] = useState<string>(profile?.gender ?? "");
+    const [language, setLanguage] = useState<string>(profile?.language ?? "");
+    const [birthdate, setBirthdate] = useState<string>(profile?.birthdate ?? "");
+    const [interests, setInterests] = useState<string[]>(profile?.interests ?? []);
     const [interest, setInterest] = useState<string>("");
-    const [visualHandicapLevel, setVisualHandicapLevel] = useState<string>("");
+    const [visualHandicapLevel, setVisualHandicapLevel] = useState<string>(profile?.visualHandicapLevel ?? "");
 
     const updateProfile = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

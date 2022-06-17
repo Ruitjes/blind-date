@@ -13,6 +13,8 @@ public class SavedQuestion
 
     public string? SavedBy { get; set; }
 
+    public string? AnswerText { get; set; }
+
     public string? Content { get; set; }
 
     public DateTime? AddedOn { get; set; }
