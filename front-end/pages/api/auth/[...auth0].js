@@ -20,11 +20,11 @@ export default handleAuth({
       res.status(error.status || 400).end(error.message);
     }
   },
-  async profile(req, res) {
-    try {
-      await handleProfile(req, res, {refetch: true })
-    } catch (error) {
-      res.status(error.status || 500).end(error.message)
-    }
-  }
+  // async profile(req, res) {
+  //   try {
+  //     await handleProfile(req, res, {refetch: true })
+  //   } catch (error) {
+  //     res.status(error.status || 500).end(error.message)
+  //   }
+  // }
 });

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Home = () => {
 
   const { t } = useTranslation();
-
   const router = useRouter();
   
   const navigateToFeed = () => {

@@ -5,6 +5,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 type Profile = {
     id: string;
+    name: string;
     gender: string;
     language: string;
     birthdate : string;
@@ -15,17 +16,21 @@ type Profile = {
 
 export const useProfile = () => {
 
+    const router = useRouter();
     const { i18n } = useTranslation();
-
     const [error, setError] = useState<AxiosError>();
-    const [loading, setLoading] = useState<boolean>();
     const [profile, setProfile] = useState<Profile>();
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        setLoading(true);
-        axios.get<Profile>("api/profileService/getProfile/")
+        axios.get<Profile>("/api/profileService/getProfile/")
             .then((response: AxiosResponse) => setProfile(response.data))
-            .catch((error: AxiosError) => setError(error))
+            .catch(async (error: AxiosError) => {
+                if (error.response?.status === 404) {
+                    await router.push("/profile");
+                }
+                setError(error);
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -44,5 +49,5 @@ export const useProfile = () => {
     }, [profile])
 
 
-    return { error, loading, profile };
+    return { error, loading, profile, setProfile };
 }

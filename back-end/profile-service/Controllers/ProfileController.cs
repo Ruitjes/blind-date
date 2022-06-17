@@ -33,9 +33,17 @@ public class ProfileController : Controller
     [HttpGet("GetProfile")]
     public async Task<ActionResult<Profile>> GetProfile()
     {
-        string userIdentifier = _profileService.GetUserByJWTToken();
-        if (userIdentifier == null) return NotFound();
+        var userIdentifier = _profileService.GetUserByJWTToken();
+        if (userIdentifier == null)
+        {
+            return Unauthorized();
+        }
+
         var profile = await _profileService.GetProfileByOAuthIdentifier(userIdentifier);
+        if (profile == null)
+        {
+            return NotFound();
+        }
 
         return Ok(profile);
     }
