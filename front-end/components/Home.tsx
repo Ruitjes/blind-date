@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
+import { useProfile } from '../hooks/useProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Home = () => {
 
   const { t } = useTranslation();
   const router = useRouter();
+  useProfile();
   
   const navigateToFeed = () => {
     router.push('/feed');
