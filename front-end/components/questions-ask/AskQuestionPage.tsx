@@ -1,24 +1,37 @@
 import Header from "../Header";
 import Subtitle from "../Subtitle";
 import AskQuestionEditBox from "./AskQuestionEditBox";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import {
+    FontAwesomeIcon
+} from "@fortawesome/react-fontawesome";
+import React, {
+    useState,
+    useEffect
+} from "react";
 import axios from "axios";
 import common_api from "../../utils/common_api";
-import { useUser } from '@auth0/nextjs-auth0';
-import { useRouter } from "next/router";
+import {
+    useUser
+} from '@auth0/nextjs-auth0';
+import {
+    useProfile
+} from "../../hooks/useProfile";
 import Loading from "../Loading";
-import { useTranslation } from "react-i18next";
+import {
+    useTranslation
+} from "react-i18next";
 import BackButton from "../BackButton";
 import Modal from "../modal/Modal";
-import { ModalStatus } from '../../global/types';
+import {
+    ModalStatus
+} from '../../global/types';
+import Suppress from "../Suppress";
 
 const AskQuestionPage = () => {
-	const router = useRouter();
-	const { user,checkSession } = useUser();
+    const { user } = useUser();
+    const { profile } = useProfile();
 
     const [loading, setLoading] = useState<boolean>();
-    const [preferredLanguage, setPreferredLanguage] = useState<any>();
     const [text, setText] = useState<string>();
     const [file, setFile] = useState<File>();
 
@@ -37,33 +50,8 @@ const AskQuestionPage = () => {
     }
 
     useEffect(() => {
-      document.title = t("Ask a question page");
-
-		// Do some user stuff
-		checkSession();
-		if(user != undefined)
-		{
-			const profileCreated = user.nickname;
-			if(profileCreated != "True")
-			{
-				// Stans modal here
-				// router.push('/profile');
-			}
-		}
-
-      getPreferredLanguage();
-    }, [])
-
-    const getPreferredLanguage = () => {
-        axios.get('api/profileService/getProfile/').then((response: any) => {
-            if(response.data == '' || response.data == null) {
-                router.push('/profile')
-            }
-
-            setPreferredLanguage(response.data.language);
-
-            }).catch((err) => { console.log(err); });
-    }
+        document.title = "Ask a question page";
+    }, []);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
@@ -79,15 +67,15 @@ const AskQuestionPage = () => {
 
                     await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/upload-service/upload', formData);
                 }
-                
-                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: preferredLanguage }
+
+                const question = { content: text, addedOn: null, userIdentifier: user!.sub, fileName: file?.name, language: profile?.language }
                 await common_api.httptoken(access_token).post(process.env.NEXT_PUBLIC_API_URL + '/question-service/question/askQuestion', question);
-                
+
                 setModalOpen(true);
                 setModalStatus(0);
                 setModalText(t("You have successfully asked a new question."));
 
-            } catch(err) {
+            } catch (err) {
 
                 setModalOpen(true);
                 setModalStatus(1);
@@ -103,74 +91,76 @@ const AskQuestionPage = () => {
         <div className='bg-gray-700 flex flex-col h-full'>
 
             <div className="flex flex-col flex-grow items-center p-4 bg-pink-400">
-                <BackButton navPage="/"/>
-                <div className="flex flex-col flex-grow w-full max-w-sm">
-                    <form onSubmit={handleSubmit} className='flex flex-col flex-grow p-4'>
+                <Suppress cssOverride="bg-black/50">
+                    <BackButton navPage="/" />
+                    <div className="flex flex-col flex-grow w-full max-w-sm">
+                        <form onSubmit={handleSubmit} className='flex flex-col flex-grow p-4'>
 
-                        <div className="flex flex-col py-1">
-                            <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
-                                <FontAwesomeIcon className="p-2" fixedWidth size="6x" color="#333" icon={['fas', 'question-circle']} />
-                                <Header center text={t("Create a question")} />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col py-1">
-                            <div className="flex flex-col info-card p-4 drop-shadow-lg">
-                                <Header text={t("Question")} />
-                                <Subtitle text={t("What would you like to ask?")} />
-                                <AskQuestionEditBox onChange={handleTextChanged} />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col py-1">
-                            <label className="flex flex-col info-card p-4 drop-shadow-lg">
-                                <div className="flex flex-grow">
-                                    <div className="flex flex-col" aria-hidden>
-                                        <Header text={t("Picture")} />
-                                        <Subtitle text={t("Add an image in your question to share with others.")} />
-                                    </div>
-
-                                    <div className="flex flex-col relative">
-                                        <FontAwesomeIcon
-                                            size="2x"
-                                            color="#333"
-                                            icon={['fas', 'image']}
-                                            fixedWidth
-                                        />
-
-                                        {file && (
-                                            <div className="absolute right-0">
-                                                <FontAwesomeIcon
-                                                    size="xs"
-                                                    color="white"
-                                                    icon={['fas', 'circle']}
-                                                    className="absolute right-0"
-                                                    fixedWidth
-                                                />
-
-                                                <FontAwesomeIcon
-                                                    size="sm"
-                                                    color="mediumseagreen"
-                                                    icon={['fas', 'circle-check']}
-                                                    className="absolute right-0"
-                                                    fixedWidth
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
+                            <div className="flex flex-col py-1">
+                                <div className="flex flex-col info-card p-4 items-center drop-shadow-lg">
+                                    <FontAwesomeIcon className="p-2" fixedWidth size="6x" color="#333" icon={['fas', 'question-circle']} />
+                                    <Header center text={t("Create a question")} />
                                 </div>
-                                <input type='file' className="h-0" onChange={handleFileChanged} accept=".png, .jpg, .jpeg" />
-                            </label>
-                        </div>
+                            </div>
 
-                        <div className="flex flex-col flex-grow justify-end">
-                            <button type="submit" className="info-card p-4 drop-shadow-lg" aria-label={t("Share the question")}>
-                                <Header center text={t("Share")} />
-                            </button>
-                        </div>
+                            <div className="flex flex-col py-1">
+                                <div className="flex flex-col info-card p-4 drop-shadow-lg">
+                                    <Header text={t("Question")} />
+                                    <Subtitle text={t("What would you like to ask?")} />
+                                    <AskQuestionEditBox onChange={handleTextChanged} />
+                                </div>
+                            </div>
 
-                    </form>
-                </div>
+                            <div className="flex flex-col py-1">
+                                <label className="flex flex-col info-card p-4 drop-shadow-lg">
+                                    <div className="flex flex-grow">
+                                        <div className="flex flex-col" aria-hidden>
+                                            <Header text={t("Picture")} />
+                                            <Subtitle text={t("Add an image in your question to share with others.")} />
+                                        </div>
+
+                                        <div className="flex flex-col relative">
+                                            <FontAwesomeIcon
+                                                size="2x"
+                                                color="#333"
+                                                icon={['fas', 'image']}
+                                                fixedWidth
+                                            />
+
+                                            {file && (
+                                                <div className="absolute right-0">
+                                                    <FontAwesomeIcon
+                                                        size="xs"
+                                                        color="white"
+                                                        icon={['fas', 'circle']}
+                                                        className="absolute right-0"
+                                                        fixedWidth
+                                                    />
+
+                                                    <FontAwesomeIcon
+                                                        size="sm"
+                                                        color="mediumseagreen"
+                                                        icon={['fas', 'circle-check']}
+                                                        className="absolute right-0"
+                                                        fixedWidth
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <input type='file' className="h-0" onChange={handleFileChanged} accept=".png, .jpg, .jpeg" />
+                                </label>
+                            </div>
+
+                            <div className="flex flex-col flex-grow justify-end">
+                                <button type="submit" className="info-card p-4 drop-shadow-lg" aria-label={t("Share the question")}>
+                                    <Header center text={t("Share")} />
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </Suppress>
             </div>
 
             {loading && (

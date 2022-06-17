@@ -11,13 +11,16 @@ library.add(far, fas);
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import React from 'react';
+import { ProfileProvider } from '../hooks/useProfile';
 config.autoAddCss = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  
+
   return (
     <UserProvider>
-      <Component {...pageProps} />
+      <ProfileProvider>
+        <Component {...pageProps} />
+      </ProfileProvider>
     </UserProvider>
   );
 }

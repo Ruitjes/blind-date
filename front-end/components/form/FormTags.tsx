@@ -27,7 +27,7 @@ export default function FormTags({ tagList, value, label, onChange, childOnClick
                     <div className="flex flex-wrap items-stretch w-full relative">
                         <input aria-label={label} type="text" className="flex-shrink flex-grow flex-auto leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-px flex-1 border h-10 border-grey-light rounded rounded-r-none px-3 relative" placeholder="New interest" value={value} onChange={onChange} />
                         <div className="flex -mr-px">
-                            <button aria-label={t("Add interest")} className="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm" onClick={onClick}>+</button>
+                            <button aria-label={t("Add interest")} className="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm" type="button" onClick={onClick}>+</button>
                         </div>
                     </div>
                 }
