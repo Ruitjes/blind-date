@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
@@ -18,9 +18,10 @@ type ProfileProviderValues = {
     error?: AxiosError;
     loading: boolean;
     profile?: Profile;
+    setProfile: Dispatch<SetStateAction<Profile | undefined>>;
 }
 
-export const ProfileContext = createContext<ProfileProviderValues>({ loading: true });
+export const ProfileContext = createContext<ProfileProviderValues>({ loading: true, setProfile: () => { }});
 export const useProfile = () => {
     return useContext(ProfileContext);
 }
@@ -61,7 +62,7 @@ export const ProfileProvider = ({ children }: any) => {
     }, [profile]);
 
     return (
-        <Provider value={{ error, loading, profile }}>
+        <Provider value={{ error, loading, profile, setProfile }}>
             {children}
         </Provider>
     )
