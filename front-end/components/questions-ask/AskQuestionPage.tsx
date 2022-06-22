@@ -161,7 +161,7 @@ const AskQuestionPage = () => {
                                         <>
                                         <option value="">{t("None")}</option>
                                         {profile?.interests.map((interest: string, id: number) => { return (
-                                            <option value={interest}>{interest}</option>
+                                            <option key={id} value={interest}>{interest}</option>
                                         )})}
                                         </>
                                           : <option value="">None</option>}   
