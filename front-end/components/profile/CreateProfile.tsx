@@ -12,6 +12,7 @@ import FormTags from "../form/FormTags";
 import FormWrapper from "../form/FormWrapper";
 import LogoutButton from "../LogoutButton";
 import Modal from "../modal/Modal";
+import { useRouter } from "next/router";
 
 const CreateProfile = () => {
 
@@ -19,10 +20,12 @@ const CreateProfile = () => {
     const { t } = useTranslation();
     const { loading, setProfile } = useProfile();
     const changeLanguage = useLanguage();
+    const router = useRouter();
 
     const [modalText, setModalText] = useState<string>("");
     const [modalStatus, setModalStatus] = useState<ModalStatus>();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [modalCallback, setModalCallback] = useState<VoidFunction>(() => () => {});
 
     const [name, setName] = useState<string>("");
     const [gender, setGender] = useState<string>("");
@@ -50,7 +53,10 @@ const CreateProfile = () => {
                 setModalVisible(true);
                 setModalStatus(ModalStatus.Success);
                 setModalText(t("Your profile has been created successfully."));
-                setProfile(response.data);
+                setModalCallback(() => () => {
+                    setProfile(response.data);
+                    router.push("/")
+                });
             }).catch(() => {
                 setModalVisible(true);
                 setModalStatus(ModalStatus.Error);
@@ -142,8 +148,8 @@ const CreateProfile = () => {
             setModalOpen={setModalVisible}
             status={modalStatus ?? ModalStatus.Error}
             title={modalStatus == ModalStatus.Success ? t("Success message") : t("Error message")}
+            callback={modalCallback}
             text={modalText}
-            routerPath={modalStatus === ModalStatus.Success ? "/" : undefined}
         />
     </>);
 

@@ -17,8 +17,8 @@ type Profile = {
 type ProfileProviderValues = {
     error?: AxiosError;
     loading: boolean;
-    profile?: Profile;
-    setProfile: Dispatch<SetStateAction<Profile | undefined>>;
+    profile?: Profile | null;
+    setProfile: Dispatch<SetStateAction<Profile | null | undefined>>;
 }
 
 export const ProfileContext = createContext<ProfileProviderValues>({ loading: true, setProfile: () => { }});
@@ -32,34 +32,22 @@ export const ProfileProvider = ({ children }: any) => {
     const router = useRouter();
     const { i18n } = useTranslation();
     const [error, setError] = useState<AxiosError>();
-    const [profile, setProfile] = useState<Profile>();
     const [loading, setLoading] = useState<boolean>(true);
-    const [firstRunDone, setFirstRunDone] = useState<boolean>(false);
-
-    const getProfileFromApi = () => {
-        axios.get<Profile>("/api/profileService/getProfile/")
-        .then((response: AxiosResponse) => setProfile(response.data))
-        .catch(async (error: AxiosError) => {
-            if (error.response?.status === 404) {
-                await router.push("/profile");
-            }
-            setError(error);
-        })
-        .finally(() => setLoading(false));
-    };
+    const [profile, setProfile] = useState<Profile | null>();
 
     useEffect(() => {
-        setError(undefined);
-
-        if(!firstRunDone)
-        {
-            getProfileFromApi();
-        }
-        else if(firstRunDone && router.pathname == "/")
-        {
-            getProfileFromApi();
-        }
-    }, [router.pathname]);
+        axios.get<Profile>("/api/profileService/getProfile/")
+            .then((response: AxiosResponse) => setProfile(response.data))
+            .catch(async (error: AxiosError) => {
+                if (error.response?.status === 404) {
+                    await router.push("/profile");
+                    setProfile(null);
+                } else {
+                    setError(error);
+                }
+            })
+            .finally(() => setLoading(false));
+    }, []);
 
     useEffect(() => {
         if (profile) {
