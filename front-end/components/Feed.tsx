@@ -83,6 +83,7 @@ const Feed = () => {
 	};
 
 	const answerQuestion = () => {
+		setLoading(true);
 		const data = {
 			userProfile: {
 				userId: user!.sub?.toString(),
@@ -99,15 +100,16 @@ const Feed = () => {
 			.then((res: any) => {
 				SetAnswerText("");
 				ProgressBookmark();
-
+				setLoading(false);
 				setModalOpen(true);
 				setModalStatus(0);
 				setModalText(t("You have successfully answered the question."));
 			})
 			.catch((err) => {
+				setLoading(false);
 				setModalOpen(true);
 				setModalStatus(1);
-				setModalText(t("Something went wrong in answering this question."));
+				setModalText(t("Something went wrong trying to answer this question."));
 				console.log(err);
 			});
 	};

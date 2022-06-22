@@ -20,7 +20,10 @@ export default function Modal({status, title, text, setModalOpen, ModalOpen, rou
   const router = useRouter();
 
   function ModalButton(){
-    router.push(routerPath ?? "/");
+    setModalOpen(false);
+    if(routerPath) {
+      router.push(routerPath ?? "/");
+    }
   }
 
   return (
