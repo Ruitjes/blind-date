@@ -11,10 +11,10 @@ export default async function removeSavedQuestionById(req: NextApiRequest, res: 
     await http.httptoken(accessToken).delete(`/question-service/Question/DeleteSavedQuestion/${questionId}`).then((api_res: any) => {
       res.status(200).json(api_res.data);
     }).catch((err) => {
-      res.status(err?.status || 404).end(err.message);
+      res.status(err?.response?.status).send(err.message);
     });
 
   } catch(error: any) {
-    res.status(error.status || 500).end(error.message)
+    res.status(error.status || 500).send(error.message)
   }
 };

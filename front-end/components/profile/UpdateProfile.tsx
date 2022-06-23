@@ -130,7 +130,7 @@ const UpdateProfile = () => {
                                     required={true}
                                     loading={loading}
                                     label={t(loading ? "" : "Date of birth")}
-                                    defaultValue={birthdate.split('T')[0]}
+                                    value={birthdate.split('T')[0]}
                                     onChange={(e) => { setBirthdate(e.target.value) }}
                                 />
 

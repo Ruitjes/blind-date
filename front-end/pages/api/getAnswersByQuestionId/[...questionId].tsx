@@ -11,11 +11,11 @@ export default async function getAnswersByQuestionId(req: NextApiRequest, res: N
     await http.httptoken(accessToken).get(`/answer-service/answers/question/${questionId}`).then((api_res: any) => {
       res.status(200).json(api_res.data);
     }).catch((err) => {
-      res.status(err?.status || 404).end(err.message);
+      res.status(err?.response?.status).send(err.message);
     });
 
   } catch(error: any) {
     console.error(error)
-    res.status(error.status || 500).end(error.message)
+    res.status(error.status || 500).send(error.message)
   }
 };

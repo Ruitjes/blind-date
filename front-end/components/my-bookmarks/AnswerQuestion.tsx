@@ -41,7 +41,7 @@ const AnswerQuestion = (props: Props) => {
 
 	useEffect(() => {
 		// Fetch questions and set state
-		document.title = 'Answer the question';
+		document.title = t('Answer the question');
 		getQuestion();
 	}, []);
 

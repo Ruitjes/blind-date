@@ -9,7 +9,7 @@ const HomePage: NextPage = () => {
 
   useEffect(() => {
     document.title = t("Home Screen");
-  }, [])
+  }, [t])
   
   return <Home />
 }

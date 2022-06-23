@@ -1,0 +1,6 @@
+{
+  "domain": "blind-date.eu.auth0.com",
+  "clientId": "rlY1Q7b4fqUEk44phOc7JDvXcfEPcT3K",
+  "audience": "https://blind-date.eu.auth0.com/api/v2/",
+  "scope": "read:current_user"
+}

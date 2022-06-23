@@ -8,7 +8,7 @@ import React, {
     useState,
     useEffect
 } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import common_api from "../../utils/common_api";
 import {
     useUser
@@ -38,8 +38,10 @@ const AskQuestionPage = () => {
     const [file, setFile] = useState<File>();
 
     const [ModalStatus, setModalStatus] = useState<ModalStatus>();
-    const [ModalOpen, setModalOpen] = useState<boolean>(false)
-    const [ModalText, setModalText] = useState<string>("")
+    const [ModalOpen, setModalOpen] = useState<boolean>(false);
+    const [ModalText, setModalText] = useState<string>("");
+    const [ModalTitle, setModalTitle] = useState<string>("");
+    
 
     const { t } = useTranslation();
 
@@ -75,13 +77,15 @@ const AskQuestionPage = () => {
 
                 setModalOpen(true);
                 setModalStatus(0);
+                setModalTitle(t("Success message"));
                 setModalText(t("You have successfully asked a new question."));
 
-            } catch (err) {
+            } catch (err: any | AxiosError) {
 
                 setModalOpen(true);
                 setModalStatus(1);
-                setModalText(t("Something went wrong when creating your question."));
+                setModalTitle(t("Something went wrong when creating your question."));
+                setModalText(`${err?.message}`);
             } finally {
                 setLoading(false);
             }
@@ -161,7 +165,7 @@ const AskQuestionPage = () => {
                                         <>
                                         <option value="">{t("None")}</option>
                                         {profile?.interests.map((interest: string, id: number) => { return (
-                                            <option value={interest}>{interest}</option>
+                                            <option key={id} value={interest}>{interest}</option>
                                         )})}
                                         </>
                                           : <option value="">None</option>}   
@@ -186,7 +190,7 @@ const AskQuestionPage = () => {
                 </div>
             )}
 
-            <Modal routerPath={"/"} ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalStatus == 0 ? t("Success message") : t("Error message")} text={ModalText} />
+            <Modal routerPath={ModalStatus == 1 ? undefined : "/"} ModalOpen={ModalOpen} setModalOpen={setModalOpen} status={ModalStatus ?? 1} title={ModalTitle} text={ModalText} />
         </div>
     );
 }
