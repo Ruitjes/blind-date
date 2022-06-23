@@ -13,7 +13,7 @@ import { CustomAuthService } from '../services/custom-auth.service';
 export class CustomHttpInterceptor implements HttpInterceptor {
 	constructor(private auth: CustomAuthService) { }
 
-	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	async intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let contentType;
     let authorization;
 		// request headers
@@ -28,7 +28,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
       (headers = headers.delete('Content-Type'));
 
 
-    let token = this.auth.getToken();
+    let token = await this.auth.getToken();
 
     if (headers.has('Authorization')) {
 			authorization = headers.get('Authorization');
