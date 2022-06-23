@@ -15,6 +15,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let contentType;
+    let authorization;
 		// request headers
 		let headers = request.headers;
 
@@ -26,9 +27,17 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 			(headers = headers.append('Content-Type', 'application/json')) :
       (headers = headers.delete('Content-Type'));
 
+
     let token = this.auth.getToken();
 
-    headers = headers.append('Authorization', `Bearer ${token}`);
+    if (headers.has('Authorization')) {
+			authorization = headers.get('Authorization');
+		}
+
+		authorization == undefined ?
+			(headers = headers.append('Authorization', `Bearer ${token}`)) :
+      (headers = headers.delete('Authorization'));
+
 
 		const clonedRequest = request.clone({ headers });
 
