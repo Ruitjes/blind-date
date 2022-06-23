@@ -63,14 +63,41 @@ import { environment as env } from 'src/environments/environment';
     MatProgressSpinnerModule,
     HttpClientModule,
     AppRoutingModule,
+    //AuthModule.forRoot({
+    //  ...env.auth,
+    //  httpInterceptor: {
+    //    allowedList: [
+    //      // attach token to these routes
+    //      `${env.apiUrl}/report-service/reports`,
+    //      `${env.apiUrl}/report-service/reports/*`
+    //    ]
+    //  }
+    //})
     AuthModule.forRoot({
-      //...env.auth
-      ...env.auth,
+      // The domain and clientId were configured in the previous chapter
+      domain: 'blind-date.eu.auth0.com',
+      clientId: 'rlY1Q7b4fqUEk44phOc7JDvXcfEPcT3K',
+
+      // Request this audience at user authentication time
+      audience: 'https://blind-date.eu.auth0.com/api/v2/',
+
+      // Request this scope at user authentication time
+      scope: 'read:current_user',
+
+      // Specify configuration for the interceptor
       httpInterceptor: {
         allowedList: [
-          // attach token to these routes
-          `${env.apiUrl}/report-service/reports`,
-          `${env.apiUrl}/report-service/reports/*`
+          {
+            // Match any request that starts 'https://blind-date.eu.auth0.com/api/v2/' (note the asterisk)
+            uri: 'https://blind-date.eu.auth0.com/api/v2/*',
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: 'https://blind-date.eu.auth0.com/api/v2/',
+
+              // The attached token should have these scopes
+              scope: 'read:current_user'
+            }
+          }
         ]
       }
     })
