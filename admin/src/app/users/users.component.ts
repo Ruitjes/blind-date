@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
-import { UsersService } from '../services/users.service';
 
 const ELEMENT_DATA: User[] = [
   { id: "1", name: 'Rawan', email: 'rawan@gmail.com', role: 'Admin' },

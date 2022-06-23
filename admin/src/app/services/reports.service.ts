@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Status } from '../models/Status';
-import { CustomAuthService } from './custom-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ import { CustomAuthService } from './custom-auth.service';
 export class ReportsService {
   url: string;
 
-  constructor(private http: HttpClient, private auth: CustomAuthService) {
+  constructor(private http: HttpClient) {
     this.url = environment.apiUrlReports;
   }
 
