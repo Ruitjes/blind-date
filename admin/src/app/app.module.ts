@@ -71,9 +71,10 @@ import { environment as env } from 'src/environments/environment';
           `${env.apiUrl}/report-service/reports`,
           `${env.apiUrl}/report-service/reports/*`,
           {
-            uri: "https://blind-date.eu.auth0.com/api/v2/users/*",
+            uri: "https://blind-date.eu.auth0.com/api/v2/users",
             tokenOptions: {
-              ...env.authManagement
+              audience: "https://blind-date.eu.auth0.com/api/v2/",
+              scope: "read:current_user"
             },
           }
         ]

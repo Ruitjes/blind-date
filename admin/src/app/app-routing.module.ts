@@ -11,7 +11,7 @@ const appRoutes: Routes = [
 		path: '',
     component: HomeComponent,
     // Protect a route by registering the auth guard in the `canActivate` hook
-    canActivate: [AuthGuard, AdminAuthGuard]
+    //canActivate: [AuthGuard, AdminAuthGuard]
   },
   {
 		path: 'forbidden',
