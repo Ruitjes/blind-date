@@ -29,6 +29,7 @@ export class ReportsComponent implements OnInit {
 
   // Get reports
   getAllReports() {
+
     this.reportsService.getAllReports().subscribe(data => {
       this.reports = <Report[]>data;
     })
@@ -75,7 +76,7 @@ export class ReportsComponent implements OnInit {
   }
 
   // Update status
-  // called when a user is deleted, a question is deleted or when the admin changes the status manaually
+  // called when a user is deleted, a question or and answer is deleted or when the admin changes the status manaually
   handleReport(report: Report, newStatus: Status) {
     this.reportsService.handleReport(report.id, newStatus)
       .subscribe(() => {

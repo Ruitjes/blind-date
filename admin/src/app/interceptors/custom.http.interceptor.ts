@@ -12,7 +12,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 	constructor() { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		let contentType;
+    let contentType;
 		// request headers
 		let headers = request.headers;
 
@@ -22,10 +22,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
 		contentType == undefined ?
 			(headers = headers.append('Content-Type', 'application/json')) :
-			(headers = headers.delete('Content-Type'));
+      (headers = headers.delete('Content-Type'));
 
-		const clonedRequest = request.clone({ headers });
+    const clonedRequest = request.clone({ headers });
 
 		return next.handle(clonedRequest);
-	}
+  }
 }

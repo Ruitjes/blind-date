@@ -63,14 +63,38 @@ import { environment as env } from 'src/environments/environment';
     MatProgressSpinnerModule,
     HttpClientModule,
     AppRoutingModule,
+
     AuthModule.forRoot({
-      //...env.auth
-      ...env.auth,
+      ...env.authManagement,
+
+      // Specify configuration for the interceptor
       httpInterceptor: {
         allowedList: [
-          // attach token to these routes
-          `${env.apiUrl}/report-service/reports`,
-          `${env.apiUrl}/report-service/reports/*`
+          {
+            // Match any request that starts 'https://blind-date.eu.auth0.com/api/v2/' (note the asterisk)
+            uri: 'https://blind-date.eu.auth0.com/api/v2/*',
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: 'https://blind-date.eu.auth0.com/api/v2/',
+
+              // The attached token should have these scopes
+              scope: 'read:current_user'
+            },
+          },
+          {
+            uri: `${env.apiUrl}/report-service/reports`,
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: 'seethrough'
+            },
+          },
+          {
+            uri: `${env.apiUrl}/report-service/reports/*`,
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: 'seethrough'
+            },
+          }
         ]
       }
     })
