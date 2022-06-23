@@ -63,33 +63,9 @@ import { environment as env } from 'src/environments/environment';
     MatProgressSpinnerModule,
     HttpClientModule,
     AppRoutingModule,
-    //AuthModule.forRoot({
-    //  ...env.auth,
-    //  httpInterceptor: {
-    //    allowedList: [
-    //      // attach token to these routes
-    //      `${env.apiUrl}/report-service/reports`,
-    //      `${env.apiUrl}/report-service/reports/*`,
-    //      {
-    //        uri: "https://blind-date.eu.auth0.com/api/v2/*",
-    //        tokenOptions: {
-    //          audience: "https://blind-date.eu.auth0.com/api/v2/",
-    //          scope: "read:current_user"
-    //        },
-    //      }
-    //    ]
-    //  }
-    //})
+
     AuthModule.forRoot({
-      // The domain and clientId were configured in the previous chapter
-      domain: 'blind-date.eu.auth0.com',
-      clientId: 'rlY1Q7b4fqUEk44phOc7JDvXcfEPcT3K',
-
-      // Request this audience at user authentication time
-      audience: 'https://blind-date.eu.auth0.com/api/v2/',
-
-      // Request this scope at user authentication time
-      scope: 'read:current_user',
+      ...env.authManagement,
 
       // Specify configuration for the interceptor
       httpInterceptor: {
@@ -105,21 +81,20 @@ import { environment as env } from 'src/environments/environment';
               scope: 'read:current_user'
             },
           },
+          //{
+          //  uri: `${env.apiUrl}/report-service/reports`,
+          //  tokenOptions: {
+          //    // The attached token should target this audience
+          //    audience: 'seethrough'
+          //  },
+          //},
           {
-            //"domain": "blind-date.eu.auth0.com",
-            //"clientId": "rlY1Q7b4fqUEk44phOc7JDvXcfEPcT3K",
-            //"audience": "seethrough"
-            uri: `${env.apiUrl}/report-service/reports`,
+            uri: `${env.apiUrl}/report-service/reports/*`,
             tokenOptions: {
               // The attached token should target this audience
-              audience: 'seethrough',
-
-              // The attached token should have these scopes
-              //scope: ''
+              audience: 'seethrough'
             },
           }
-          ,
-          `${env.apiUrl}/report-service/reports/*`,
         ]
       }
     })
