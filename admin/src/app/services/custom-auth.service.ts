@@ -32,7 +32,7 @@ export class CustomAuthService {
   }
 
   async getToken() {
-    //return await auth0.getTokenSilently();
-    return await auth0.getTokenWithPopup();
+    return await auth0.getTokenSilently();
+    //return await auth0.getTokenWithPopup();
   }
 }
