@@ -13,29 +13,41 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { PopupDialogComponent } from './popup-dialog/popup-dialog.component';
 import { UsersComponent } from './users/users.component';
-import { AuthButtonComponent } from './auth0/login.component';
-import { UserProfileComponent } from './auth0/user.component';
-import { UserMetadataComponent } from './auth0/metadata.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 import { CustomHttpInterceptor } from './interceptors/custom.http.interceptor';
-// Import the module from the SDK
-import { AuthModule } from '@auth0/auth0-angular';
 
 // Import the injector module and the HTTP client module from Angular
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// Import the HTTP interceptor from the Auth0 Angular SDK
-import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+// Import the module from the SDK, the HTTP interceptor from the Auth0 Angular SDK
+import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ReportsComponent } from './reports/reports.component';
+
+import { LoadingComponent } from './loading/loading.component';
+import { UserProfileComponent } from './auth0/user-profile/user-profile.component';
+import { UserMetadataComponent } from './auth0/metadata/user-metadata.component';
+import { LoginComponent } from './auth0/login/login.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+
+// Environment
+import { environment as env } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PopupDialogComponent,
     UsersComponent,
-    AuthButtonComponent,
     UserProfileComponent,
     UserMetadataComponent,
-    ReportsComponent
+    ReportsComponent,
+    LoadingComponent,
+    LoginComponent,
+    HomeComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,39 +60,32 @@ import { ReportsComponent } from './reports/reports.component';
     MatToolbarModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
+    AppRoutingModule,
     AuthModule.forRoot({
-      // The domain and clientId were configured in the previous chapter
-      domain: 'blind-date.eu.auth0.com',
-      clientId: 'rlY1Q7b4fqUEk44phOc7JDvXcfEPcT3K',
-
-      // Request this audience at user authentication time
-      audience: 'https://blind-date.eu.auth0.com/api/v2/',
-
-      // Request this scope at user authentication time
-      scope: 'read:current_user',
-
-      // Specify configuration for the interceptor
+      //...env.auth
+      ...env.auth,
       httpInterceptor: {
         allowedList: [
-          {
-            // Match any request that starts 'https://blind-date.eu.auth0.com/api/v2/' (note the asterisk)
-            uri: 'https://blind-date.eu.auth0.com/api/v2/*',
-            tokenOptions: {
-              // The attached token should target this audience
-              audience: 'https://blind-date.eu.auth0.com/api/v2/',
-
-              // The attached token should have these scopes
-              scope: 'read:current_user'
-            }
-          }
+          // attach token to these routes
+          `${env.apiUrl}/report-service/reports`,
+          `${env.apiUrl}/report-service/reports/*`
         ]
       }
-    }),
-    HttpClientModule
+    })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

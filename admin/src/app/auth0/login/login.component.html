@@ -1,0 +1,9 @@
+<ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+  <button mat-raised-button color="accent" (click)="logout()">
+    Log out
+  </button>
+</ng-container>
+
+<ng-template #loggedOut>
+  <button mat-raised-button color="accent" (click)="loginWithRedirect()">Log in</button>
+</ng-template>
