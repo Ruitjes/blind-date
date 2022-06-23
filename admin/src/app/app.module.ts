@@ -81,13 +81,13 @@ import { environment as env } from 'src/environments/environment';
               scope: 'read:current_user'
             },
           },
-          //{
-          //  uri: `${env.apiUrl}/report-service/reports`,
-          //  tokenOptions: {
-          //    // The attached token should target this audience
-          //    audience: 'seethrough'
-          //  },
-          //},
+          {
+            uri: `${env.apiUrl}/report-service/reports`,
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: 'seethrough'
+            },
+          },
           {
             uri: `${env.apiUrl}/report-service/reports/*`,
             tokenOptions: {
