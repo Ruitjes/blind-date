@@ -28,8 +28,9 @@ export class ReportsComponent implements OnInit {
   }
 
   // Get reports
-  getAllReports() {
-    this.reportsService.getAllReports().subscribe(data => {
+  async getAllReports() {
+
+    (await this.reportsService.getAllReports()).subscribe(data => {
       this.reports = <Report[]>data;
     })
   }

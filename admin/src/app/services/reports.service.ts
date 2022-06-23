@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Status } from '../models/Status';
+import { CustomAuthService } from './custom-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,23 @@ import { Status } from '../models/Status';
 export class ReportsService {
   url: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: CustomAuthService) {
     this.url = environment.apiUrlReports;
   }
 
-  getAllReports() {
-    return this.http.get(this.url)
-      .pipe(
-        map(
-          response => response
-        )
+  async getAllReports() {
+    const accessToken = await this.auth.getToken();
+
+    return this.http.get(this.url, {
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      }
+    })
+    .pipe(
+      map(
+        response => response
       )
+    )
   }
 
   handleReport(id: string, newStatus: Status) {
