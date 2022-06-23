@@ -15,19 +15,13 @@ export class ReportsService {
     this.url = environment.apiUrlReports;
   }
 
-  async getAllReports() {
-    const accessToken = await this.auth.getToken();
-
-    return this.http.get(this.url, {
-      headers: {
-        Authorization: 'Bearer ' + accessToken
-      }
-    })
-    .pipe(
-      map(
-        response => response
+  getAllReports() {
+    return this.http.get(this.url)
+      .pipe(
+        map(
+          response => response
+        )
       )
-    )
   }
 
   handleReport(id: string, newStatus: Status) {

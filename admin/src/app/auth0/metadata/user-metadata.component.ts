@@ -21,7 +21,7 @@ export class UserMetadataComponent implements OnInit {
 
 
   async getUser() {
-    const accessToken = await this.customAuth.getToken();
+    //const accessToken = await this.customAuth.getToken();
 
     this.auth.user$
     .pipe(
@@ -29,11 +29,11 @@ export class UserMetadataComponent implements OnInit {
         // Use HttpClient to make the call
         this.http.get(
           encodeURI(`https://blind-date.eu.auth0.com/api/v2/users/${user?.sub}`),
-          {
-            headers: {
-              Authorization: 'Bearer ' + accessToken
-            }
-          }
+          //{
+          //  headers: {
+          //    Authorization: 'Bearer ' + accessToken
+          //  }
+          //}
         )
       ),
       pluck('user_metadata'),

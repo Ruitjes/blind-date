@@ -15,7 +15,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let contentType;
-    let authorization;
+    //let authorization;
 		// request headers
 		let headers = request.headers;
 
